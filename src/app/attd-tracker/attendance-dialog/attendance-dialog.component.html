@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>Attendance Form</h2>
+<div id="form-container" mat-dialog-content>
+  <form [formGroup]="inputForm" (ngSubmit)="onSubmit(inputForm.valid)">
+
+    <!-- Resource Id -->
+    <mat-form-field class="full-width">
+      <input matInput formControlName="resourceId" placeholder="Employee ID" type="number">
+      <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Start Date -->
+    <mat-form-field class="full-width">
+      <input formControlName="startDate" matInput [matDatepicker]="startDate" placeholder="Start Date">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('startDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- End Date -->
+    <mat-form-field class="full-width">
+      <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="End Date">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('endDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Attendance Type -->
+    <mat-form-field class="full-width">
+      <mat-select matInput formControlName="attendanceType" placeholder="Attendance Type">
+        <mat-option value="PH-OnShore">Public Holiday - OnShore</mat-option>
+        <mat-option value="PH-OffShore">Public Holiday - OffShore</mat-option>
+        <mat-option value="P-Onshore">Personal - OnShore</mat-option>
+        <mat-option value="P-OffShore">Personal - OffShore</mat-option>
+        <mat-option value="WFH-OnShore">WFH - OnShore</mat-option>
+        <mat-option value="WFH-OffShore">WFH - OffShore</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('attendanceType').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Leave Type -->
+    <mat-form-field class="full-width">
+      <mat-select matInput formControlName="leaveType" placeholder="Leave Type">
+        <mat-option value="Planned">Planned</mat-option>
+        <mat-option value="Pnplanned">Unplanned</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('leaveType').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Approval Date -->
+    <mat-form-field class="full-width">
+      <input formControlName="approvalDate" matInput [matDatepicker]="approvalDate" placeholder="Approval Date">
+      <mat-datepicker-toggle matSuffix [for]="approvalDate"></mat-datepicker-toggle>
+      <mat-datepicker #approvalDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('approvalDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Client Approval Date -->
+    <mat-form-field class="full-width">
+      <input formControlName="clientApprovalDate" matInput [matDatepicker]="clientApprovalDate" placeholder="Client Approval Date">
+      <mat-datepicker-toggle matSuffix [for]="clientApprovalDate"></mat-datepicker-toggle>
+      <mat-datepicker #clientApprovalDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('clientApprovalDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Reason -->
+    <mat-form-field class="full-width">
+      <input matInput formControlName="reason" placeholder="Reason">
+      <mat-error *ngIf="inputForm.get('reason').hasError('required')">Required</mat-error>
+    </mat-form-field>
+    <div>
+      <br>
+      <button mat-raised-button class="submit-btn" type="submit">Submit</button>
+    </div>
+  </form>
+</div>

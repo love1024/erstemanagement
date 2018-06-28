@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import './sass/variables.scss';
+
+body, html{
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin:0;
+    width: 100%;
+}
+
+a.icon-hover-green:hover{
+    color: green;
+}
+
+a.icon-hover-red:hover{
+    color: red;
+}
+
+a.space-between{
+    visibility: hidden;
+    width:5px;
+}
+
+.full-width{
+    width: 100%;
+}
+
+
+button.submit-btn{
+    background-color: $color-blue;
+    color: white;
+}
+
+mat-tab-body{
+    padding-top: 20px !important;
+}
+
