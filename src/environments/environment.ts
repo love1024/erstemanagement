@@ -8,7 +8,8 @@ export const environment = {
         departmentsApi: 'https://erstemanagement.herokuapp.com/departments ',
         projectsApi: 'https://erstemanagement.herokuapp.com/projects ',
         resourcesApi: 'https://erstemanagement.herokuapp.com/resources ',
-        billingApi: 'https://erstemanagement.herokuapp.com/billing '
+        billingApi: 'https://erstemanagement.herokuapp.com/billing',
+        attendanceApi: 'https://erstemanagement.herokuapp.com/attendance'
     }
 };
 

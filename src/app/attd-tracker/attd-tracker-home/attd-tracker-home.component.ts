@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class AttdTrackerHomeComponent implements OnInit {
 
     displayedColumns = [
-        'resourceId', 'startDate', 'endDate', 'attendanceType', 'approvalDate', 'leaveType', 'reason', 'clientApprovalDate'
+        'resourceId', 'startDate', 'endDate', 'attendanceType', 'approvalDate', 'leaveType', 'reason', 'clientApprovalDate', 'actions'
     ];
     dataSource = new MatTableDataSource();
 

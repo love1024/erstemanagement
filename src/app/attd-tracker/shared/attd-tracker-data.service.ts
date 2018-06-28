@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class AttdTrackerDataService {
 
-    private url = environment.urls.resourcesApi;
+    private url = environment.urls.attendanceApi;
 
     constructor(private http: HttpClient) { }
 
