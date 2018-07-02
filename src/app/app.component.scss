@@ -1,75 +1,26 @@
 $sidenav-color:  hsl(204,12%,25%);
 $sidenav-width: 20vw;
 
-header{
-    box-sizing: border-box;
-    height: 60px;
-    background-color: $sidenav-color;
-    z-index: 999;
-}
-
-#app-container{
-    display: grid;
-    grid-template-columns: 15% auto;
-    grid-template-rows: auto;
+.container {
+    display: flex;
+    flex-direction: row;
     height: 100%;
-}
-
-#sidenav{
-    box-sizing: border-box;
-    background-color: $sidenav-color;
-    width: $sidenav-width;
-    height: 100vh;
-    color: white;
-    box-shadow: 5px 0 5px #aaa !important;
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    overflow-x: hidden;
-}
-
-#sidenav ul {
-    list-style: none;
-    margin: 0px;
-    padding: 0px;
-    text-align: left;
-}
-
-#sidenav ul li {
     width: 100%;
-    border-bottom: 0.5px solid #38434e;
 }
 
-#sidenav li:hover {
-    background-color: #97a1ac;
+.sidepanel {
+    width:20%;
+    transition: width 0.15s ease-in-out;
 }
 
-#sidenav li a {
-    display: block;
-    width: 180px;
-    padding: 10px;
-    text-decoration: none;
-    color: white;
+erste-header {
+    width: 100%;
 }
 
-.mat-expansion-panel{
-    color: white;
-    background-color: $sidenav-color;
-    background-color: #1565c0;
-}
-
-.mat-expansion-panel-body{
-    padding: 0px !important;
-}
-
-#main{
-    box-sizing: border-box;
+.content {
     padding: 2em;
-    margin-left: $sidenav-width;
 }
 
-#footer {
-    height: 20vh;
+.main{
     width: 100%;
 }

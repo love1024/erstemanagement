@@ -1,0 +1,35 @@
+header {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  background-color: #519CBC;
+  box-shadow: inset 7px 0 14px -7px rgba(10, 10, 10, 0.7);
+  height: 50px;
+  width: 100%;
+}
+
+i {
+  position: absolute;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  left: 10px;
+  top: 10px;
+}
+
+.appName {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  font-size: 20px;
+  font-weight: bold;
+  left: 50px;
+  top: 10px;
+  // color: rgb(83, 98, 112);
+
+  div:last-child {
+    color: white;
+    background-color: coral;
+    padding: 0 4px;
+  }
+}

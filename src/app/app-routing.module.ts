@@ -5,7 +5,7 @@ import { AttdTrackerHomeComponent } from './attd-tracker/attd-tracker-home/attd-
 
 const routes: Routes = [
     { path: '', component: AttdTrackerHomeComponent },
-    { path: 'attdtracker', component: AttdTrackerHomeComponent },
+    { path: 'attendance', component: AttdTrackerHomeComponent },
     { path: 'admin', component: AdminHomeComponent },
 ];
 

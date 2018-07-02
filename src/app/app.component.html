@@ -1,27 +1,11 @@
-<div id="sidenav">
-  <div id="menu">
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Menu
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <ul>
-        <li>
-          <a><i class="fas fa-power-off"></i> Logout</a>
-        </li>
-      </ul>
-    </mat-expansion-panel>
+<div class="container">
+  <div class="sidepanel" #sidepanel>
+    <erste-sidepanel ></erste-sidepanel>
   </div>
-  <ul>
-    <li>
-      <a [routerLink]="['/attdtracker']">Attendance Tracker</a>
-    </li>
-    <li>
-      <a  [routerLink]="['/admin']">Admin</a>
-    </li>
-  </ul>
-</div>
-<div id="main">
-  <router-outlet></router-outlet>
+  <div class="main">
+    <erste-header></erste-header>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>
