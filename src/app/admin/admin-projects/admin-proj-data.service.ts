@@ -19,4 +19,14 @@ export class AdminProjDataService {
     public createProject(project: Project): Observable<any> {
         return this.http.post<any>(this.url, project);
     }
+
+    public updateProject(project: Project): Observable<any> {
+        const url = this.url + '/' + project.projectId;
+        return this.http.put(url, project);
+    }
+
+    public deleteProject(id) { 
+        const url = this.url + '/' + id;
+        return this.http.delete(url);       
+    }
 }

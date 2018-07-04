@@ -32,6 +32,7 @@ export class ProjectDialogComponent implements OnInit {
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
+            projectId: [''],
             projectNameAsPerSow: ['', [Validators.required]],
             departmentId: ['', [Validators.required]],
             technologyId: ['', [Validators.required]],
@@ -56,6 +57,7 @@ export class ProjectDialogComponent implements OnInit {
 
     createEditForm(project: Project): void {
         this.inputForm = this.formBuilder.group({
+            projectId: [project.projectId],
             projectNameAsPerSow: [project.projectNameAsPerSow, [Validators.required]],
             departmentId: [project.departmentId, [Validators.required]],
             technologyId: [project.technologyId, [Validators.required]],
@@ -70,11 +72,11 @@ export class ProjectDialogComponent implements OnInit {
             projectEndDate: [project.projectEndDate, [Validators.required]],
             projectCostCenter: [project.projectCostCenter, [Validators.required]],
             projectPONumber: [project.projectPONumber, [Validators.required]],
-            dateFrom: [Date.now()],
-            dateUntil: [null],
-            fipUser: ['test'],
-            fipProg: ['Web'],
-            fipTst: [Date.now()]
+            dateFrom: [project.dateFrom],
+            dateUntil: [project.dateUntil],
+            fipUser: [project.fipUser],
+            fipProg: [project.fipProg],
+            fipTst: [project.fipTst]
         });
     }
 

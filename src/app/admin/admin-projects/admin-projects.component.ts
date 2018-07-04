@@ -49,13 +49,27 @@ export class AdminProjectsComponent implements OnInit {
         });
     }
 
-    editResource(project: Project): void {
+    deleteProject(id): void {
+        console.log(id);
+        this.dataService.deleteProject(id).subscribe(res => {
+            this.refreshDataTable();
+        });
+    }
+
+    editProject(project: Project): void {
         const dialogRef = this.dialog.open(ProjectDialogComponent, { data: project });
 
-        dialogRef.afterClosed().subscribe((resource: Project) => {
-            if (resource !== null && resource !== undefined) {
-                // this.updateResource(resource);
+        dialogRef.afterClosed().subscribe((project: Project) => {
+            if (project !== null && project !== undefined) {
+                this.updateProject(project);
             }
         });
+    }
+
+    updateProject(project: Project): void {
+        this.dataService.updateProject(project).subscribe(res => {
+            console.log(res);
+            this.refreshDataTable();
+        })
     }
 }
