@@ -14,17 +14,26 @@ export class AdminResourcesDataService {
 
     constructor(private http: HttpClient) { }
 
-    public getResourceList(): Observable<Resource[]> {
-        return this.http.get<Resource[]>(this.url);
+    public getResourceList(active: boolean): Observable<Resource[]> {
+        const url = this.url + "?active=" + active;
+        console.log(url);
+        return this.http.get<Resource[]>(url);
     }
 
-    public createResource(obj): Observable<any> {
-        return this.http.post<any>(this.url, obj);
+    public createResource(resource: Resource): Observable<any> {
+        return this.http.post<any>(this.url, resource);
     }
 
     public deleteResource(id: number): Observable<any> {
-        const url = this.url + '/' + id.toString(10);
-        return this.http.delete(this.url);
+        const url = this.url + '/' + id;
+        console.log(url);
+        return this.http.delete(url);
+    }
+
+    public updateResource(resource: Resource): Observable<any> {
+        const url = this.url + '/' + resource.resourceId.toString();
+        console.log(url);
+        return this.http.put(url, resource);
     }
 }
 

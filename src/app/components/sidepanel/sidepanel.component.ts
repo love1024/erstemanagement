@@ -14,7 +14,8 @@ export class SidepanelComponent implements OnInit {
   }
 
   onItemClick(event) {
-    this.addActiveClass(event.target);
+    if (event.target.classList.contains("panelItem"))
+      this.addActiveClass(event.target);
   }
 
   addActiveClass(curEl) {

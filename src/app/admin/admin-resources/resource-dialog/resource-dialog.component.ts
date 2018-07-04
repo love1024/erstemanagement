@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Resource } from '../../../shared/models/admin/resource.model';
 
 @Component({
     selector: 'erste-resource-dialog',
@@ -10,18 +11,16 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class ResourceDialogComponent implements OnInit {
 
     inputForm: FormGroup;
-    projects = [{ id: 1, name: 'cockpit' }, { id: 2, name: 'ilease' }];
     levels = [{ id: 1, name: 'L1' }, { id: 2, name: 'L2' }];
-    billingList = [{ id: 1, name: 'LVL1 Mainframe' }, { id: 2, name: 'LVL2 Mainframe' }];
 
     constructor(
         private formBuilder: FormBuilder,
         public dialogRef: MatDialogRef<ResourceDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
+        @Inject(MAT_DIALOG_DATA) public resource: Resource) { }
 
     ngOnInit() {
-        if (this.data !== null && this.data.project !== null) {
-            this.createEditForm(this.data.project);
+        if (this.resource !== null) {
+            this.createEditForm(this.resource);
         } else {
             this.createForm();
         }
@@ -33,27 +32,35 @@ export class ResourceDialogComponent implements OnInit {
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
-            resourceId: [, []],
+            resourceId: [, [Validators.required]],
             resourceName: ['', [Validators.required]],
             resourceEmail: ['', [Validators.required]],
             resourceErsteJoiningDate: ['', [Validators.required]],
-            resourceProjectId: ['', [Validators.required]],
             resourceCertifications: ['', [Validators.required]],
-            resourceAllocation: ['', [Validators.required]],
-            resourceAllocationEndDate: ['', [Validators.required]],
-            resourceLevelMsaName: ['', [Validators.required]],
-            resourceBillingId: ['', [Validators.required]],
-            levelChangeStartDate: ['', [Validators.required]],
-            levelChangeEndDate: ['', []],
             resourceLevelId: ['', [Validators.required]],
-            resourceIsBillable: ['', []],
-            resourceIsPM: ['', []],
-            isNagarroTAM: ['', []],
+            active: [true],
+            dateFrom: [Date.now()],
+            dateUntil: [null],
+            fipUser: ['test'],
+            fipProg: ['Web'],
+            fipTst: [Date.now()]
         });
     }
 
-    createEditForm(project): void {
+    createEditForm(resource: Resource): void {
         this.inputForm = this.formBuilder.group({
+            resourceId: [resource.resourceId, [Validators.required]],
+            resourceName: [resource.resourceName, [Validators.required]],
+            resourceEmail: [resource.resourceEmail, [Validators.required]],
+            resourceErsteJoiningDate: [resource.resourceErsteJoiningDate, [Validators.required]],
+            resourceCertifications: [resource.resourceCertifications, [Validators.required]],
+            resourceLevelId: [resource.resourceLevelId, [Validators.required]],
+            active: [true],
+            dateFrom: [resource.dateFrom],
+            dateUntil: [resource.dateUntil],
+            fipUser: [resource.fipUser],
+            fipProg: [resource.fipProg],
+            fipTst: [resource.fiptst]
         });
     }
 
@@ -61,5 +68,9 @@ export class ResourceDialogComponent implements OnInit {
         if (isValid) {
             this.dialogRef.close(this.inputForm.value);
         }
+    }
+
+    onClose() {
+        this.dialogRef.close();
     }
 }

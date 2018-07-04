@@ -1,4 +1,4 @@
-import { Component, Renderer2, ViewChild ElementRef } from '@angular/core';
+import { Component, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { HeaderService } from './core/header/header.service';
 
 

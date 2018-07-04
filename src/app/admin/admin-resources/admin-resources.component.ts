@@ -2,6 +2,7 @@ import { AdminResourcesDataService } from './admin-resources-data.service';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { ResourceDialogComponent } from './resource-dialog/resource-dialog.component';
+import { Resource } from 'src/app/shared/models/admin/resource.model';
 
 @Component({
     selector: 'erste-admin-resources',
@@ -23,7 +24,7 @@ export class AdminResourcesComponent implements OnInit {
     }
 
     refreshDataTable() {
-        this.dataService.getResourceList()
+        this.dataService.getResourceList(true)
             .subscribe(
                 list => {
                     console.log(list);
@@ -33,18 +34,17 @@ export class AdminResourcesComponent implements OnInit {
     }
 
     openDialog() {
-        const dialogRef = this.dialog.open(ResourceDialogComponent);
+        const dialogRef = this.dialog.open(ResourceDialogComponent, { disableClose: true });
 
-        dialogRef.afterClosed().subscribe(res => {
-            if (res !== null && res !== undefined) {
-                console.log(res);
-                this.createResource(res);
+        dialogRef.afterClosed().subscribe((resource: Resource) => {
+            if (resource !== null && resource !== undefined) {
+                this.createResource(resource);
             }
         });
     }
 
-    createResource(obj): void {
-        this.dataService.createResource(obj).subscribe(res => {
+    createResource(resource: Resource): void {
+        this.dataService.createResource(resource).subscribe(res => {
             console.log(res);
             this.refreshDataTable();
         });
@@ -54,6 +54,23 @@ export class AdminResourcesComponent implements OnInit {
         console.log(id);
         this.dataService.deleteResource(id).subscribe(res => {
             this.refreshDataTable();
+        });
+    }
+
+    updateResource(resource: Resource): void {
+        this.dataService.updateResource(resource).subscribe(res => {
+            console.log(res);
+            this.refreshDataTable();
+        })
+    }
+
+    editResource(resource): void {
+        const dialogRef = this.dialog.open(ResourceDialogComponent, { disableClose: true, data: resource });
+
+        dialogRef.afterClosed().subscribe((resource: Resource) => {
+            if (resource !== null && resource !== undefined) {
+                this.updateResource(resource);
+            }
         });
     }
 }

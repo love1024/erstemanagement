@@ -1,111 +1,74 @@
 <h2 mat-dialog-title>Resource Form</h2>
-<div id="form-container" mat-dialog-content>
-  <form [formGroup]="inputForm" (ngSubmit)="onSubmit(inputForm.valid)">
+<div id="form-container"
+  mat-dialog-content>
+  <form [formGroup]="inputForm"
+    (ngSubmit)="onSubmit(inputForm.valid)">
 
-<!-- Resource Id -->
-<mat-form-field class="full-width">
-        <input matInput formControlName="resourceId" placeholder="Employee ID" type="number">
-        <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
-      </mat-form-field>
+    <!-- Resource Id -->
+    <mat-form-field class="full-width">
+      <input matInput
+        formControlName="resourceId"
+        placeholder="Employee ID"
+        type="number">
+      <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
+    </mat-form-field>
 
-      
+
     <!-- Name -->
     <mat-form-field class="full-width">
-      <input matInput formControlName="resourceName" placeholder="Name">
+      <input matInput
+        formControlName="resourceName"
+        placeholder="Name">
       <mat-error *ngIf="inputForm.get('resourceName').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field class="full-width">
-      <input matInput formControlName="resourceEmail" placeholder="Email">
+      <input matInput
+        formControlName="resourceEmail"
+        placeholder="Email">
       <mat-error *ngIf="inputForm.get('resourceEmail').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Joining Date -->
     <mat-form-field class="full-width">
-      <input formControlName="resourceErsteJoiningDate" matInput [matDatepicker]="joiningDate" placeholder="Erste Joining Date">
-      <mat-datepicker-toggle matSuffix [for]="joiningDate"></mat-datepicker-toggle>
+      <input formControlName="resourceErsteJoiningDate"
+        matInput
+        [matDatepicker]="joiningDate"
+        placeholder="Erste Joining Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="joiningDate"></mat-datepicker-toggle>
       <mat-datepicker #joiningDate></mat-datepicker>
       <mat-error *ngIf="inputForm.get('resourceErsteJoiningDate').hasError('required')">Required</mat-error>
     </mat-form-field>
 
-    <!-- Project id -->
-    <mat-form-field class="full-width">
-      <mat-select matInput formControlName="resourceProjectId" placeholder="Project">
-        <mat-option [value]="project.id" *ngFor="let project of projects">{{project.name}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="inputForm.get('resourceProjectId').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
     <!-- Certifications -->
     <mat-form-field class="full-width">
-      <input matInput formControlName="resourceCertifications" placeholder="Certifications">
+      <input matInput
+        formControlName="resourceCertifications"
+        placeholder="Certifications">
       <mat-hint>Comma Separated Values</mat-hint>
-    </mat-form-field>
-
-    <!-- Allocation -->
-    <mat-form-field class="full-width">
-      <input matInput formControlName="resourceAllocation" placeholder="Allocation Percentage" type="number">
-      <mat-error *ngIf="inputForm.get('resourceAllocation').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Allocation End Date -->
-    <mat-form-field class="full-width">
-      <input formControlName="resourceAllocationEndDate" matInput [matDatepicker]="endDate" placeholder="Allocation End Date">
-      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-      <mat-datepicker #endDate></mat-datepicker>
-      <mat-error *ngIf="inputForm.get('resourceAllocationEndDate').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Level MSA Name -->
-    <mat-form-field class="full-width">
-      <input matInput formControlName="resourceLevelMsaName" placeholder="Level MSA Name">
-      <mat-error *ngIf="inputForm.get('resourceLevelMsaName').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Billing Id -->
-    <mat-form-field class="full-width">
-      <mat-select matInput formControlName="resourceBillingId" placeholder="Billing">
-        <mat-option [value]="billing.id" *ngFor="let billing of billingList">{{billing.name}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="inputForm.get('resourceBillingId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Level Change Id -->
     <mat-form-field class="full-width">
-      <mat-select matInput formControlName="resourceLevelId" placeholder="Level Name">
-        <mat-option [value]="level.id" *ngFor="let level of levels">{{level.name}}</mat-option>
+      <mat-select matInput
+        formControlName="resourceLevelId"
+        placeholder="Level Name">
+        <mat-option [value]="level.id"
+          *ngFor="let level of levels">{{level.name}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('resourceLevelId').hasError('required')">Required</mat-error>
     </mat-form-field>
-
-    <!-- Level Change Start Date -->
-    <mat-form-field class="full-width">
-      <input formControlName="levelChangeStartDate" matInput [matDatepicker]="lvlStartDate" placeholder="Level Change Start Date">
-      <mat-datepicker-toggle matSuffix [for]="lvlStartDate"></mat-datepicker-toggle>
-      <mat-datepicker #lvlStartDate></mat-datepicker>
-      <mat-error *ngIf="inputForm.get('levelChangeStartDate').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Level Change End Date -->
-    <mat-form-field class="full-width">
-      <input formControlName="levelChangeEndDate" matInput [matDatepicker]="lvlEndDate" placeholder="Level Change End Date">
-      <mat-datepicker-toggle matSuffix [for]="lvlEndDate"></mat-datepicker-toggle>
-      <mat-datepicker #lvlEndDate></mat-datepicker>
-      <mat-error *ngIf="inputForm.get('levelChangeEndDate').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Is billable -->
-    <mat-checkbox formControlName="resourceIsBillable">Billable</mat-checkbox>
-    <br>
-    <!-- Nagarro Tam -->
-    <mat-checkbox formControlName="isNagarroTAM">TAM</mat-checkbox>
-    <br>
-    <!-- Is Project manager -->
-    <mat-checkbox formControlName="resourceIsPM">Project Manager</mat-checkbox>
     <div>
       <br>
-      <button mat-raised-button class="submit-btn" type="submit">Submit</button>
+      <button mat-raised-button
+        class="submit-btn"
+        type="submit">Submit</button>&nbsp;
+      <button mat-raised-button
+        color="warn"
+        type="button"
+        (click)="onClose()">Cancel</button>
     </div>
   </form>
 </div>

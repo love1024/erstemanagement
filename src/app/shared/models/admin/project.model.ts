@@ -1,19 +1,25 @@
 export class Project {
 
-    public projectId: number;
-    public projectNameAsPerSow: string;
-    public departmentId: number;
-    public projectTechnology: string;
-    public projectModelName: string;
-    public projectSitTam: string;
-    public projectSitTamEmail: string;
-    public projectSitProjectManager: string;
-    public projectSitProjectManagerEmail: string;
+    public projectId: Number;
+    public projectNameAsPerSow: String;
+    public departmentId: Number;
+    public technologyId: Number;
+    public projectModelName: String;
+    public projectSitTAM: String;
+    public projectSitTAMEmail: String;
+    public projectSitProjectManager: String;
+    public projectSitProjectManagerEmail: String;
+    public projectNagarroTAMId: Number;
+    public projectNagarroPMId: Number;
     public projectStartDate: Date;
-    public technologyName: string;
-    public projectCostCenter: number;
-    public projectPONumber: number;
-
+    public projectEndDate: Date;
+    public projectCostCenter: Number;
+    public projectPONumber: Number;
+    public dateFrom: Date;
+    public dateUntil: Date;
+    public fipUser: String;
+    public fipProg: String;
+    public fipTst: Date;
     constructor() {
     }
 }
