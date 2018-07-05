@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminDepartmentsComponent } from './admin-departments.component';
+import { TechDialogComponent } from './tech-dialog.component';
 
-describe('AdminDepartmentsComponent', () => {
-  let component: AdminDepartmentsComponent;
-  let fixture: ComponentFixture<AdminDepartmentsComponent>;
+describe('TechDialogComponent', () => {
+  let component: TechDialogComponent;
+  let fixture: ComponentFixture<TechDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminDepartmentsComponent ]
+      declarations: [ TechDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AdminDepartmentsComponent);
+    fixture = TestBed.createComponent(TechDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

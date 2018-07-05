@@ -16,8 +16,8 @@
       <mat-select matInput
         formControlName="departmentId"
         placeholder="Department">
-        <mat-option [value]="department.id"
-          *ngFor="let department of departments">{{department.name}}</mat-option>
+        <mat-option [value]="department.departmentId"
+          *ngFor="let department of departments">{{department.departmentName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('departmentId').hasError('required')">Required</mat-error>
     </mat-form-field>

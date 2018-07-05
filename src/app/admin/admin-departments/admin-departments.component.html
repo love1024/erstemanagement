@@ -1,13 +1,11 @@
-<button class="submit-btn" mat-raised-button (click)="openDialog()"><i class="fas fa-plus"></i> New Entry </button>
+<button class="submit-btn"
+    mat-raised-button
+    (click)="openDialog()">
+    <i class="fas fa-plus"></i> New Entry </button>
 <section id="table-container">
 
-    <mat-table #table [dataSource]="dataSource">
-        <!-- Department ID -->
-        <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.departmentId}} </mat-cell>
-        </ng-container>
-
+    <mat-table #table
+        [dataSource]="dataSource">
         <!-- Department Name -->
         <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
@@ -31,15 +29,19 @@
             <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
             <mat-cell *matCellDef="let element">
                 <!-- Edit Column -->
-                <a class="icon-hover-green">
+                <a class="icon-hover-green"
+                    (click)="editDepartment(element)">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a href="" class="space-between"></a>
+                <a href=""
+                    class="space-between"></a>
                 <!-- Delete Column -->
-                <a class="icon-hover-red">
+                <a class="icon-hover-red"
+                    (click)="deleteDepartment(element.departmentId)">
                     <i class="fas fa-trash"></i>
                 </a>
-                <a href="" class="space-between"></a>
+                <a href=""
+                    class="space-between"></a>
             </mat-cell>
         </ng-container>
 
@@ -47,5 +49,5 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
-    
+
 </section>

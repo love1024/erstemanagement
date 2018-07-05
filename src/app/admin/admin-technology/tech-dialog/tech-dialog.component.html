@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>Technology Form</h2>
+<div id="form-container"
+  mat-dialog-content>
+  <form [formGroup]="inputForm"
+    (ngSubmit)="onSubmit(inputForm.valid)">
+    <!-- MANAGER -->
+    <mat-form-field class="full-width">
+      <input matInput
+        formControlName="technologyName"
+        placeholder="Technology Name">
+      <mat-error *ngIf="inputForm.get('technologyName').hasError('required')">Required</mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput
+        formControlName="resLevelMsaName"
+        placeholder="Resource Level MSA Name">
+      <mat-error *ngIf="inputForm.get('resLevelMsaName').hasError('required')">Required</mat-error>
+    </mat-form-field>
+    <div>
+      <br>
+      <button class="submit-btn"
+        mat-raised-button
+        type="submit">Submit</button>
+    </div>
+  </form>
+</div>

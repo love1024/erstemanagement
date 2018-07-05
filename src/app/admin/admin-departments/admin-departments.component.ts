@@ -2,6 +2,7 @@ import { DeptDialogComponent } from './dept-dialog/dept-dialog.component';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { AdminDeptDataService } from './admin-dept-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Department } from '../../shared/models/admin/department.model';
 
 @Component({
     selector: 'erste-admin-departments',
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDepartmentsComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'hod', 'hod_email', 'actions'];
+    displayedColumns = ['name', 'hod', 'hod_email', 'actions'];
     dataSource = new MatTableDataSource();
 
     constructor(
@@ -33,18 +34,40 @@ export class AdminDepartmentsComponent implements OnInit {
 
     openDialog() {
         const dialogRef = this.dialog.open(DeptDialogComponent);
-
-        dialogRef.afterClosed().subscribe(res => {
-            if (res !== null && res !== undefined) {
-                this.createNewDepartment(res);
+        dialogRef.afterClosed().subscribe((department: Department) => {
+            if (department !== null && department !== undefined) {
+                this.createNewDepartment(department);
             }
         });
     }
 
-    createNewDepartment(obj): void {
-        this.dataService.createDepartment(obj).subscribe(res => {
+    createNewDepartment(department: Department): void {
+        this.dataService.createDepartment(department).subscribe(res => {
             console.log(res);
             this.refreshDataTable();
+        });
+    }
+
+    updateDepartment(department: Department): void {
+        this.dataService.updateDepartment(department).subscribe(res => {
+            console.log(res);
+            this.refreshDataTable();
+        })
+    }
+
+    deleteDepartment(id): void { 
+        this.dataService.deleteDepartment(id).subscribe(res => { 
+            console.log(res);
+            this.refreshDataTable();
+        })
+    }
+
+    editDepartment(department: Department): void {
+        const dialogRef = this.dialog.open(DeptDialogComponent, { data: department });
+        dialogRef.afterClosed().subscribe((department: Department) => {
+            if (department !== null && department !== undefined) {
+                this.updateDepartment(department);
+            }
         });
     }
 }
