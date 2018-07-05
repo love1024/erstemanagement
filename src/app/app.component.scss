@@ -1,18 +1,14 @@
 @import "../sass/variables.scss";
-
-$sidenav-color: hsl(204, 12%, 25%);
-$sidenav-width: 15vw;
-
 .mat-sidenav-container {
   height: 100%;
 }
 
 .mat-sidenav {
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    overflow-y: hidden;
-    min-width: $sidenav-width; 
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow-y: hidden;
+  min-width: $sidenav-width;
 }
 
 erste-header {
@@ -23,15 +19,16 @@ erste-header {
   padding: 0 2em;
 }
 
-
 .header-content {
   display: flex;
   flex-direction: row;
   justify-content: left;
 }
 
-.btn-toggle{
-    background-color: $app-primary-color; 
-    margin: 0;
-    border-radius: 0 !important;
+.btn-toggle {
+  background-color: $app-primary-color;
+  margin: 0;
+  border-radius: 0;
+  width: 50px;
+  border: none;
 }

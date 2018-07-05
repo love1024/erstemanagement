@@ -4,7 +4,7 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="header-content">
-      <button mat-button (click)="sidenav.toggle()" class="btn-toggle">
+      <button mat-button (click)="sidenav.toggle()" class="btn-toggle" [ngStyle]="toggleSidenav(sidenav.opened)">
         <i class="fas fa-align-justify"></i>
       </button>
       <erste-header></erste-header>

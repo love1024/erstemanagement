@@ -10,4 +10,10 @@ import { HeaderService } from './core/header/header.service';
 export class AppComponent {
     title = 'erste';
     constructor() { }
+
+    toggleSidenav(isOpen: boolean) {
+        return {
+            'box-shadow': isOpen ? 'inset 10px 0 14px -7px rgba(10, 10, 10, 0.7)' : 'none'
+        };
+    }
 }
