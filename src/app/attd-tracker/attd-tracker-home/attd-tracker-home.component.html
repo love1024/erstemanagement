@@ -1,9 +1,12 @@
-<h1>Attendance Tracker</h1>
-<button mat-raised-button class="submit-btn" (click)="openDialog()">
+<h2>Attendance Tracker</h2>
+<button mat-raised-button
+  class="submit-btn"
+  (click)="openDialog()">
   <i class="fas fa-plus"></i> New Entry </button>
 <section id="table-container">
 
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table #table
+    [dataSource]="dataSource">
     <!-- resourceId -->
     <ng-container matColumnDef="resourceId">
       <mat-header-cell *matHeaderCellDef>Employee ID</mat-header-cell>
@@ -60,9 +63,11 @@
         <a class="icon-hover-green">
           <i class="fas fa-edit"></i>
         </a>
-        <a href="" class="space-between"></a>
+        <a href=""
+          class="space-between"></a>
         <!-- Delete Column -->
-        <a class="icon-hover-red" (click)="deleteResource(element.attendanceId)">
+        <a class="icon-hover-red"
+          (click)="deleteResource(element.attendanceId)">
           <i class="fas fa-trash"></i>
         </a>
       </mat-cell>

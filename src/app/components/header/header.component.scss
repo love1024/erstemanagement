@@ -15,6 +15,11 @@ i {
   font-size: 25px;
   left: 10px;
   top: 10px;
+  transition: transform 0.5s;
+}
+
+.rotate {
+  transform: rotate(90deg);
 }
 
 .appName {

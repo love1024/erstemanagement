@@ -18,7 +18,17 @@ export class AdminDeptDataService {
         return this.http.get<Department[]>(this.url);
     }
 
-    public createDepartment(obj): Observable<any> {
-        return this.http.post<any>(this.url, obj);
+    public createDepartment(department: Department): Observable<any> {
+        return this.http.post<any>(this.url, department);
+    }
+
+    public updateDepartment(department: Department): Observable<any> {
+        const url = this.url + "/" + department.departmentId;
+        return this.http.put<any>(url, department);
+    }
+
+    public deleteDepartment(id): Observable<any> {
+        const url = this.url + "/" + id;
+        return this.http.delete<any>(url);
     }
 }

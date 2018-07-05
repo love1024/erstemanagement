@@ -5,13 +5,15 @@
 export const environment = {
     production: false,
     urls: {
-        departmentsApi: 'https://erstemanagement.herokuapp.com/departments',
+        // departmentsApi: 'https://erstemanagement.herokuapp.com/departments',
+        departmentsApi: 'http://localhost:3000/departments',
         // projectsApi: 'http://localhost:3000/projects',
         projectsApi: 'https://erstemanagement.herokuapp.com/projects',
         resourcesApi: 'https://erstemanagement.herokuapp.com/resources',
         // resourcesApi: 'http://localhost:3000/resources',
         billingApi: 'https://erstemanagement.herokuapp.com/billing',
-        attendanceApi: 'https://erstemanagement.herokuapp.com/attendance'
+        attendanceApi: 'https://erstemanagement.herokuapp.com/attendance',
+        technologyApi: 'http://localhost:3000/technology'
     }
 };
 

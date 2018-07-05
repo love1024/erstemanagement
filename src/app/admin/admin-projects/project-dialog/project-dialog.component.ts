@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Project } from '../../../shared/models/admin/project.model';
+import { Department } from '../../../shared/models/admin/department.model';
+import { AdminDeptDataService } from '../../admin-departments/admin-dept-data.service';
 
 @Component({
     selector: 'erste-project-dialog',
@@ -11,10 +13,11 @@ import { Project } from '../../../shared/models/admin/project.model';
 export class ProjectDialogComponent implements OnInit {
 
     inputForm: FormGroup;
-    departments = [{ id: 1, name: 'dept1' }, { id: 2, name: 'dept2' }];
+    departments: Department[];
     technologies = [{ id: 1, name: 'Java' }, { id: 2, name: 'Angular' }];
 
     constructor(private formBuilder: FormBuilder,
+        private departmentService: AdminDeptDataService,
         public dialogRef: MatDialogRef<ProjectDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public project: Project) { }
 
@@ -24,6 +27,10 @@ export class ProjectDialogComponent implements OnInit {
         } else {
             this.createForm();
         }
+        this.departmentService.getDepartmentList().subscribe((departments: Department[]) => {
+            console.log(departments);
+            this.departments = departments;
+        })
     }
 
     onNoClick(): void {

@@ -9,8 +9,8 @@ $sidenav-width: 20vw;
 }
 
 .sidepanel {
-    width:20%;
-    transition: width 0.15s ease-in-out;
+    width:15%;
+    transition: width 0.3s ease-in-out;
 }
 
 erste-header {
@@ -22,6 +22,7 @@ erste-header {
 }
 
 .main{
-    width: 100%;
+    width: 85%;
     background-color: rgb(251, 251, 251);
+    transition: width 0.3s ease-in-out;
 }
