@@ -1,11 +1,14 @@
+@import "../../../sass/variables.scss";
+
 h2 {
-  color: rgba(0,0,0,.50);
+  color: rgb(0, 0, 0);
 }
 
-::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label{
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label {
   font-family: sf;
 }
 
-::ng-deep .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: #519CBC;
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $app-primary-color;
 }

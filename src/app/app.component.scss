@@ -1,27 +1,37 @@
-$sidenav-color:  hsl(204,12%,25%);
-$sidenav-width: 20vw;
+@import "../sass/variables.scss";
 
-.container {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
+$sidenav-color: hsl(204, 12%, 25%);
+$sidenav-width: 15vw;
+
+.mat-sidenav-container {
+  height: 100%;
 }
 
-.sidepanel {
-    width:20%;
-    transition: width 0.15s ease-in-out;
+.mat-sidenav {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-y: hidden;
+    min-width: $sidenav-width; 
 }
 
 erste-header {
-    width: 100%;
+  width: 100%;
 }
 
 .content {
-    padding:0 2em;
+  padding: 0 2em;
 }
 
-.main{
-    width: 100%;
-    background-color: rgb(251, 251, 251);
+
+.header-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+
+.btn-toggle{
+    background-color: $app-primary-color; 
+    margin: 0;
+    border-radius: 0 !important;
 }

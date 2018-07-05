@@ -1,11 +1,16 @@
-<div class="container">
-  <div class="sidepanel" #sidepanel>
-    <erste-sidepanel ></erste-sidepanel>
-  </div>
-  <div class="main">
-    <erste-header></erste-header>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side">
+    <erste-sidepanel></erste-sidepanel>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="header-content">
+      <button mat-button (click)="sidenav.toggle()" class="btn-toggle">
+        <i class="fas fa-align-justify"></i>
+      </button>
+      <erste-header></erste-header>
+    </div>
     <div class="content">
       <router-outlet></router-outlet>
     </div>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

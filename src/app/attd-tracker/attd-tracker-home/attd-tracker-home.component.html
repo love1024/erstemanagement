@@ -1,8 +1,9 @@
-<h1>Attendance Tracker</h1>
-<button mat-raised-button class="submit-btn" (click)="openDialog()">
-  <i class="fas fa-plus"></i> New Entry </button>
+<div id="header">
+  <h2>Attendance Tracker</h2>
+  <button mat-raised-button class="submit-btn" (click)="openDialog()">
+    <i class="fas fa-plus"></i> New Entry </button>
+</div>
 <section id="table-container">
-
   <mat-table #table [dataSource]="dataSource">
     <!-- resourceId -->
     <ng-container matColumnDef="resourceId">
@@ -71,5 +72,4 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-
 </section>

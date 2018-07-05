@@ -1,4 +1,4 @@
-$sidePanelColor: #519CBC;
+$sidePanelColor: rgb(4, 76, 107);
 
 .sidepanel {
   background-color: $sidePanelColor;
@@ -6,6 +6,7 @@ $sidePanelColor: #519CBC;
   height: 100%;
   padding-top:60px;
   overflow: hidden;
+  color: white;
 }
 
 .panelItem {
@@ -17,5 +18,5 @@ $sidePanelColor: #519CBC;
 
 .active {
   background-color: lightblue;
-  color: white;
+  color: black;
 }

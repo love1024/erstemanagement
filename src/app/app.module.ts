@@ -9,8 +9,8 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 import { AttdTrackerModule } from './attd-tracker/attd-tracker.module';
-import { SidepanelComponent } from './components/sidepanel/sidepanel.component';
-import { HeaderComponent } from './components/header/header.component';
+import { SidepanelComponent } from './shared/components/sidepanel/sidepanel.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 
 @NgModule({
     declarations: [
