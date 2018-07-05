@@ -17,6 +17,6 @@
 }
 
 .active {
-  background-color: rgb(32, 92, 112);
-  color: white;
+  background-color: $sidePanel-activeLink-color;
+  color: $color-white;
 }

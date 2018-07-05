@@ -1,12 +1,20 @@
-// Colours
-$color-blue : #1565c0;
-$color-6: hsl(232, 61%, 10%);
-$color-5: hsl(233, 33%, 26%);
-$color-4: hsl(218, 43%, 33%);
-$color-3: hsl(187, 64%, 39%);
-$color-2: hsl(164, 44%, 54%);
-$color-1:hsl(44, 69%, 55%);
+// COLOURS
+$color-blue: #1565c0;
+$color-green: hsl(120, 100%, 25%);
+$color-red: hsl(0, 100%, 50%);
+$color-white: hsl(0, 0%, 100%);
+$color-black: hsl(0, 0%, 0%);
+$color-palette-6: hsl(232, 61%, 10%);
+$color-palette-5: hsl(233, 33%, 26%);
+$color-palette-4: hsl(218, 43%, 33%);
+$color-palette-3: hsl(187, 64%, 39%);
+$color-palette-2: hsl(164, 44%, 54%);
+$color-palette-1:hsl(44, 69%, 55%);
 // APPLICATION
 $app-primary-color: hsl(198, 44%, 53%);
 $sidePanel-color: $app-primary-color;
-$sidenav-width: 15vw;
+$sidePanel-activeLink-color: hsl(195, 56%, 28%);
+$sidePanel-width: 15vw;
+//TABLE
+$table-header-bg-color: rgb(231, 231, 231);
+$table-header-font-color: rgb(75, 75, 75);
