@@ -1,6 +1,7 @@
 import { Level } from './level.model';
 
 export class Resource {
+    public _id: String;
     public resourceId: number;
     public resourceName: string;
     public resourceEmail: string;

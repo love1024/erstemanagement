@@ -54,6 +54,7 @@ export class ProjectDialogComponent implements OnInit {
             projectEndDate: ['', [Validators.required]],
             projectCostCenter: ['', [Validators.required]],
             projectPONumber: ['', [Validators.required]],
+            active: [true, Validators.required],
             dateFrom: [Date.now()],
             dateUntil: [null],
             fipUser: ['test'],
@@ -79,17 +80,19 @@ export class ProjectDialogComponent implements OnInit {
             projectEndDate: [project.projectEndDate, [Validators.required]],
             projectCostCenter: [project.projectCostCenter, [Validators.required]],
             projectPONumber: [project.projectPONumber, [Validators.required]],
+            active: [project.active, Validators.required],
             dateFrom: [project.dateFrom],
             dateUntil: [project.dateUntil],
             fipUser: [project.fipUser],
             fipProg: [project.fipProg],
-            fipTst: [project.fipTst]
+            fipTst: [Date.now()]
         });
     }
 
     onSubmit(isValid: boolean) {
         if (isValid) {
-            this.dialogRef.close(this.inputForm.value);
+            let data = { old: this.project, new: this.inputForm.value };
+            this.dialogRef.close(data);
         }
     }
 }

@@ -1,11 +1,18 @@
 export class Attendance {
-    public attendanceId: number;
-    public resourceId: number;
-    public startDate: Date;
-    public endDate: Date;
-    public attendanceType: string; // wfh, public holiday, onsite public holiday, personal , personal onsite
-    public approvalDate: Date;
-    public leaveType: string; // planned, unplanned
-    public reason: string;
-    public clientApprovalDate: Date;
+    attendanceId: Number;
+    resourceId: Number;
+    approvalDate: Date;
+    taskId: Number;
+    date: Date;
+    hours: Number;
+    attendanceType: String;
+    presentType: String;
+    leaveType: String;
+    holidayType: String;
+    wfh: Boolean;
+    clientApprovalDate: Date;
+    remarks: String;
+    fipUser: String;
+    fipProg: String;
+    fipTst: Date;
 }

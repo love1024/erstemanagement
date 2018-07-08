@@ -11,7 +11,7 @@ import { Project } from '../../shared/models/admin/project.model';
 })
 export class AdminProjectsComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'actions'];
+    displayedColumns = ['id', 'name', 'modelName', 'actions'];
     dataSource = new MatTableDataSource();
 
     constructor(
@@ -24,7 +24,7 @@ export class AdminProjectsComponent implements OnInit {
     }
 
     refreshDataTable() {
-        this.dataService.getProjects()
+        this.dataService.getProjects(true)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(list);
@@ -35,9 +35,10 @@ export class AdminProjectsComponent implements OnInit {
     openDialog() {
         const dialogRef = this.dialog.open(ProjectDialogComponent);
 
-        dialogRef.afterClosed().subscribe((project: Project) => {
-            if (project !== null && project !== undefined) {
-                this.createProject(project);
+        dialogRef.afterClosed().subscribe(data => {
+            console.log(data);
+            if (this.checkDefined(data.new)) {
+                this.createProject(data.new);
             }
         });
     }
@@ -59,9 +60,14 @@ export class AdminProjectsComponent implements OnInit {
     editProject(project: Project): void {
         const dialogRef = this.dialog.open(ProjectDialogComponent, { data: project });
 
-        dialogRef.afterClosed().subscribe((project: Project) => {
-            if (project !== null && project !== undefined) {
-                this.updateProject(project);
+        dialogRef.afterClosed().subscribe(data => {
+            let oldProject = <Project>data.old;
+            let newProject = <Project>data.new;
+            if (this.checkDefined(oldProject) && this.checkDefined(newProject)) {
+                oldProject.dateUntil = new Date();
+                oldProject.active = false;
+                this.updateProject(oldProject);
+                this.createProject(newProject);
             }
         });
     }
@@ -71,5 +77,11 @@ export class AdminProjectsComponent implements OnInit {
             console.log(res);
             this.refreshDataTable();
         })
+    }
+
+    checkDefined(project: Project): boolean {
+        if (project != null && project != undefined)
+            return true;
+        return false;
     }
 }

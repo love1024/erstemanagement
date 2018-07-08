@@ -7,12 +7,13 @@ export const environment = {
     urls: {
         // departmentsApi: 'https://erstemanagement.herokuapp.com/departments',
         departmentsApi: 'http://localhost:3000/departments',
-        // projectsApi: 'http://localhost:3000/projects',
-        projectsApi: 'https://erstemanagement.herokuapp.com/projects',
+        projectsApi: 'http://localhost:3000/projects',
+        // projectsApi: 'https://erstemanagement.herokuapp.com/projects',
         resourcesApi: 'https://erstemanagement.herokuapp.com/resources',
         // resourcesApi: 'http://localhost:3000/resources',
         billingApi: 'https://erstemanagement.herokuapp.com/billing',
-        attendanceApi: 'https://erstemanagement.herokuapp.com/attendance',
+        // attendanceApi: 'https://erstemanagement.herokuapp.com/attendance',
+        attendanceApi: 'http://localhost:3000/attendance',
         technologyApi: 'http://localhost:3000/technology'
     }
 };

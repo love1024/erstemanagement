@@ -12,8 +12,9 @@ export class AdminProjDataService {
 
     constructor(private http: HttpClient) { }
 
-    public getProjects(): Observable<Project[]> {
-        return this.http.get<Project[]>(this.url);
+    public getProjects(active: boolean): Observable<Project[]> {
+        const url = this.url + "?active=" + active;
+        return this.http.get<Project[]>(url);
     }
 
     public createProject(project: Project): Observable<any> {
@@ -21,12 +22,12 @@ export class AdminProjDataService {
     }
 
     public updateProject(project: Project): Observable<any> {
-        const url = this.url + '/' + project.projectId;
+        const url = this.url + '/' + project._id;
         return this.http.put(url, project);
     }
 
-    public deleteProject(id) { 
+    public deleteProject(id) {
         const url = this.url + '/' + id;
-        return this.http.delete(url);       
+        return this.http.delete(url);
     }
 }
