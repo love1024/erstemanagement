@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class SidepanelComponent implements OnInit {
 
+    user = 'Puneet Verma';
+
     constructor(private renderer: Renderer2, private router: Router) { }
 
     ngOnInit() {

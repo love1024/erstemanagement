@@ -1,7 +1,15 @@
-<div class="sidepanel"
-  (click)="onItemClick($event)">
-  <div routerLink="/attendance"
-    class="panelItem active">Attendance</div>
-  <div routerLink="/admin"
-    class="panelItem">Admin</div>
+<div id="sidepanel-container">
+    <div class="details-container">
+        <div class="img-container">
+            <img src="../../../../assets/user.png" alt="">
+        </div>
+        <div class="details">
+            <p>{{user}}</p>
+            <p>Senior Manager</p>
+        </div>
+    </div>
+    <div class="sidepanel" (click)="onItemClick($event)">
+        <div routerLink="/attendance" class="panelItem active">Attendance</div>
+        <div routerLink="/admin" class="panelItem">Admin</div>
+    </div>
 </div>
