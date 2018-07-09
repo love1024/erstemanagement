@@ -26,10 +26,6 @@ export class DeptDialogComponent implements OnInit {
         }
     }
 
-    onNoClick(): void {
-        this.dialogRef.close(null);
-    }
-
     createForm(): void {
         this.inputForm = this.formBuilder.group({
             departmentId: [0, []],

@@ -1,0 +1,84 @@
+[33mcommit be23696bf89c111610168719daf2c8a0b5c1895e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: shauryadhadwal <shauryadhadwal@gmail.com>
+Date:   Mon Jul 9 09:20:21 2018 +0200
+
+    sidepanel user img
+
+[33mcommit 6359c2390000e4f04f7a1893e59f20de8f012303[m
+Author: shauryadhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jul 5 14:27:57 2018 +0200
+
+    scrollbar design
+
+[33mcommit acee8a7ce76f5c46cad8d2d7cd8589152562250c[m
+Author: shauryadhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jul 5 13:50:04 2018 +0200
+
+    toggle btn shadow, sidenav color
+
+[33mcommit da9112e936f0f005490d9a5f466a20396929b781[m
+Author: Shaurya Dhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jul 5 11:55:13 2018 +0200
+
+    check header service
+
+[33mcommit fad66988e1a9fcfd223e1f8fec6eb2ee5c3b6086[m
+Merge: 9ca3c39 0c94982
+Author: Shaurya Dhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jul 5 11:54:14 2018 +0200
+
+    sidenav toggle simplified
+
+[33mcommit 9ca3c394440bde28b724e02404afa06d3aa7cd6c[m
+Author: Shaurya Dhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jul 5 11:51:16 2018 +0200
+
+    sidenav toggle simplified
+
+[33mcommit 0c94982e1afbe4b8e821133abe8aebfadf9c3373[m
+Author: Lovepreet Singh <lovepreet.singh@nagarro.com>
+Date:   Thu Jul 5 15:00:32 2018 +0530
+
+    Added technology table
+
+[33mcommit d64ddb4bc468fb01fc6c7871c1856a861f9e1fcf[m
+Author: Lovepreet Singh <lovepreet.singh@nagarro.com>
+Date:   Wed Jul 4 15:58:38 2018 +0530
+
+    Changed data service to heroku
+
+[33mcommit 2ad4efceb563fbb9c43ca286463461d3ac7e766b[m
+Author: Lovepreet Singh <lovepreet.singh@nagarro.com>
+Date:   Wed Jul 4 15:56:05 2018 +0530
+
+    Added project CRUD
+
+[33mcommit b7bed7504a888d10b3aef20a0ee3e2a0382f3b1b[m
+Author: Lovepreet Singh <lovepreet.singh@nagarro.com>
+Date:   Wed Jul 4 15:11:08 2018 +0530
+
+    changed file
+
+[33mcommit abea6144366da309658ea663fd9d7c137f1203c3[m
+Author: Lovepreet Singh <lovepreet.singh@nagarro.com>
+Date:   Mon Jul 2 19:40:46 2018 +0530
+
+    Changed UI
+
+[33mcommit 61a367dec22808476bc1cf518a9321fda02eb438[m
+Author: Shaurya Dhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jun 28 14:34:16 2018 +0530
+
+    environment
+
+[33mcommit 011efd5211e756d896dc340fa00c06347c824f22[m
+Author: Shaurya Dhadwal <shauryadhadwal@gmail.com>
+Date:   Thu Jun 28 14:15:34 2018 +0530
+
+    attendance tracker
+
+[33mcommit 3c89685bbee367924b45f69d6ad0e46861148569[m
+Author: Shaurya Dhadwal <shauryadhadwal@gmail.com>
+Date:   Tue Jun 26 12:20:28 2018 +0530
+
+    initial commit

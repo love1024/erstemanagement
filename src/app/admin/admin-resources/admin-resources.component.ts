@@ -61,15 +61,15 @@ export class AdminResourcesComponent implements OnInit {
         this.dataService.updateResource(resource).subscribe(res => {
             console.log(res);
             this.refreshDataTable();
-        })
+        });
     }
 
     editResource(resource): void {
         const dialogRef = this.dialog.open(ResourceDialogComponent, { disableClose: true, data: resource });
 
         dialogRef.afterClosed().subscribe(data => {
-            let oldResource = <Resource>data.old;
-            let newResource = <Resource>data.new;
+            const oldResource = <Resource>data.old;
+            const newResource = <Resource>data.new;
             if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
                 oldResource.dateUntil = new Date();
                 oldResource.active = false;
@@ -80,8 +80,9 @@ export class AdminResourcesComponent implements OnInit {
     }
 
     checkDefined(resource: Resource): boolean {
-        if (resource != null && resource != undefined)
+        if (resource != null && resource !== undefined) {
             return true;
+        }
         return false;
     }
 }

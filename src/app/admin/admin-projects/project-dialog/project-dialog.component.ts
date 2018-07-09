@@ -30,11 +30,7 @@ export class ProjectDialogComponent implements OnInit {
         this.departmentService.getDepartmentList().subscribe((departments: Department[]) => {
             console.log(departments);
             this.departments = departments;
-        })
-    }
-
-    onNoClick(): void {
-        this.dialogRef.close(null);
+        });
     }
 
     createForm(): void {

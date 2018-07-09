@@ -1,74 +1,53 @@
+<button (click)="dialogRef.close()" class="close-btn-dialog">
+  <i class="fas fa-times"></i>
+</button>
 <h2 mat-dialog-title>Resource Form</h2>
-<div id="form-container"
-  mat-dialog-content>
-  <form [formGroup]="inputForm"
-    (ngSubmit)="onSubmit(inputForm.valid)">
+<div id="form-container" mat-dialog-content>
+  <form [formGroup]="inputForm" (ngSubmit)="onSubmit(inputForm.valid)">
 
     <!-- Resource Id -->
     <mat-form-field class="full-width">
-      <input matInput
-        formControlName="resourceId"
-        placeholder="Employee ID"
-        type="number">
+      <input matInput formControlName="resourceId" placeholder="Employee ID" type="number">
       <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
 
     <!-- Name -->
     <mat-form-field class="full-width">
-      <input matInput
-        formControlName="resourceName"
-        placeholder="Name">
+      <input matInput formControlName="resourceName" placeholder="Name">
       <mat-error *ngIf="inputForm.get('resourceName').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field class="full-width">
-      <input matInput
-        formControlName="resourceEmail"
-        placeholder="Email">
+      <input matInput formControlName="resourceEmail" placeholder="Email">
       <mat-error *ngIf="inputForm.get('resourceEmail').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Joining Date -->
     <mat-form-field class="full-width">
-      <input formControlName="resourceErsteJoiningDate"
-        matInput
-        [matDatepicker]="joiningDate"
-        placeholder="Erste Joining Date">
-      <mat-datepicker-toggle matSuffix
-        [for]="joiningDate"></mat-datepicker-toggle>
+      <input formControlName="resourceErsteJoiningDate" matInput [matDatepicker]="joiningDate" placeholder="Erste Joining Date">
+      <mat-datepicker-toggle matSuffix [for]="joiningDate"></mat-datepicker-toggle>
       <mat-datepicker #joiningDate></mat-datepicker>
       <mat-error *ngIf="inputForm.get('resourceErsteJoiningDate').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Certifications -->
     <mat-form-field class="full-width">
-      <input matInput
-        formControlName="resourceCertifications"
-        placeholder="Certifications">
+      <input matInput formControlName="resourceCertifications" placeholder="Certifications">
       <mat-hint>Comma Separated Values</mat-hint>
     </mat-form-field>
 
     <!-- Level Change Id -->
     <mat-form-field class="full-width">
-      <mat-select matInput
-        formControlName="resourceLevelId"
-        placeholder="Level Name">
-        <mat-option [value]="level.id"
-          *ngFor="let level of levels">{{level.name}}</mat-option>
+      <mat-select matInput formControlName="resourceLevelId" placeholder="Level Name">
+        <mat-option [value]="level.id" *ngFor="let level of levels">{{level.name}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('resourceLevelId').hasError('required')">Required</mat-error>
     </mat-form-field>
     <div>
       <br>
-      <button mat-raised-button
-        class="submit-btn"
-        type="submit">Submit</button>&nbsp;
-      <button mat-raised-button
-        color="warn"
-        type="button"
-        (click)="onClose()">Cancel</button>
+      <button mat-raised-button class="submit-btn" type="submit">Submit</button>&nbsp;
     </div>
   </form>
 </div>

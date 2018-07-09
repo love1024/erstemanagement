@@ -1,58 +1,43 @@
+<button (click)="dialogRef.close()" class="close-btn-dialog">
+  <i class="fas fa-times"></i>
+</button>
 <h2 mat-dialog-title>Attendance Form</h2>
-<div id="form-container"
-  mat-dialog-content>
-  <form [formGroup]="inputForm"
-    (ngSubmit)="onSubmit(inputForm.valid)">
+<div id="form-container" mat-dialog-content>
+  <form [formGroup]="inputForm" (ngSubmit)="onSubmit(inputForm.valid)">
 
     <!-- Resource Id -->
     <mat-form-field class="full-width">
-      <mat-select matInput
-        formControlName="resourceId"
-        placeholder="Resource">
-        <mat-option [value]="resource.resourceId"
-          *ngFor="let resource of resources">{{resource.resourceName + " (" +resource.resourceId +")"}}</mat-option>
+      <mat-select matInput formControlName="resourceId" placeholder="Resource">
+        <mat-option [value]="resource.resourceId" *ngFor="let resource of resources">{{resource.resourceName + " (" +resource.resourceId +")"}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Date -->
     <mat-form-field class="full-width">
-      <input formControlName="date"
-        matInput
-        [matDatepicker]="date"
-        placeholder="Date">
-      <mat-datepicker-toggle matSuffix
-        [for]="date"></mat-datepicker-toggle>
+      <input formControlName="date" matInput [matDatepicker]="date" placeholder="Date">
+      <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
       <mat-datepicker #date></mat-datepicker>
       <mat-error *ngIf="inputForm.get('date').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Task Id -->
     <mat-form-field class="full-width">
-      <input matInput
-        formControlName="taskId"
-        placeholder="taskId"
-        type="number">
+      <input matInput formControlName="taskId" placeholder="taskId" type="number">
       <mat-error *ngIf="inputForm.get('taskId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Manager Approval Date -->
     <mat-form-field class="full-width">
-      <input formControlName="approvalDate"
-        matInput
-        [matDatepicker]="approvalDate"
-        placeholder="Manager Approval Date">
-      <mat-datepicker-toggle matSuffix
-        [for]="approvalDate"></mat-datepicker-toggle>
+      <input formControlName="approvalDate" matInput [matDatepicker]="approvalDate" placeholder="Manager Approval Date">
+      <mat-datepicker-toggle matSuffix [for]="approvalDate"></mat-datepicker-toggle>
       <mat-datepicker #approvalDate></mat-datepicker>
       <mat-error *ngIf="inputForm.get('approvalDate').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Hours -->
     <mat-form-field class="full-width">
-      <mat-select matInput
-        formControlName="hours"
-        placeholder="Hours">
+      <mat-select matInput formControlName="hours" placeholder="Hours">
         <mat-option value="8">8 hours</mat-option>
         <mat-option value="4">4 hours</mat-option>
       </mat-select>
@@ -61,18 +46,14 @@
 
     <!-- Remarks -->
     <mat-form-field class="full-width">
-      <input matInput
-        formControlName="remarks"
-        placeholder="Remarks">
+      <input matInput formControlName="remarks" placeholder="Remarks">
       <mat-error *ngIf="inputForm.get('remarks').hasError('required')">Required</mat-error>
     </mat-form-field>
 
 
     <!-- Attendance Type -->
     <mat-form-field class="full-width">
-      <mat-select matInput
-        formControlName="attendanceType"
-        placeholder="Attendance Type">
+      <mat-select matInput formControlName="attendanceType" placeholder="Attendance Type">
         <mat-option value="present">Present</mat-option>
         <mat-option value="leave">Leave</mat-option>
         <mat-option value="holiday">Holiday</mat-option>
@@ -80,34 +61,23 @@
     </mat-form-field>
 
     <!-- Leave Type -->
-    <mat-form-field class="full-width"
-      *ngIf="inputForm.get('attendanceType').value == 'leave'">
-      <mat-select matInput
-        formControlName="leaveType"
-        placeholder="Leave Type">
+    <mat-form-field class="full-width" *ngIf="inputForm.get('attendanceType').value == 'leave'">
+      <mat-select matInput formControlName="leaveType" placeholder="Leave Type">
         <mat-option value="planned">Planned</mat-option>
         <mat-option value="unplanned">Unplanned</mat-option>
       </mat-select>
     </mat-form-field>
 
     <!-- Client Approval Date -->
-    <mat-form-field class="full-width"
-      *ngIf="inputForm.get('leaveType').value == 'planned'">
-      <input formControlName="clientApprovalDate"
-        matInput
-        [matDatepicker]="clientApprovalDate"
-        placeholder="Client Approval Date">
-      <mat-datepicker-toggle matSuffix
-        [for]="clientApprovalDate"></mat-datepicker-toggle>
+    <mat-form-field class="full-width" *ngIf="inputForm.get('leaveType').value == 'planned'">
+      <input formControlName="clientApprovalDate" matInput [matDatepicker]="clientApprovalDate" placeholder="Client Approval Date">
+      <mat-datepicker-toggle matSuffix [for]="clientApprovalDate"></mat-datepicker-toggle>
       <mat-datepicker #clientApprovalDate></mat-datepicker>
     </mat-form-field>
 
     <!-- Leave Type -->
-    <mat-form-field class="full-width"
-      *ngIf="inputForm.get('attendanceType').value == 'present'">
-      <mat-select matInput
-        formControlName="presentType"
-        placeholder="Present Type">
+    <mat-form-field class="full-width" *ngIf="inputForm.get('attendanceType').value == 'present'">
+      <mat-select matInput formControlName="presentType" placeholder="Present Type">
         <mat-option value="offshore">Offshore</mat-option>
         <mat-option value="onshoreLongTerm">Onshore Long Term</mat-option>
         <mat-option value="onshoreShortTerm">Onshore Short Term</mat-option>
@@ -120,19 +90,14 @@
     <!-- Work From Home-->
     <!-- <mat-form-field class="full-width" -->
     <!-- *ngIf="inputForm.get('attendanceType').value == 'present'"> -->
-    <div class="full-width mat-checkbox"
-      *ngIf="inputForm.get('attendanceType').value == 'present'">
-      <mat-checkbox matInput
-        formControlName="wfh">Work From Home</mat-checkbox>
+    <div class="full-width mat-checkbox" *ngIf="inputForm.get('attendanceType').value == 'present'">
+      <mat-checkbox matInput formControlName="wfh">Work From Home</mat-checkbox>
     </div>
     <!-- </mat-form-field> -->
 
     <!-- Leave Type -->
-    <mat-form-field class="full-width"
-      *ngIf="inputForm.get('attendanceType').value == 'holiday'">
-      <mat-select matInput
-        formControlName="holidayType"
-        placeholder="Holiday Type">
+    <mat-form-field class="full-width" *ngIf="inputForm.get('attendanceType').value == 'holiday'">
+      <mat-select matInput formControlName="holidayType" placeholder="Holiday Type">
         <mat-option value="planned">Onshore</mat-option>
         <mat-option value="unplanned">Offshore</mat-option>
       </mat-select>
@@ -140,9 +105,7 @@
 
     <div>
       <br>
-      <button mat-raised-button
-        class="submit-btn"
-        type="submit">Submit</button>
+      <button mat-raised-button class="submit-btn" type="submit">Submit</button>
     </div>
   </form>
 </div>
