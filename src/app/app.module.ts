@@ -11,12 +11,14 @@ import { SharedModule } from './shared/shared.module';
 import { AttdTrackerModule } from './attd-tracker/attd-tracker.module';
 import { SidepanelComponent } from './shared/components/sidepanel/sidepanel.component';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { PublishComponent } from './shared/components/publish/publish.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SidepanelComponent,
-        HeaderComponent
+        HeaderComponent,
+        PublishComponent
     ],
     imports: [
         BrowserModule,
