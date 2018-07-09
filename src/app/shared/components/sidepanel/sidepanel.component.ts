@@ -1,3 +1,4 @@
+import { AppStoreService } from './../../../core/app-store.service';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,12 +9,16 @@ import { Router } from '@angular/router';
 })
 export class SidepanelComponent implements OnInit {
 
-    user = 'Puneet Verma';
-    designation = 'Senior Manager';
+    user: string;
+    designation: string;
 
-    constructor(private renderer: Renderer2, private router: Router) { }
+    constructor(private renderer: Renderer2, private router: Router, private appstore: AppStoreService) { }
 
     ngOnInit() {
+        this.appstore.AppData.subscribe(res => {
+            this.user = res.name;
+            this.designation = res.designation;
+        });
     }
 
     onItemClick(event) {
