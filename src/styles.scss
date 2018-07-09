@@ -59,6 +59,7 @@ a.space-between {
 button.submit-btn {
   background-color: $app-primary-color;
   color: $color-white;
+  font-family: sf;
 }
 
 //===========================================================
@@ -80,4 +81,28 @@ mat-tab-body {
 
 form mat-form-field {
   margin: 10px 0;
+}
+
+.mat-header-row {
+  min-height: 40px;
+}
+
+.mat-row {
+  min-height: 30px;
+}
+
+mat-dialog-container .mat-dialog-title {
+  margin: 0;
+}
+
+mat-dialog-container .mat-form-field,mat-dialog-container mat-checbox{
+  font-size: 11px;
+}
+
+mat-sidenav-content, mat-sidenav-content .mat-table {
+  font-family: sf;
+}
+
+mat-cell i {
+  cursor: pointer;
 }

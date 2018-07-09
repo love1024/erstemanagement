@@ -67,10 +67,21 @@ export class AdminResourcesComponent implements OnInit {
     editResource(resource): void {
         const dialogRef = this.dialog.open(ResourceDialogComponent, { disableClose: true, data: resource });
 
-        dialogRef.afterClosed().subscribe((resource: Resource) => {
-            if (resource !== null && resource !== undefined) {
-                this.updateResource(resource);
+        dialogRef.afterClosed().subscribe(data => {
+            let oldResource = <Resource>data.old;
+            let newResource = <Resource>data.new;
+            if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
+                oldResource.dateUntil = new Date();
+                oldResource.active = false;
+                this.updateResource(oldResource);
+                this.createResource(newResource);
             }
         });
+    }
+
+    checkDefined(resource: Resource): boolean {
+        if (resource != null && resource != undefined)
+            return true;
+        return false;
     }
 }

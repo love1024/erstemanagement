@@ -60,13 +60,14 @@ export class ResourceDialogComponent implements OnInit {
             dateUntil: [resource.dateUntil],
             fipUser: [resource.fipUser],
             fipProg: [resource.fipProg],
-            fipTst: [resource.fiptst]
+            fipTst: [Date.now()]
         });
     }
 
     onSubmit(isValid: boolean) {
         if (isValid) {
-            this.dialogRef.close(this.inputForm.value);
+            let data = { old: this.resource, new: this.inputForm.value };
+            this.dialogRef.close(data);
         }
     }
 

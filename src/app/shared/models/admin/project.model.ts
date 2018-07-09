@@ -1,5 +1,5 @@
 export class Project {
-
+    public _id: String;
     public projectId: Number;
     public projectNameAsPerSow: String;
     public departmentId: Number;
@@ -16,6 +16,7 @@ export class Project {
     public projectCostCenter: Number;
     public projectPONumber: Number;
     public dateFrom: Date;
+    public active: boolean;
     public dateUntil: Date;
     public fipUser: String;
     public fipProg: String;

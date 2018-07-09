@@ -5,6 +5,7 @@
 <section id="table-container">
   <mat-table #table
     [dataSource]="dataSource">
+
     <!-- Project Id -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
@@ -15,6 +16,12 @@
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.projectNameAsPerSow}} </mat-cell>
+    </ng-container>
+
+    <!-- Project Model Name -->
+    <ng-container matColumnDef="modelName">
+      <mat-header-cell *matHeaderCellDef> PROJECT MODEL NAME</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectModelName}} </mat-cell>
     </ng-container>
 
     <!-- Actions Column -->
@@ -30,7 +37,7 @@
           class="space-between"></a>
         <!-- Delete Column -->
         <a class="icon-hover-red"
-          (click)="deleteProject(element.projectId)">
+          (click)="deleteProject(element._id)">
           <i class="fas fa-trash"></i>
         </a>
         <a href=""

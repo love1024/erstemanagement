@@ -20,12 +20,17 @@ export class AttdTrackerDataService {
         return this.http.get<Attendance[]>(this.url);
     }
 
-    public createNewRecord(obj): Observable<any> {
-        return this.http.post<any>(this.url, obj);
+    public createNewAttendace(attendance: Attendance): Observable<any> {
+        return this.http.post<any>(this.url, attendance);
     }
 
-    public deleteRecord(id): Observable<any> {
-        const url = this.url + '/' + id.toString(10);
-        return this.http.delete(this.url);
+    public deleteAttendance(id): Observable<any> {
+        const url = this.url + '/' + id;
+        return this.http.delete(url);
+    }
+
+    public updateAttendance(attendance: Attendance): Observable<any> {
+        const url = this.url + "/" + attendance.attendanceId;
+        return this.http.put(url, attendance);
     }
 }

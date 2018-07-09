@@ -1,75 +1,148 @@
 <h2 mat-dialog-title>Attendance Form</h2>
-<div id="form-container" mat-dialog-content>
-  <form [formGroup]="inputForm" (ngSubmit)="onSubmit(inputForm.valid)">
+<div id="form-container"
+  mat-dialog-content>
+  <form [formGroup]="inputForm"
+    (ngSubmit)="onSubmit(inputForm.valid)">
 
     <!-- Resource Id -->
     <mat-form-field class="full-width">
-      <input matInput formControlName="resourceId" placeholder="Employee ID" type="number">
+      <mat-select matInput
+        formControlName="resourceId"
+        placeholder="Resource">
+        <mat-option [value]="resource.resourceId"
+          *ngFor="let resource of resources">{{resource.resourceName + " (" +resource.resourceId +")"}}</mat-option>
+      </mat-select>
       <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
-    <!-- Start Date -->
+    <!-- Date -->
     <mat-form-field class="full-width">
-      <input formControlName="startDate" matInput [matDatepicker]="startDate" placeholder="Start Date">
-      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-      <mat-datepicker #startDate></mat-datepicker>
-      <mat-error *ngIf="inputForm.get('startDate').hasError('required')">Required</mat-error>
+      <input formControlName="date"
+        matInput
+        [matDatepicker]="date"
+        placeholder="Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="date"></mat-datepicker-toggle>
+      <mat-datepicker #date></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('date').hasError('required')">Required</mat-error>
     </mat-form-field>
 
-    <!-- End Date -->
+    <!-- Task Id -->
     <mat-form-field class="full-width">
-      <input formControlName="endDate" matInput [matDatepicker]="endDate" placeholder="End Date">
-      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-      <mat-datepicker #endDate></mat-datepicker>
-      <mat-error *ngIf="inputForm.get('endDate').hasError('required')">Required</mat-error>
+      <input matInput
+        formControlName="taskId"
+        placeholder="taskId"
+        type="number">
+      <mat-error *ngIf="inputForm.get('taskId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
-    <!-- Attendance Type -->
+    <!-- Manager Approval Date -->
     <mat-form-field class="full-width">
-      <mat-select matInput formControlName="attendanceType" placeholder="Attendance Type">
-        <mat-option value="PH-OnShore">Public Holiday - OnShore</mat-option>
-        <mat-option value="PH-OffShore">Public Holiday - OffShore</mat-option>
-        <mat-option value="P-Onshore">Personal - OnShore</mat-option>
-        <mat-option value="P-OffShore">Personal - OffShore</mat-option>
-        <mat-option value="WFH-OnShore">WFH - OnShore</mat-option>
-        <mat-option value="WFH-OffShore">WFH - OffShore</mat-option>
-      </mat-select>
-      <mat-error *ngIf="inputForm.get('attendanceType').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Leave Type -->
-    <mat-form-field class="full-width">
-      <mat-select matInput formControlName="leaveType" placeholder="Leave Type">
-        <mat-option value="Planned">Planned</mat-option>
-        <mat-option value="Pnplanned">Unplanned</mat-option>
-      </mat-select>
-      <mat-error *ngIf="inputForm.get('leaveType').hasError('required')">Required</mat-error>
-    </mat-form-field>
-
-    <!-- Approval Date -->
-    <mat-form-field class="full-width">
-      <input formControlName="approvalDate" matInput [matDatepicker]="approvalDate" placeholder="Approval Date">
-      <mat-datepicker-toggle matSuffix [for]="approvalDate"></mat-datepicker-toggle>
+      <input formControlName="approvalDate"
+        matInput
+        [matDatepicker]="approvalDate"
+        placeholder="Manager Approval Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="approvalDate"></mat-datepicker-toggle>
       <mat-datepicker #approvalDate></mat-datepicker>
       <mat-error *ngIf="inputForm.get('approvalDate').hasError('required')">Required</mat-error>
     </mat-form-field>
 
-    <!-- Client Approval Date -->
+    <!-- Hours -->
     <mat-form-field class="full-width">
-      <input formControlName="clientApprovalDate" matInput [matDatepicker]="clientApprovalDate" placeholder="Client Approval Date">
-      <mat-datepicker-toggle matSuffix [for]="clientApprovalDate"></mat-datepicker-toggle>
-      <mat-datepicker #clientApprovalDate></mat-datepicker>
-      <mat-error *ngIf="inputForm.get('clientApprovalDate').hasError('required')">Required</mat-error>
+      <mat-select matInput
+        formControlName="hours"
+        placeholder="Hours">
+        <mat-option value="8">8 hours</mat-option>
+        <mat-option value="4">4 hours</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('hours').hasError('required')">Required</mat-error>
     </mat-form-field>
 
-    <!-- Reason -->
+    <!-- Remarks -->
     <mat-form-field class="full-width">
-      <input matInput formControlName="reason" placeholder="Reason">
-      <mat-error *ngIf="inputForm.get('reason').hasError('required')">Required</mat-error>
+      <input matInput
+        formControlName="remarks"
+        placeholder="Remarks">
+      <mat-error *ngIf="inputForm.get('remarks').hasError('required')">Required</mat-error>
     </mat-form-field>
+
+
+    <!-- Attendance Type -->
+    <mat-form-field class="full-width">
+      <mat-select matInput
+        formControlName="attendanceType"
+        placeholder="Attendance Type">
+        <mat-option value="present">Present</mat-option>
+        <mat-option value="leave">Leave</mat-option>
+        <mat-option value="holiday">Holiday</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Leave Type -->
+    <mat-form-field class="full-width"
+      *ngIf="inputForm.get('attendanceType').value == 'leave'">
+      <mat-select matInput
+        formControlName="leaveType"
+        placeholder="Leave Type">
+        <mat-option value="planned">Planned</mat-option>
+        <mat-option value="unplanned">Unplanned</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Client Approval Date -->
+    <mat-form-field class="full-width"
+      *ngIf="inputForm.get('leaveType').value == 'planned'">
+      <input formControlName="clientApprovalDate"
+        matInput
+        [matDatepicker]="clientApprovalDate"
+        placeholder="Client Approval Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="clientApprovalDate"></mat-datepicker-toggle>
+      <mat-datepicker #clientApprovalDate></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Leave Type -->
+    <mat-form-field class="full-width"
+      *ngIf="inputForm.get('attendanceType').value == 'present'">
+      <mat-select matInput
+        formControlName="presentType"
+        placeholder="Present Type">
+        <mat-option value="offshore">Offshore</mat-option>
+        <mat-option value="onshoreLongTerm">Onshore Long Term</mat-option>
+        <mat-option value="onshoreShortTerm">Onshore Short Term</mat-option>
+        <mat-option value="oncallWeekendSupport">Oncall Weekend Support</mat-option>
+        <mat-option value="oncallWeekdaySupport">Oncall Weekday Support</mat-option>
+        <mat-option value="standbySupport">Standby Support</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Work From Home-->
+    <!-- <mat-form-field class="full-width" -->
+    <!-- *ngIf="inputForm.get('attendanceType').value == 'present'"> -->
+    <div class="full-width mat-checkbox"
+      *ngIf="inputForm.get('attendanceType').value == 'present'">
+      <mat-checkbox matInput
+        formControlName="wfh">Work From Home</mat-checkbox>
+    </div>
+    <!-- </mat-form-field> -->
+
+    <!-- Leave Type -->
+    <mat-form-field class="full-width"
+      *ngIf="inputForm.get('attendanceType').value == 'holiday'">
+      <mat-select matInput
+        formControlName="holidayType"
+        placeholder="Holiday Type">
+        <mat-option value="planned">Onshore</mat-option>
+        <mat-option value="unplanned">Offshore</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <div>
       <br>
-      <button mat-raised-button class="submit-btn" type="submit">Submit</button>
+      <button mat-raised-button
+        class="submit-btn"
+        type="submit">Submit</button>
     </div>
   </form>
 </div>

@@ -2,6 +2,7 @@ import { AttendanceDialogComponent } from './../attendance-dialog/attendance-dia
 import { AttdTrackerDataService } from './../shared/attd-tracker-data.service';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
+import { Attendance } from '../../shared/models/attendance/attendance.model';
 
 @Component({
     selector: 'erste-attd-tracker-home',
@@ -11,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class AttdTrackerHomeComponent implements OnInit {
 
     displayedColumns = [
-        'resourceId', 'startDate', 'endDate', 'attendanceType', 'approvalDate', 'leaveType', 'reason', 'clientApprovalDate', 'actions'
+        'resourceId', 'date', 'attendanceType', 'remarks', 'actions'
     ];
     dataSource = new MatTableDataSource();
 
@@ -37,25 +38,42 @@ export class AttdTrackerHomeComponent implements OnInit {
     openDialog() {
         const dialogRef = this.dialog.open(AttendanceDialogComponent);
 
-        dialogRef.afterClosed().subscribe(res => {
-            if (res !== null && res !== undefined) {
-                console.log(res);
-                this.createNewRecord(res);
+        dialogRef.afterClosed().subscribe((attendance: Attendance) => {
+            if (attendance !== null && attendance !== undefined) {
+                console.log(attendance);
+                this.createNewAttendace(attendance);
             }
         });
     }
 
-    createNewRecord(obj): void {
-        this.dataService.createNewRecord(obj).subscribe(res => {
+    createNewAttendace(attendance: Attendance): void {
+        this.dataService.createNewAttendace(attendance).subscribe(res => {
             console.log(res);
             this.refreshDataTable();
         });
     }
 
-    deleteResource(id): void {
-        console.log(id);
-        this.dataService.deleteRecord(id).subscribe(res => {
+    deleteAttendance(id): void {
+        this.dataService.deleteAttendance(id).subscribe(res => {
             this.refreshDataTable();
+        });
+    }
+
+    updateAttendance(attendance: Attendance) {
+        this.dataService.updateAttendance(attendance).subscribe(res => {
+            console.log(res);
+            this.refreshDataTable();
+        })
+    }
+
+    editAttendance(attendance: Attendance) {
+        const dialogRef = this.dialog.open(AttendanceDialogComponent, { data: attendance });
+
+        dialogRef.afterClosed().subscribe((attendance: Attendance) => {
+            if (attendance !== null && attendance !== undefined) {
+                console.log(attendance);
+                this.updateAttendance(attendance);
+            }
         });
     }
 }
