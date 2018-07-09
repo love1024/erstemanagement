@@ -11,6 +11,10 @@ import { Attendance } from '../../shared/models/attendance/attendance.model';
 })
 export class AttdTrackerHomeComponent implements OnInit {
 
+    selectYears = [{ value: 2018 }];
+    selectMonths = [{ value: 1, name: 'January' }, { value: 2, name: 'February' }, { value: 3, name: 'March' }];
+    selectProjects = [];
+
     displayedColumns = [
         'resourceId', 'date', 'attendanceType', 'remarks', 'actions'
     ];

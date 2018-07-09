@@ -1,13 +1,18 @@
 #header {
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 20% auto 10%;
   grid-template-rows: auto;
+  padding-top: 10px;
+}
+
+#header .mat-form-field {
+  margin: 0px 5px;
 }
 
 #header button {
-    justify-self: end;
-    align-self: center;
+  justify-self: end;
+  align-self: center;
 }
 
 .submit-btn {

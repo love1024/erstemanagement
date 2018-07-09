@@ -36,7 +36,7 @@ export class ResourceDialogComponent implements OnInit {
             resourceName: ['', [Validators.required]],
             resourceEmail: ['', [Validators.required]],
             resourceErsteJoiningDate: ['', [Validators.required]],
-            resourceCertifications: ['', [Validators.required]],
+            resourceCertifications: ['', []],
             resourceLevelId: ['', [Validators.required]],
             active: [true],
             dateFrom: [Date.now()],
