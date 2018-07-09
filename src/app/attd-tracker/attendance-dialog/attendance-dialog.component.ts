@@ -29,7 +29,7 @@ export class AttendanceDialogComponent implements OnInit {
         }
         this.resourceService.getResourceList(true).subscribe((resources: Resource[]) => {
             this.resources = resources;
-        })
+        });
     }
 
     onNoClick(): void {
@@ -39,7 +39,7 @@ export class AttendanceDialogComponent implements OnInit {
     createForm(): void {
         this.inputForm = this.formBuilder.group({
             attendanceId: [0, [Validators.required]],
-            resourceId: [, []],
+            resourceId: [, [Validators.required]],
             approvalDate: ['', [Validators.required]],
             taskId: ['', [Validators.required]],
             date: ['', [Validators.required]],
@@ -64,7 +64,7 @@ export class AttendanceDialogComponent implements OnInit {
             approvalDate: [attendance.approvalDate, [Validators.required]],
             taskId: [attendance.taskId, [Validators.required]],
             date: [attendance.date, [Validators.required]],
-            hours: [attendance.hours + "", [Validators.required]],
+            hours: [attendance.hours + '', [Validators.required]],
             remarks: [attendance.remarks, [Validators.required]],
             attendanceType: [attendance.attendanceType],
             presentType: [attendance.presentType],

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class SidepanelComponent implements OnInit {
 
     user = 'Puneet Verma';
+    designation = 'Senior Manager';
 
     constructor(private renderer: Renderer2, private router: Router) { }
 

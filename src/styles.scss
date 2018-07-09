@@ -103,6 +103,10 @@ form mat-form-field {
   min-height: 30px;
 }
 
+mat-sidenav{
+    width: $sidePanel-width;
+}
+
 mat-dialog-container .mat-dialog-title {
   margin: 0;
 }

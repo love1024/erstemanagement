@@ -8,21 +8,20 @@
   padding: 0;
   margin: 0;
   overflow-y: hidden;
-  min-width: $sidePanel-width;
 }
 
 erste-header {
   width: 100%;
 }
 
-.content {
-  padding: 0 2em;
-}
-
 .header-content {
   display: flex;
   flex-direction: row;
   justify-content: left;
+}
+
+.content {
+  padding: 0 2em;
 }
 
 .btn-toggle {

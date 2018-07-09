@@ -87,7 +87,7 @@ export class ProjectDialogComponent implements OnInit {
 
     onSubmit(isValid: boolean) {
         if (isValid) {
-            let data = { old: this.project, new: this.inputForm.value };
+            const data = { old: this.project, new: this.inputForm.value };
             this.dialogRef.close(data);
         }
     }
