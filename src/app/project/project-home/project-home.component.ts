@@ -11,7 +11,7 @@ import { Project } from '../../shared/models/admin/project.model';
 })
 export class ProjectHomeComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'modelName', 'actions'];
+    displayedColumns = ['id', 'name', 'modelName', 'resources', 'actions'];
     dataSource = new MatTableDataSource();
 
     constructor(

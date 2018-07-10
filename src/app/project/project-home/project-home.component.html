@@ -28,6 +28,17 @@
       <mat-cell *matCellDef="let element"> {{element.projectModelName}} </mat-cell>
     </ng-container>
 
+    <!-- Project Model Name -->
+    <ng-container matColumnDef="resources">
+      <mat-header-cell *matHeaderCellDef> Resources</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a class="icon-hover-green"
+          [routerLink]="['/project',element.projectId]">
+          <i class="fas fa-edit"></i>
+        </a>
+      </mat-cell>
+    </ng-container>
+
     <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> ACTION </mat-header-cell>
