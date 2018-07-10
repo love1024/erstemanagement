@@ -1,0 +1,56 @@
+<div id="header">
+  <h2>PROJECTS</h2>
+  <div></div>
+  <button class="submit-btn"
+    mat-raised-button
+    (click)="openDialog()">
+    <i class="fas fa-plus"></i> New Entry </button>
+</div>
+<section id="table-container">
+  <mat-table #table
+    [dataSource]="dataSource">
+
+    <!-- Project Id -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
+    </ng-container>
+
+    <!-- Project Name -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectNameAsPerSow}} </mat-cell>
+    </ng-container>
+
+    <!-- Project Model Name -->
+    <ng-container matColumnDef="modelName">
+      <mat-header-cell *matHeaderCellDef> PROJECT MODEL NAME</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectModelName}} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> ACTION </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <!-- Edit Column -->
+        <a class="icon-hover-green"
+          (click)="editProject(element)">
+          <i class="fas fa-edit"></i>
+        </a>
+        <a href=""
+          class="space-between"></a>
+        <!-- Delete Column -->
+        <a class="icon-hover-red"
+          (click)="deleteProject(element._id)">
+          <i class="fas fa-trash"></i>
+        </a>
+        <a href=""
+          class="space-between"></a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+</section>

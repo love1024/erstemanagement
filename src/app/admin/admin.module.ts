@@ -9,7 +9,6 @@ import { AdminDepartmentsComponent } from './admin-departments/admin-departments
 import { AdminBillingComponent } from './admin-billing/admin-billing.component';
 import { DeptDialogComponent } from './admin-departments/dept-dialog/dept-dialog.component';
 import { ResourceDialogComponent } from './admin-resources/resource-dialog/resource-dialog.component';
-import { ProjectDialogComponent } from './admin-projects/project-dialog/project-dialog.component';
 import { AdminTechnologyComponent } from './admin-technology/admin-technology.component';
 import { TechDialogComponent } from './admin-technology/tech-dialog/tech-dialog.component';
 
@@ -26,9 +25,8 @@ import { TechDialogComponent } from './admin-technology/tech-dialog/tech-dialog.
         AdminBillingComponent,
         DeptDialogComponent,
         ResourceDialogComponent,
-        ProjectDialogComponent,
         AdminTechnologyComponent,
         TechDialogComponent],
-    entryComponents: [DeptDialogComponent, ResourceDialogComponent, ProjectDialogComponent, TechDialogComponent]
+    entryComponents: [DeptDialogComponent, ResourceDialogComponent, TechDialogComponent]
 })
 export class AdminModule { }

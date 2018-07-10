@@ -1,33 +1,39 @@
 <div id="header">
-  <h2>Attendance Tracker</h2>
+  <h2>ATTENDANCE</h2>
   <div class="filters">
-    <mat-form-field>
+    <!-- <mat-form-field>
       <mat-select placeholder="Year">
-        <mat-option *ngFor="let year of selectYears" [value]="year.value">
+        <mat-option *ngFor="let year of selectYears"
+          [value]="year.value">
           {{year.value}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Month">
-        <mat-option *ngFor="let month of selectMonths" [value]="month.value">
+        <mat-option *ngFor="let month of selectMonths"
+          [value]="month.value">
           {{month.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-select placeholder="Project">
-        <mat-option *ngFor="let project of selectProjects" [value]="project.value">
+        <mat-option *ngFor="let project of selectProjects"
+          [value]="project.value">
           {{project.name}}
         </mat-option>
       </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
   </div>
-  <button mat-raised-button class="submit-btn" (click)="openDialog()">
+  <button mat-raised-button
+    class="submit-btn"
+    (click)="openDialog()">
     <i class="fas fa-plus"></i> New Entry </button>
 </div>
 <section id="table-container">
-  <mat-table #table [dataSource]="dataSource">
+  <mat-table #table
+    [dataSource]="dataSource">
     <!-- resourceId -->
     <ng-container matColumnDef="resourceId">
       <mat-header-cell *matHeaderCellDef>EMPLOYEE ID</mat-header-cell>
@@ -58,12 +64,15 @@
       <mat-header-cell *matHeaderCellDef> ACTIONS</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <!-- Edit Column -->
-        <a class="icon-hover-green" (click)="editAttendance(element)">
+        <a class="icon-hover-green"
+          (click)="editAttendance(element)">
           <i class="fas fa-edit"></i>
         </a>
-        <a href="" class="space-between"></a>
+        <a href=""
+          class="space-between"></a>
         <!-- Delete Column -->
-        <a class="icon-hover-red" (click)="deleteAttendance(element.attendanceId)">
+        <a class="icon-hover-red"
+          (click)="deleteAttendance(element.attendanceId)">
           <i class="fas fa-trash"></i>
         </a>
 

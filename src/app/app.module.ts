@@ -12,6 +12,7 @@ import { AttdTrackerModule } from './attd-tracker/attd-tracker.module';
 import { SidepanelComponent } from './shared/components/sidepanel/sidepanel.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { PublishComponent } from './shared/components/publish/publish.component';
+import { ProjectModule } from './project/project.module';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { PublishComponent } from './shared/components/publish/publish.component'
         SharedModule,
         CoreModule,
         AdminModule,
-        AttdTrackerModule
+        AttdTrackerModule,
+        ProjectModule
     ],
     providers: [],
     bootstrap: [AppComponent]
