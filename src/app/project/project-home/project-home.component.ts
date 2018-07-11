@@ -2,7 +2,7 @@ import { ProjectHomeService } from './project-home-data.service';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { ProjectDialogComponent } from './project-dialog/project-dialog.component';
-import { Project } from '../../shared/models/admin/project.model';
+import { Project } from '../../shared/models/project/project.model';
 
 @Component({
     selector: 'erste-projects',

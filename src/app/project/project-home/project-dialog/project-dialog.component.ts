@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Project } from '../../../shared/models/admin/project.model';
+import { Project } from '../../../shared/models/project/project.model';
 import { Department } from '../../../shared/models/admin/department.model';
 import { AdminDeptDataService } from 'src/app/admin/admin-departments/admin-dept-data.service';
 

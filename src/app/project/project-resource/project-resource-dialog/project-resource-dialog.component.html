@@ -1,0 +1,51 @@
+<button (click)="dialogRef.close()"
+  class="close-btn-dialog">
+  <i class="fas fa-times"></i>
+</button>
+<h2 mat-dialog-title>Project Resource Form</h2>
+<div id="form-container"
+  mat-dialog-content>
+  <form [formGroup]="inputForm"
+    (ngSubmit)="onSubmit(inputForm.valid)">
+
+    <!-- resourceId -->
+    <mat-form-field class="full-width">
+      <mat-select matInput
+        formControlName="resourceId"
+        placeholder="Resource">
+        <mat-option [value]="resource.resourceId"
+          *ngFor="let resource of resources">{{resource.resourceName + " (" + resource.resourceId + ") "}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+
+    <!-- projectModelName -->
+    <mat-form-field class="full-width">
+      <input matInput
+        formControlName="billRateId"
+        placeholder="Billing Rate">
+      <mat-error *ngIf="inputForm.get('billRateId').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- projectSitTam -->
+    <mat-form-field class="full-width">
+      <input matInput
+        formControlName="resourceAllocation"
+        placeholder="Resource Allocation"
+        type="number">
+      <mat-error *ngIf="inputForm.get('resourceAllocation').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <div class="full-width mat-checkbox">
+      <mat-checkbox matInput
+        formControlName="resourceIsBillable">Is Billable</mat-checkbox>
+    </div>
+    <div>
+      <br>
+      <button mat-raised-button
+        class="submit-btn"
+        type="submit">Submit</button>
+    </div>
+  </form>
+</div>

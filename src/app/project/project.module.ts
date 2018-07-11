@@ -5,15 +5,13 @@ import { ProjectDialogComponent } from './project-home/project-dialog/project-di
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ProjectResourceComponent } from './project-resource/project-resource.component';
+import { ProjectResourceDialogComponent } from './project-resource/project-resource-dialog/project-resource-dialog.component';
 
 @NgModule({
   imports: [
-    SharedModule,
-    RouterModule.forChild([
-      { path: 'project', component: ProjectHomeComponent }
-    ])
+    SharedModule
   ],
-  declarations: [ProjectHomeComponent, ProjectDialogComponent, ProjectResourceComponent],
-  entryComponents: [ProjectDialogComponent]
+  declarations: [ProjectHomeComponent, ProjectDialogComponent, ProjectResourceComponent, ProjectResourceDialogComponent],
+  entryComponents: [ProjectDialogComponent, ProjectResourceDialogComponent]
 })
 export class ProjectModule { }
