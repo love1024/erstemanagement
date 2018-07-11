@@ -10,6 +10,8 @@ import { DeptDialogComponent } from './admin-departments/dept-dialog/dept-dialog
 import { ResourceDialogComponent } from './admin-resources/resource-dialog/resource-dialog.component';
 import { AdminTechnologyComponent } from './admin-technology/admin-technology.component';
 import { TechDialogComponent } from './admin-technology/tech-dialog/tech-dialog.component';
+import { LevelInfoComponent } from './level-info/level-info.component';
+import { LevelInfoDialogComponent } from './level-info/level-info-dialog/level-info-dialog.component';
 
 @NgModule({
     imports: [
@@ -24,7 +26,9 @@ import { TechDialogComponent } from './admin-technology/tech-dialog/tech-dialog.
         DeptDialogComponent,
         ResourceDialogComponent,
         AdminTechnologyComponent,
-        TechDialogComponent],
-    entryComponents: [DeptDialogComponent, ResourceDialogComponent, TechDialogComponent]
+        TechDialogComponent,
+        LevelInfoComponent,
+        LevelInfoDialogComponent],
+    entryComponents: [DeptDialogComponent, ResourceDialogComponent, TechDialogComponent, LevelInfoDialogComponent]
 })
 export class AdminModule { }

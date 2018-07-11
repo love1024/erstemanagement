@@ -12,7 +12,7 @@
 
     <!-- Project Id -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> PROJECT ID </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
     </ng-container>
 
@@ -30,7 +30,7 @@
 
     <!-- Project Model Name -->
     <ng-container matColumnDef="resources">
-      <mat-header-cell *matHeaderCellDef> Resources</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> RESOURCES</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a class="icon-hover-green"
           [routerLink]="['/project',element.projectId]">

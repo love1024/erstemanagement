@@ -3,7 +3,7 @@ export class Project {
     public projectId: Number;
     public projectNameAsPerSow: String;
     public departmentId: Number;
-    public technologyId: Number;
+    public technologyId: Number[];
     public projectModelName: String;
     public projectSitTAM: String;
     public projectSitTAMEmail: String;

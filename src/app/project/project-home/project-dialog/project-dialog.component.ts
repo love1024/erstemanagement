@@ -4,6 +4,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Project } from '../../../shared/models/project/project.model';
 import { Department } from '../../../shared/models/admin/department.model';
 import { AdminDeptDataService } from 'src/app/admin/admin-departments/admin-dept-data.service';
+import { Technology } from '../../../shared/models/admin/technology.model';
+import { AdminTechDataService } from '../../../admin/admin-technology/admin-tech-data.service';
 
 @Component({
     selector: 'erste-project-dialog',
@@ -14,10 +16,11 @@ export class ProjectDialogComponent implements OnInit {
 
     inputForm: FormGroup;
     departments: Department[];
-    technologies = [{ id: 1, name: 'Java' }, { id: 2, name: 'Angular' }];
+    technologies: Technology[]
 
     constructor(private formBuilder: FormBuilder,
         private departmentService: AdminDeptDataService,
+        private technologyService: AdminTechDataService,
         public dialogRef: MatDialogRef<ProjectDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public project: Project) { }
 
@@ -31,6 +34,11 @@ export class ProjectDialogComponent implements OnInit {
             console.log(departments);
             this.departments = departments;
         });
+        this.technologyService.getTechnologyList().subscribe((technologies: Technology[]) => {
+            console.log(technologies);
+            this.technologies = technologies;
+        })
+
     }
 
     createForm(): void {
@@ -38,7 +46,7 @@ export class ProjectDialogComponent implements OnInit {
             projectId: [''],
             projectNameAsPerSow: ['', [Validators.required]],
             departmentId: ['', [Validators.required]],
-            technologyId: ['', [Validators.required]],
+            technologyId: [[], [Validators.required]],
             projectModelName: ['', [Validators.required]],
             projectSitTAM: ['', [Validators.required]],
             projectSitTAMEmail: ['', [Validators.required]],

@@ -30,9 +30,10 @@
     <mat-form-field class="full-width">
       <mat-select matInput
         formControlName="technologyId"
-        placeholder="Technology">
-        <mat-option [value]="technology.id"
-          *ngFor="let technology of technologies">{{technology.name}}</mat-option>
+        placeholder="Technology"
+        multiple>
+        <mat-option [value]="technology.technologyId"
+          *ngFor="let technology of technologies">{{technology.technologyName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('technologyId').hasError('required')">Required</mat-error>
     </mat-form-field>
