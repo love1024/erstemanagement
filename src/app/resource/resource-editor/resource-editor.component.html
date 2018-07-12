@@ -2,14 +2,12 @@
   class="close-btn-dialog">
   <i class="fas fa-times"></i>
 </button>
-<h2 mat-dialog-title>Resource Form</h2>
-<div id="form-container"
-  mat-dialog-content>
-  <form [formGroup]="inputForm"
-    (ngSubmit)="onSubmit(inputForm.valid)">
+<!-- <h2 mat-dialog-title>New Resource</h2> -->
+<div id="form-container">
+  <form [formGroup]="inputForm">
 
     <!-- Resource Id -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="resourceId"
         placeholder="Employee ID"
@@ -19,7 +17,7 @@
 
 
     <!-- Name -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="resourceName"
         placeholder="Name">
@@ -27,7 +25,7 @@
     </mat-form-field>
 
     <!-- Email -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="resourceEmail"
         placeholder="Email">
@@ -35,7 +33,7 @@
     </mat-form-field>
 
     <!-- Joining Date -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input formControlName="resourceErsteJoiningDate"
         matInput
         [matDatepicker]="joiningDate"
@@ -47,7 +45,7 @@
     </mat-form-field>
 
     <!-- Certifications -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="resourceCertifications"
         placeholder="Certifications">
@@ -55,20 +53,24 @@
     </mat-form-field>
 
     <!-- Level Change Id -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <mat-select matInput
         formControlName="resourceLevelId"
         placeholder="Level Name">
-        <mat-option [value]="level.id"
-          *ngFor="let level of levels">{{level.name}}</mat-option>
+        <mat-option [value]="level.levelId"
+          *ngFor="let level of levels">{{level.levelName}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('resourceLevelId').hasError('required')">Required</mat-error>
     </mat-form-field>
-    <div>
-      <br>
-      <button mat-raised-button
-        class="submit-btn"
-        type="submit">Submit</button>&nbsp;
-    </div>
   </form>
+  <div>
+    <button mat-raised-button
+      class="submit-btn"
+      (click)="onSubmit(inputForm.valid)">Submit</button>&nbsp;
+    <button mat-raised-button
+      *ngIf="resource"
+      color="warn"
+      class="delete-btn"
+      (click)="onDelete()">Delete</button>
+  </div>
 </div>

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class AdminResourcesDataService {
+export class ResourcesDataService {
 
     private url = environment.urls.resourcesApi;
 

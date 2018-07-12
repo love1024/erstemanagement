@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResourceDialogComponent } from './resource-dialog.component';
+import { ResourceDialogComponent } from './resource-editor.component';
 
 describe('ResourceDialogComponent', () => {
   let component: ResourceDialogComponent;
@@ -8,9 +8,9 @@ describe('ResourceDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResourceDialogComponent ]
+      declarations: [ResourceDialogComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

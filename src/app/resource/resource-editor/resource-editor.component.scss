@@ -1,0 +1,29 @@
+#form-container {
+    border: 1px solid lightgrey;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: white;
+}
+
+form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+}
+
+mat-form-field {
+    margin: 8px 10px;
+    justify-content: space-around;
+    font-size: 11px;
+}
+
+.submit-btn {
+    background-color: #519CBC;
+    margin: 0 0 10px 10px;
+}
+
+.delete-btn {
+    margin: 0 0 10px 10px;
+}
