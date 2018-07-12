@@ -1,0 +1,40 @@
+<div id="header">
+  <h2>RESOURCES</h2>
+  <div></div>
+  <button class="submit-btn"
+    mat-raised-button
+    (click)="toggleDialog()">
+    <i class="fas fa-plus"></i> {{buttonMessage}} </button>
+</div>
+<erste-resource-editor [@smoothInOut]="in"
+  [resource]="currentResource"
+  (refresh)="refreshDataTable()"
+  *ngIf="isOpen"></erste-resource-editor>
+<section id="table-container">
+
+  <mat-table #table
+    [dataSource]="dataSource">
+    <!-- Resource ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> EMPLOYEE ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.resourceId}} </mat-cell>
+    </ng-container>
+
+    <!-- Resource name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
+    </ng-container>
+
+    <!-- Resource level Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.resourceEmail}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="onRowClick(row)"></mat-row>
+  </mat-table>
+
+</section>

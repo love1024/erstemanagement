@@ -13,6 +13,7 @@ import { SidepanelComponent } from './shared/components/sidepanel/sidepanel.comp
 import { HeaderComponent } from './shared/components/header/header.component';
 import { PublishComponent } from './shared/components/publish/publish.component';
 import { ProjectModule } from './project/project.module';
+import { ResourceModule } from './resource/resource.module';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { ProjectModule } from './project/project.module';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         BrowserAnimationsModule,
         AppRoutingModule,
@@ -30,7 +32,8 @@ import { ProjectModule } from './project/project.module';
         CoreModule,
         AdminModule,
         AttdTrackerModule,
-        ProjectModule
+        ProjectModule,
+        ResourceModule
     ],
     providers: [],
     bootstrap: [AppComponent]

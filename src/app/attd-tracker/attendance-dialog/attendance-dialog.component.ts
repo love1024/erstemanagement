@@ -2,8 +2,8 @@ import { Component, OnInit, Inject, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Resource } from '../../shared/models/admin/resource.model';
-import { AdminResourcesDataService } from '../../admin/admin-resources/admin-resources-data.service';
 import { Attendance } from '../../shared/models/attendance/attendance.model';
+import { ResourcesDataService } from '../../resource/resources/resources-data.service';
 
 @Component({
     selector: 'erste-attendance-dialog',
@@ -17,7 +17,7 @@ export class AttendanceDialogComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private resourceService: AdminResourcesDataService,
+        private resourceService: ResourcesDataService,
         public dialogRef: MatDialogRef<AttendanceDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public attendance: Attendance) { }
 
