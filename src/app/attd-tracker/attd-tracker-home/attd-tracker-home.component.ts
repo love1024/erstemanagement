@@ -67,7 +67,7 @@ export class AttdTrackerHomeComponent implements OnInit {
         this.dataService.updateAttendance(attendance).subscribe(res => {
             console.log(res);
             this.refreshDataTable();
-        })
+        });
     }
 
     editAttendance(attendance: Attendance) {
@@ -79,5 +79,9 @@ export class AttdTrackerHomeComponent implements OnInit {
                 this.updateAttendance(attendance);
             }
         });
+    }
+
+    onRowClick(data: any): void {
+        console.log(data);
     }
 }

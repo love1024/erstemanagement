@@ -22,12 +22,12 @@ export class AdminTechDataService {
   }
 
   public updateDepartment(technology: Technology): Observable<any> {
-    const url = this.url + "/" + technology.technologyId;
+    const url = this.url + '/' + technology.technologyId;
     return this.http.put<any>(url, technology);
   }
 
   public deleteDepartment(id): Observable<any> {
-    const url = this.url + "/" + id;
+    const url = this.url + '/' + id;
     return this.http.delete<any>(url);
   }
 }

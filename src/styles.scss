@@ -88,27 +88,38 @@ mat-tab-body {
   padding-top: 20px;
 }
 
+// DATA TABLE
 .mat-header-row {
   background-color: $table-header-bg-color;
 }
 
 .mat-header-cell {
-  color: $table-header-font-color;
-  font-weight: 600;
-  font-size: 13px;
+    color: $table-header-font-color;
+    font-weight: 600;
+    font-size: 13px;
 }
 
+.mat-header-row {
+    min-height: 40px;
+}
+
+mat-row {
+    min-height: 30px;
+}
+
+mat-row:hover{
+    background-color: $table-row-hover-color;
+}
+
+mat-cell i {
+  cursor: pointer;
+}
+
+// FORM
 form mat-form-field {
   margin: 10px 0;
 }
 
-.mat-header-row {
-  min-height: 40px;
-}
-
-.mat-row {
-  min-height: 30px;
-}
 
 mat-sidenav{
     width: $sidePanel-width;
@@ -139,6 +150,3 @@ mat-sidenav-content, mat-sidenav-content .mat-table {
   font-family: sf;
 }
 
-mat-cell i {
-  cursor: pointer;
-}
