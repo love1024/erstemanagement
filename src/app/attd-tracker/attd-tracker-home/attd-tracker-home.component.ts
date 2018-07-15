@@ -73,10 +73,10 @@ export class AttdTrackerHomeComponent implements OnInit {
     editAttendance(attendance: Attendance) {
         const dialogRef = this.dialog.open(AttendanceDialogComponent, { data: attendance });
 
-        dialogRef.afterClosed().subscribe((attendance: Attendance) => {
-            if (attendance !== null && attendance !== undefined) {
-                console.log(attendance);
-                this.updateAttendance(attendance);
+        dialogRef.afterClosed().subscribe((res: Attendance) => {
+            if (res !== null && res !== undefined) {
+                console.log(res);
+                this.updateAttendance(res);
             }
         });
     }
