@@ -3,9 +3,15 @@
   <div></div>
   <button class="submit-btn"
     mat-raised-button
-    (click)="openDialog()">
-    <i class="fas fa-plus"></i> New Entry </button>
+    (click)="toggleDialog()">
+    <i class="fas fa-plus"></i> {{ buttonMessage }} </button>
 </div>
+
+<erste-project-editor [@smoothInOut]="in"
+  [project]="null"
+  (refresh)="refreshDataTable()"
+  *ngIf="isOpen"></erste-project-editor>
+
 <section id="table-container">
   <mat-table #table
     [dataSource]="dataSource">
@@ -39,29 +45,20 @@
       </mat-cell>
     </ng-container>
 
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef> ACTION </mat-header-cell>
+    <!-- Expanded Content Column - The detail row is made up of this one column -->
+    <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
-        <!-- Edit Column -->
-        <a class="icon-hover-green"
-          (click)="editProject(element)">
-          <i class="fas fa-edit"></i>
-        </a>
-        <a href=""
-          class="space-between"></a>
-        <!-- Delete Column -->
-        <a class="icon-hover-red"
-          (click)="deleteProject(element._id)">
-          <i class="fas fa-trash"></i>
-        </a>
-        <a href=""
-          class="space-between"></a>
+        <erste-project-editor [project]="element.element"
+          (refresh)="refreshDataTable()"></erste-project-editor>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="onRowClick(row)"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
+      [@detailExpand]="row.element == currentProject ? 'expanded' : 'collapsed'"
+      style="overflow: hidden"></mat-row>
   </mat-table>
 
 </section>

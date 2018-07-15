@@ -1,14 +1,13 @@
-import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { ResourceEditorComponent } from '../resource-editor/resource-editor.component';
-import { Resource } from 'src/app/shared/models/admin/resource.model';
+import { MatTableDataSource, MatDialog } from '@angular/material';
+import { Project } from '../../shared/models/project/project.model';
+import { ProjectService } from '../../core/project/project.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { ResourceService } from '../../core/resource/resource.service';
 
 @Component({
-    selector: 'erste-resources',
-    templateUrl: './resources.component.html',
-    styleUrls: ['./resources.component.scss'],
+    selector: 'erste-projects',
+    templateUrl: './projects.component.html',
+    styleUrls: ['./projects.component.scss'],
     animations: [
         trigger('smoothInOut', [
             state('in', style({ 'height': 'auto' })),
@@ -27,16 +26,16 @@ import { ResourceService } from '../../core/resource/resource.service';
         ]),
     ]
 })
-export class ResourcesComponent implements OnInit {
+export class ProjectComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'email'];
+    displayedColumns = ['id', 'name', 'modelName', 'resources'];
     dataSource = new MatTableDataSource();
     isOpen = false;
-    currentResource: Resource;
+    currentProject: Project;
     buttonMessage = "Entry";
 
     constructor(
-        private dataService: ResourceService,
+        private dataService: ProjectService,
         private renderer: Renderer2
     ) { }
 
@@ -45,7 +44,7 @@ export class ResourcesComponent implements OnInit {
     }
 
     refreshDataTable() {
-        this.dataService.getResourceList(true)
+        this.dataService.getProjects(true)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
@@ -80,14 +79,14 @@ export class ResourcesComponent implements OnInit {
         return row.hasOwnProperty('editor');
     }
 
-    onRowClick(resource: Resource) {
-        if (resource == this.currentResource)
-            this.currentResource = null;
+    onRowClick(project: Project) {
+        if (project == this.currentProject)
+            this.currentProject = null;
         else
-            this.currentResource = resource;
+            this.currentProject = project;
     }
 
-    addDetailColumn(list: Resource[]) {
+    addDetailColumn(list: Project[]) {
         const rows = [];
         list.forEach(element => rows.push(element, { editor: true, element }));
         return rows;

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProjectResource } from '../../../shared/models/project/projectResource.model';
 import { Resource } from '../../../shared/models/admin/resource.model';
 import { ActivatedRoute } from '@angular/router';
-import { ResourcesDataService } from '../../../resource/resources/resources-data.service';
+import { ResourceService } from '../../../core/resource/resource.service';
 
 @Component({
   selector: 'erste-project-resource-dialog',
@@ -19,7 +19,7 @@ export class ProjectResourceDialogComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private resourceSerice: ResourcesDataService,
+    private resourceSerice: ResourceService,
     private route: ActivatedRoute,
     public dialogRef: MatDialogRef<ProjectResourceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }

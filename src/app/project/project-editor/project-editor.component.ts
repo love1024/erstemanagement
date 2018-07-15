@@ -1,18 +1,21 @@
-import { Component, OnInit, Inject, OnChanges } from '@angular/core';
+import { Component, OnInit, Inject, OnChanges, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Project } from '../../../shared/models/project/project.model';
-import { Department } from '../../../shared/models/admin/department.model';
+import { Project } from '../../shared/models/project/project.model';
+import { Department } from '../../shared/models/admin/department.model';
 import { AdminDeptDataService } from 'src/app/admin/admin-departments/admin-dept-data.service';
-import { Technology } from '../../../shared/models/admin/technology.model';
-import { AdminTechDataService } from '../../../admin/admin-technology/admin-tech-data.service';
+import { Technology } from '../../shared/models/admin/technology.model';
+import { AdminTechDataService } from '../../admin/admin-technology/admin-tech-data.service';
+import { ProjectService } from '../../core/project/project.service';
 
 @Component({
-    selector: 'erste-project-dialog',
-    templateUrl: './project-dialog.component.html',
-    styleUrls: ['./project-dialog.component.scss']
+    selector: 'erste-project-editor',
+    templateUrl: './project-editor.component.html',
+    styleUrls: ['./project-editor.component.scss']
 })
-export class ProjectDialogComponent implements OnInit {
+export class ProjectEditorComponent implements OnInit, OnChanges {
+
+    @Input() project: Project;
+    @Output() refresh = new EventEmitter();
 
     inputForm: FormGroup;
     departments: Department[];
@@ -20,11 +23,11 @@ export class ProjectDialogComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
         private departmentService: AdminDeptDataService,
+        private renderer: Renderer2,
         private technologyService: AdminTechDataService,
-        public dialogRef: MatDialogRef<ProjectDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public project: Project) { }
+        private dataService: ProjectService) { }
 
-    ngOnInit() {
+    ngOnChanges() {
         if (this.project !== null) {
             this.createEditForm(this.project);
         } else {
@@ -38,8 +41,15 @@ export class ProjectDialogComponent implements OnInit {
             console.log(technologies);
             this.technologies = technologies;
         })
-
+        if (!this.project) {
+            let container = document.getElementById('form-container');
+            this.renderer.setStyle(container, 'margin-bottom', '50px');
+            this.renderer.setStyle(container, 'border', '1px solid lightgrey')
+            this.renderer.setStyle(container, 'box-shadow', 'none')
+        }
     }
+
+    ngOnInit() { }
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
@@ -95,8 +105,58 @@ export class ProjectDialogComponent implements OnInit {
 
     onSubmit(isValid: boolean) {
         if (isValid) {
-            const data = { old: this.project, new: this.inputForm.value };
-            this.dialogRef.close(data);
+            if (this.project) {
+                this.editProject();
+            } else {
+                this.createProject(this.inputForm.value);
+            }
         }
+    }
+
+    onDelete() {
+        this.deleteProject(this.project._id);
+    }
+
+    editProject() {
+        const oldResource = <Project>this.project
+        const newResource = <Project>this.inputForm.value;
+        if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
+            oldResource.dateUntil = new Date();
+            oldResource.active = false;
+            this.updateProject(oldResource);
+            this.createProject(newResource);
+        }
+    }
+
+    updateProject(project: Project): void {
+        this.dataService.updateProject(project).subscribe(res => {
+            console.log(res);
+            this.emitRefresh()
+        });
+    }
+
+    createProject(project: Project): void {
+        this.dataService.createProject(project).subscribe(res => {
+            console.log(res);
+            this.emitRefresh()
+        });
+    }
+
+    deleteProject(id): void {
+        console.log(id);
+        this.dataService.deleteProject(id).subscribe(res => {
+            this.emitRefresh()
+        });
+    }
+
+    emitRefresh() {
+        this.refresh.emit('');
+    }
+
+    checkDefined(project: Project): boolean {
+        if (project != null && project !== undefined) {
+            return true;
+        }
+        return false;
     }
 }

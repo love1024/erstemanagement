@@ -7,7 +7,7 @@
     <i class="fas fa-plus"></i> {{buttonMessage}} </button>
 </div>
 <erste-resource-editor [@smoothInOut]="in"
-  [resource]="currentResource"
+  [resource]="null"
   (refresh)="refreshDataTable()"
   *ngIf="isOpen"></erste-resource-editor>
 <section id="table-container">
@@ -32,9 +32,20 @@
       <mat-cell *matCellDef="let element"> {{element.resourceEmail}} </mat-cell>
     </ng-container>
 
+    <!-- Expanded Content Column - The detail row is made up of this one column -->
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let element">
+        <erste-resource-editor [resource]="element.element"
+          (refresh)="refreshDataTable()"></erste-resource-editor>
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
       (click)="onRowClick(row)"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
+      [@detailExpand]="row.element == currentResource ? 'expanded' : 'collapsed'"
+      style="overflow: hidden"></mat-row>
   </mat-table>
 
 </section>

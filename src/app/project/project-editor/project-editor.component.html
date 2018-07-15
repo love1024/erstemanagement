@@ -2,13 +2,12 @@
   class="close-btn-dialog">
   <i class="fas fa-times"></i>
 </button>
-<h2 mat-dialog-title>Project Form</h2>
 <div id="form-container"
   mat-dialog-content>
   <form [formGroup]="inputForm"
     (ngSubmit)="onSubmit(inputForm.valid)">
     <!-- projectNameAsPerSow -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectNameAsPerSow"
         placeholder="Name as per SOW">
@@ -16,7 +15,7 @@
     </mat-form-field>
 
     <!-- departmentId -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <mat-select matInput
         formControlName="departmentId"
         placeholder="Department">
@@ -27,7 +26,7 @@
     </mat-form-field>
 
     <!-- projectTechnology -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <mat-select matInput
         formControlName="technologyId"
         placeholder="Technology"
@@ -39,7 +38,7 @@
     </mat-form-field>
 
     <!-- projectModelName -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectModelName"
         placeholder="Project Model Name">
@@ -47,7 +46,7 @@
     </mat-form-field>
 
     <!-- projectSitTam -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectSitTAM"
         placeholder="SIT TAM Name">
@@ -55,7 +54,7 @@
     </mat-form-field>
 
     <!-- projectSitTamEmail -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectSitTAMEmail"
         placeholder="SIT TAM Emailid"
@@ -64,7 +63,7 @@
     </mat-form-field>
 
     <!-- projectSitProjectManager -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectSitProjectManager"
         placeholder="SIT Project Manager Name">
@@ -72,7 +71,7 @@
     </mat-form-field>
 
     <!-- projectSitProjectManagerEmail -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectSitProjectManagerEmail"
         placeholder="SIT Project Manager Email"
@@ -81,7 +80,7 @@
     </mat-form-field>
 
     <!-- projectNagarroTAMId -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectNagarroTAMId"
         placeholder="Nagarro Project TAM ID"
@@ -90,7 +89,7 @@
     </mat-form-field>
 
     <!-- projectNagarroPMId -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectNagarroPMId"
         placeholder="Nagarro PM ID"
@@ -99,7 +98,7 @@
     </mat-form-field>
 
     <!-- projectStartDate -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input formControlName="projectStartDate"
         matInput
         [matDatepicker]="startDate"
@@ -111,7 +110,7 @@
     </mat-form-field>
 
     <!-- projectEndDate -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input formControlName="projectEndDate"
         matInput
         [matDatepicker]="endDate"
@@ -124,7 +123,7 @@
 
 
     <!-- projectCostCenter -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectCostCenter"
         placeholder="Project Cost Center"
@@ -134,17 +133,21 @@
     </mat-form-field>
 
     <!-- Level MSA Name -->
-    <mat-form-field class="full-width">
+    <mat-form-field>
       <input matInput
         formControlName="projectPONumber"
         placeholder="Project PO Number">
       <mat-error *ngIf="inputForm.get('projectPONumber').hasError('required')">Required</mat-error>
     </mat-form-field>
-    <div>
-      <br>
-      <button mat-raised-button
-        class="submit-btn"
-        type="submit">Submit</button>
-    </div>
   </form>
+  <div>
+    <button mat-raised-button
+      class="submit-btn"
+      (click)="onSubmit(inputForm.valid)">Submit</button>&nbsp;
+    <button mat-raised-button
+      *ngIf="project"
+      color="warn"
+      class="delete-btn"
+      (click)="onDelete()">Delete</button>
+  </div>
 </div>

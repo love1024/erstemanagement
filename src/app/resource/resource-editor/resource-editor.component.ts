@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Resource } from '../../shared/models/admin/resource.model';
 import { Level } from '../../shared/models/admin/level.model';
 import { AdminLevelinfoDataService } from '../../admin/level-info/admin-levelinfo-data.service';
-import { ResourcesDataService } from '../resources/resources-data.service';
+import { ResourceService } from '../../core/resource/resource.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
 
     constructor(
         private formBuilder: FormBuilder,
-        private dataService: ResourcesDataService,
+        private dataService: ResourceService,
         private levelService: AdminLevelinfoDataService,
         private renderer: Renderer2) { }
 
@@ -35,9 +35,16 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
         this.levelService.getLevelsList().subscribe((levels: Level[]) => {
             this.levels = levels;
         })
+        if (!this.resource) {
+            let container = document.getElementById('form-container');
+            this.renderer.setStyle(container, 'margin-bottom', '50px');
+            this.renderer.setStyle(container, 'border', '1px solid lightgrey')
+            this.renderer.setStyle(container, 'box-shadow', 'none')
+        }
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
