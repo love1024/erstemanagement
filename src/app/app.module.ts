@@ -14,6 +14,7 @@ import { PublishComponent } from './shared/components/publish/publish.component'
 import { ProjectModule } from './project/project.module';
 import { ResourceModule } from './resource/resource.module';
 import { AttendanceModule } from './attendance/attendance.module';
+import { DepartmentModule } from './department/department.module';
 
 @NgModule({
     declarations: [
@@ -33,7 +34,8 @@ import { AttendanceModule } from './attendance/attendance.module';
         AdminModule,
         AttendanceModule,
         ProjectModule,
-        ResourceModule
+        ResourceModule,
+        DepartmentModule
     ],
     providers: [],
     bootstrap: [AppComponent]

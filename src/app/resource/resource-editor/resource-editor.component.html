@@ -68,7 +68,7 @@
       class="submit-btn"
       (click)="onSubmit(inputForm.valid)">Submit</button>&nbsp;
     <button mat-raised-button
-      *ngIf="resource"
+      *ngIf="!isNew"
       color="warn"
       class="delete-btn"
       (click)="onDelete()">Delete</button>

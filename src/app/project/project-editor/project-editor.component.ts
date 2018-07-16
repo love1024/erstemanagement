@@ -2,10 +2,10 @@ import { Component, OnInit, Inject, OnChanges, Input, Output, EventEmitter, Rend
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Project } from '../../shared/models/project/project.model';
 import { Department } from '../../shared/models/admin/department.model';
-import { AdminDeptDataService } from 'src/app/admin/admin-departments/admin-dept-data.service';
 import { Technology } from '../../shared/models/admin/technology.model';
 import { AdminTechDataService } from '../../admin/admin-technology/admin-tech-data.service';
 import { ProjectService } from '../../core/project/project.service';
+import { DepartmentService } from '../../core/department/department.service';
 
 @Component({
     selector: 'erste-project-editor',
@@ -23,7 +23,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
     technologies: Technology[]
 
     constructor(private formBuilder: FormBuilder,
-        private departmentService: AdminDeptDataService,
+        private departmentService: DepartmentService,
         private renderer: Renderer2,
         private technologyService: AdminTechDataService,
         private dataService: ProjectService) { }
