@@ -1,28 +1,34 @@
-import { Component, OnInit, Inject, OnChanges } from '@angular/core';
+import { Component, OnInit, Inject, OnChanges, Input, Output, EventEmitter, Renderer2, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Resource } from '../../shared/models/admin/resource.model';
 import { Attendance } from '../../shared/models/attendance/attendance.model';
+import { AttendanceService } from '../../core/attendance/attendance.service';
+import { Resource } from '../../shared/models/admin/resource.model';
 import { ResourceService } from '../../core/resource/resource.service';
 
 @Component({
-    selector: 'erste-attendance-dialog',
-    templateUrl: './attendance-dialog.component.html',
-    styleUrls: ['./attendance-dialog.component.scss']
+    selector: 'erste-attendance-editor',
+    templateUrl: './attendance-editor.component.html',
+    styleUrls: ['./attendance-editor.component.scss']
 })
-export class AttendanceDialogComponent implements OnInit {
+export class AttendanceEditorComponent implements OnInit, OnChanges {
+
+    @Input() attendance: Attendance;
+    @Input() isNew: Boolean;
+    @Output() refresh = new EventEmitter();
 
     inputForm: FormGroup;
     resources: Resource[];
 
     constructor(
         private formBuilder: FormBuilder,
+        private dataService: AttendanceService,
         private resourceService: ResourceService,
-        public dialogRef: MatDialogRef<AttendanceDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public attendance: Attendance) { }
+        private renderer: Renderer2) { }
 
-    ngOnInit() {
-        if (this.attendance !== null) {
+    ngOnChanges() {
+        console.log(!this.attendance);
+        if (this.attendance) {
             this.createEditForm(this.attendance);
         } else {
             this.createForm();
@@ -30,11 +36,15 @@ export class AttendanceDialogComponent implements OnInit {
         this.resourceService.getResourceList(true).subscribe((resources: Resource[]) => {
             this.resources = resources;
         });
+        if (this.isNew) {
+            let container = document.getElementById('form-container');
+            this.renderer.setStyle(container, 'margin-bottom', '50px');
+            this.renderer.setStyle(container, 'border', '1px solid lightgrey')
+            this.renderer.setStyle(container, 'box-shadow', 'none')
+        }
     }
 
-    onNoClick(): void {
-        this.dialogRef.close(null);
-    }
+    ngOnInit() { }
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
@@ -80,7 +90,53 @@ export class AttendanceDialogComponent implements OnInit {
 
     onSubmit(isValid: boolean) {
         if (isValid) {
-            this.dialogRef.close(this.inputForm.value);
+            if (this.attendance) {
+                this.editAttendance();
+            } else {
+                this.createAttendance(this.inputForm.value);
+            }
         }
+    }
+
+    onDelete() {
+        this.deleteAttendance(this.attendance.attendanceId);
+    }
+
+    editAttendance() {
+        if (this.checkDefined(this.inputForm.value)) {
+            this.updateAttendance(this.inputForm.value);
+        }
+    }
+
+    updateAttendance(attendance: Attendance): void {
+        this.dataService.updateAttendance(attendance).subscribe(res => {
+            console.log(res);
+            this.emitRefresh()
+        });
+    }
+
+    createAttendance(attendance: Attendance): void {
+        this.dataService.createAttendance(attendance).subscribe(res => {
+            console.log(res);
+            this.emitRefresh()
+        });
+    }
+
+    deleteAttendance(id): void {
+        console.log(id);
+        this.dataService.deleteAttendance(id).subscribe(res => {
+            this.emitRefresh()
+        });
+    }
+
+    emitRefresh() {
+        this.refresh.emit('');
+    }
+
+    checkDefined(attendance: Attendance): boolean {
+        if (attendance != null && attendance !== undefined) {
+            return true;
+        }
+        return false;
     }
 }

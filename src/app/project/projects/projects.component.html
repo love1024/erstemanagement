@@ -8,7 +8,7 @@
 </div>
 
 <erste-project-editor [@smoothInOut]="in"
-  [project]="null"
+  [isNew]="true"
   (refresh)="refreshDataTable()"
   *ngIf="isOpen"></erste-project-editor>
 
@@ -48,7 +48,7 @@
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
-        <erste-project-editor [project]="element.element"
+        <erste-project-editor [project]="currentProject"
           (refresh)="refreshDataTable()"></erste-project-editor>
       </mat-cell>
     </ng-container>

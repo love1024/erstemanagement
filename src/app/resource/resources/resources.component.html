@@ -7,7 +7,7 @@
     <i class="fas fa-plus"></i> {{buttonMessage}} </button>
 </div>
 <erste-resource-editor [@smoothInOut]="in"
-  [resource]="null"
+  [isNew]="true"
   (refresh)="refreshDataTable()"
   *ngIf="isOpen"></erste-resource-editor>
 <section id="table-container">
@@ -35,7 +35,7 @@
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
-        <erste-resource-editor [resource]="element.element"
+        <erste-resource-editor [resource]="currentResource"
           (refresh)="refreshDataTable()"></erste-resource-editor>
       </mat-cell>
     </ng-container>

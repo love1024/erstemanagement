@@ -15,6 +15,7 @@ import { ProjectService } from '../../core/project/project.service';
 export class ProjectEditorComponent implements OnInit, OnChanges {
 
     @Input() project: Project;
+    @Input() isNew: Boolean;
     @Output() refresh = new EventEmitter();
 
     inputForm: FormGroup;
@@ -28,7 +29,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
         private dataService: ProjectService) { }
 
     ngOnChanges() {
-        if (this.project !== null) {
+        if (this.project) {
             this.createEditForm(this.project);
         } else {
             this.createForm();
@@ -41,7 +42,8 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
             console.log(technologies);
             this.technologies = technologies;
         })
-        if (!this.project) {
+
+        if (this.isNew) {
             let container = document.getElementById('form-container');
             this.renderer.setStyle(container, 'margin-bottom', '50px');
             this.renderer.setStyle(container, 'border', '1px solid lightgrey')

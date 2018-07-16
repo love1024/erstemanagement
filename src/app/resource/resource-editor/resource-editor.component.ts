@@ -17,6 +17,7 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
     levels: Level[];
 
     @Input() resource: Resource;
+    @Input() isNew: Boolean;
     @Output() refresh = new EventEmitter();
 
     constructor(
@@ -35,7 +36,7 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
         this.levelService.getLevelsList().subscribe((levels: Level[]) => {
             this.levels = levels;
         })
-        if (!this.resource) {
+        if (this.isNew) {
             let container = document.getElementById('form-container');
             this.renderer.setStyle(container, 'margin-bottom', '50px');
             this.renderer.setStyle(container, 'border', '1px solid lightgrey')
