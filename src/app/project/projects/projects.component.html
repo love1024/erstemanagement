@@ -36,11 +36,11 @@
 
     <!-- Project Model Name -->
     <ng-container matColumnDef="resources">
-      <mat-header-cell *matHeaderCellDef> RESOURCES</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> VIEW RESOURCES</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a class="icon-hover-green"
           [routerLink]="['/project',element.projectId]">
-          <i class="fas fa-edit"></i>
+          <i class="fas fa-window-restore"></i>
         </a>
       </mat-cell>
     </ng-container>

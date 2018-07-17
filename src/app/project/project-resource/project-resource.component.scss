@@ -1,9 +1,16 @@
 #header {
   display: grid;
   width: 100%;
-  grid-template-columns: 40% auto 10%;
+  grid-template-columns: 40% auto 20%;
   grid-template-rows: auto;
   padding-top: 10px;
+  div:last-child {
+    display: flex;
+
+    button:first-child {
+      background-color: darkgray;
+    }
+  }
 }
 
 #header .mat-form-field {
@@ -13,8 +20,20 @@
 #header button {
   justify-self: end;
   align-self: center;
+  margin-right: 10px;
 }
 
+#table-container {
+  transition: all 1s;
+  margin-bottom: 200px;
+}
+
+erste-project-resource-editor {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  background-color: #F2F2F2;
+}
 
 .submit-btn {
   position: relative;
@@ -24,4 +43,17 @@
 
 a{
   color: black;
+}
+
+i {
+  transition: transform 0.5s;
+}
+
+.mat-column-expandedDetail{
+  padding: 0;
+}
+
+.mat-column-expandedDetail #form-container{
+  margin-bottom: 0;
+  border: 0;
 }

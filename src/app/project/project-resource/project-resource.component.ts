@@ -1,24 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { ProjectResourceDataService } from './project-resource-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectResourceDialogComponent } from './project-resource-dialog/project-resource-dialog.component';
 import { ProjectResource } from '../../shared/models/project/projectResource.model';
+import { ProjectResourceService } from '../../core/project/project-resource.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'erste-project-resource',
   templateUrl: './project-resource.component.html',
-  styleUrls: ['./project-resource.component.scss']
+  styleUrls: ['./project-resource.component.scss'].,
+  animations: [
+    trigger('smoothInOut', [
+      state('in', style({ 'height': 'auto' })),
+      transition('void => *', [
+        style({ 'height': '0' }),
+        animate(200)
+      ]),
+      transition('* => void', [
+        animate(200, style({ 'height': '0' }))
+      ])
+    ]),
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
+      state('expanded', style({ height: '*', visibility: 'visible' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class ProjectResourceComponent implements OnInit {
 
-  displayedColumns = ['projectId', 'resourceId', 'resourceAllocation', 'actions'];
+  displayedColumns = ['projectId', 'resourceId', 'resourceAllocation'];
   dataSource = new MatTableDataSource();
   projectId: String;
+  isOpen = false;
+  currentProjectResource: ProjectResource;
+  buttonMessage = "Entry";
 
   constructor(
-    private dataService: ProjectResourceDataService,
-    private dialog: MatDialog,
+    private dataService: ProjectResourceService,
+    private renderer: Renderer2,
     private route: ActivatedRoute
   ) { }
 
@@ -32,62 +52,47 @@ export class ProjectResourceComponent implements OnInit {
       .subscribe(
         list => {
           console.log(list);
-          this.dataSource = new MatTableDataSource(list);
+          this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
         }
       );
+    this.closeDialog();
+  }
+  toggleDialog() {
+    if (this.isOpen) {
+      this.closeDialog();
+    } else {
+      this.openDialog();
+    }
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(ProjectResourceDialogComponent, { data: { projectId: this.projectId } });
-
-    dialogRef.afterClosed().subscribe(data => {
-      if (this.checkDefined(data) && this.checkDefined(data.new)) {
-        this.createProject(data.new);
-      }
-    });
+    let icon = document.getElementsByClassName('fa-plus')[0];
+    this.buttonMessage = 'Close';
+    this.renderer.setStyle(icon, 'transform', 'rotate(45deg)')
+    this.isOpen = true;
   }
 
-  createProject(projectResource: ProjectResource): void {
-    this.dataService.createProjectResource(projectResource).subscribe(res => {
-      console.log(res);
-      this.refreshDataTable();
-    });
+  closeDialog() {
+    let icon = document.getElementsByClassName('fa-plus')[0];
+    this.buttonMessage = 'Entry';
+    this.renderer.setStyle(icon, 'transform', 'rotate(0deg)')
+    this.isOpen = false;
   }
 
-  editProjectResource(projectResource: ProjectResource): void {
-    const dialogRef = this.dialog.open(ProjectResourceDialogComponent, { data: { projectResource: projectResource, projectId: this.projectId } });
-
-    dialogRef.afterClosed().subscribe(data => {
-      if (!data) { }
-      let oldProjectResource = <ProjectResource>data.old;
-      let newProjectResource = <ProjectResource>data.new;
-      if (this.checkDefined(oldProjectResource) && this.checkDefined(newProjectResource)) {
-        oldProjectResource.dateUntil = new Date();
-        oldProjectResource.active = false;
-        this.updateProject(oldProjectResource);
-        this.createProject(newProjectResource);
-      }
-    });
+  isExpansionDetailRow(i: number, row: Object) {
+    return row.hasOwnProperty('editor');
   }
 
-  updateProject(projectResource: ProjectResource): void {
-    this.dataService.updateProjectResource(projectResource).subscribe(res => {
-      console.log(res);
-      this.refreshDataTable();
-    })
+  onRowClick(projectResource: ProjectResource) {
+    if (projectResource == this.currentProjectResource)
+      this.currentProjectResource = null;
+    else
+      this.currentProjectResource = projectResource;
   }
 
-  deleteProjectResource(id): void {
-    console.log(id);
-    this.dataService.deleteProjectResource(id).subscribe(res => {
-      this.refreshDataTable();
-    });
+  addDetailColumn(list: ProjectResource[]) {
+    const rows = [];
+    list.forEach(element => rows.push(element, { editor: true, element }));
+    return rows;
   }
-
-  checkDefined(project: ProjectResource): boolean {
-    if (project != null && project != undefined)
-      return true;
-    return false;
-  }
-
 }

@@ -34,7 +34,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
         } else {
             this.createForm();
         }
-        this.departmentService.getDepartmentList().subscribe((departments: Department[]) => {
+        this.departmentService.getDepartmentList(true).subscribe((departments: Department[]) => {
             console.log(departments);
             this.departments = departments;
         });

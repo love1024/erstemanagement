@@ -1,11 +1,26 @@
 <div id="header">
   <h2>PROJECT RESOURCES</h2>
-  <div></div>
-  <button class="submit-btn"
-    mat-raised-button
-    (click)="openDialog()">
-    <i class="fas fa-plus"></i> New Entry </button>
+  <div>
+  </div>
+  <div>
+    <button class="submit-btn"
+      mat-raised-button
+      color="primary"
+      routerLink="/project">
+      <i class="fas fa-arrow-left"></i> Back </button>
+    <button class="submit-btn"
+      mat-raised-button
+      (click)="toggleDialog()">
+      <i class="fas fa-plus"></i> {{buttonMessage}} </button>
+  </div>
 </div>
+
+<erste-project-resource-editor [@smoothInOut]="in"
+  [isNew]="true"
+  [projectId]="projectId"
+  (refresh)="refreshDataTable()"
+  *ngIf="isOpen"></erste-project-resource-editor>
+
 <section id="table-container">
   <mat-table #table
     [dataSource]="dataSource">
@@ -28,30 +43,21 @@
       <mat-cell *matCellDef="let element"> {{element.resourceAllocation}} </mat-cell>
     </ng-container>
 
-
-    <!-- Actions Column -->
-    <ng-container matColumnDef="actions">
-      <mat-header-cell *matHeaderCellDef> ACTION </mat-header-cell>
+    <!-- Expanded Content Column - The detail row is made up of this one column -->
+    <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
-        <!-- Edit Column -->
-        <a class="icon-hover-green"
-          (click)="editProjectResource(element)">
-          <i class="fas fa-edit"></i>
-        </a>
-        <a href=""
-          class="space-between"></a>
-        <!-- Delete Column -->
-        <a class="icon-hover-red"
-          (click)="deleteProjectResource(element._id)">
-          <i class="fas fa-trash"></i>
-        </a>
-        <a href=""
-          class="space-between"></a>
+        <erste-project-resource-editor [projectResource]="currentProjectResource"
+          [projectId]="projectId"
+          (refresh)="refreshDataTable()"></erste-project-resource-editor>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+      (click)="onRowClick(row)"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
+      [@detailExpand]="row.element == currentProjectResource ? 'expanded' : 'collapsed'"
+      style="overflow: hidden"></mat-row>
   </mat-table>
 
 </section>

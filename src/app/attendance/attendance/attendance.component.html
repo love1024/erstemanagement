@@ -41,6 +41,7 @@
   <mat-table #table
     [dataSource]="dataSource">
     <!-- resourceId -->
+
     <ng-container matColumnDef="resourceId">
       <mat-header-cell *matHeaderCellDef>EMPLOYEE ID</mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.resourceId}} </mat-cell>

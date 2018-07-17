@@ -7,7 +7,7 @@ import { ProjectResource } from '../../shared/models/project/projectResource.mod
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectResourceDataService {
+export class ProjectResourceService {
 
   private url = environment.urls.projectResourceApi;
 
