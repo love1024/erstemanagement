@@ -15,6 +15,7 @@ import { ProjectModule } from './project/project.module';
 import { ResourceModule } from './resource/resource.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { DepartmentModule } from './department/department.module';
+import { ProjectResourceModule } from './project-resource/project-resource.module';
 
 @NgModule({
     declarations: [
@@ -35,7 +36,8 @@ import { DepartmentModule } from './department/department.module';
         AttendanceModule,
         ProjectModule,
         ResourceModule,
-        DepartmentModule
+        DepartmentModule,
+        ProjectResourceModule
     ],
     providers: [],
     bootstrap: [AppComponent]

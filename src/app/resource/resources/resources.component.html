@@ -32,6 +32,18 @@
       <mat-cell *matCellDef="let element"> {{element.resourceEmail}} </mat-cell>
     </ng-container>
 
+    <!-- View Allocated Projects -->
+    <ng-container matColumnDef="allcated_projects">
+      <mat-header-cell *matHeaderCellDef> VIEW ALLOCATED PROJECTS</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <a class="icon-hover-green"
+          [routerLink]="['/projectresource',element.resourceId]"
+          [queryParams]="{from:'resource'}">
+          <i class="fas fa-window-restore"></i>
+        </a>
+      </mat-cell>
+    </ng-container>
+
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">

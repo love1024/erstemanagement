@@ -1,12 +1,12 @@
 <div id="header">
-  <h2>PROJECT RESOURCES</h2>
+  <h2>{{header}}</h2>
   <div>
   </div>
   <div>
     <button class="submit-btn"
       mat-raised-button
-      color="primary"
-      routerLink="/project">
+      color="warn"
+      [routerLink]="'/' + currentPath">
       <i class="fas fa-arrow-left"></i> Back </button>
     <button class="submit-btn"
       mat-raised-button
@@ -17,7 +17,8 @@
 
 <erste-project-resource-editor [@smoothInOut]="in"
   [isNew]="true"
-  [projectId]="projectId"
+  [id]="id"
+  [fromProject]="currentPath == 'project'"
   (refresh)="refreshDataTable()"
   *ngIf="isOpen"></erste-project-resource-editor>
 
@@ -37,17 +38,24 @@
       <mat-cell *matCellDef="let element"> {{element.resourceId}} </mat-cell>
     </ng-container>
 
-    <!-- Project Name -->
+    <!-- Resource Allocation % -->
     <ng-container matColumnDef="resourceAllocation">
       <mat-header-cell *matHeaderCellDef> RESOURCE ALLOCATION (%) </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.resourceAllocation}} </mat-cell>
+    </ng-container>
+
+    <!-- Resource Billable information -->
+    <ng-container matColumnDef="resourceIsBillable">
+      <mat-header-cell *matHeaderCellDef> BILLABLE </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.resourceIsBillable}} </mat-cell>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
         <erste-project-resource-editor [projectResource]="currentProjectResource"
-          [projectId]="projectId"
+          [id]="id"
+          [fromProject]="currentPath == 'project'"
           (refresh)="refreshDataTable()"></erste-project-resource-editor>
       </mat-cell>
     </ng-container>

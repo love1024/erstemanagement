@@ -1,14 +1,19 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { MatTableDataSource, MatDialog } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectResource } from '../../shared/models/project/projectResource.model';
 import { ProjectResourceService } from '../../core/project/project-resource.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 
+const paths = {
+  project: "project",
+  resource: "resource"
+}
+
 @Component({
   selector: 'erste-project-resource',
   templateUrl: './project-resource.component.html',
-  styleUrls: ['./project-resource.component.scss'].,
+  styleUrls: ['./project-resource.component.scss'],
   animations: [
     trigger('smoothInOut', [
       state('in', style({ 'height': 'auto' })),
@@ -29,34 +34,59 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 })
 export class ProjectResourceComponent implements OnInit {
 
-  displayedColumns = ['projectId', 'resourceId', 'resourceAllocation'];
+  displayedColumns: String[];
   dataSource = new MatTableDataSource();
-  projectId: String;
-  isOpen = false;
   currentProjectResource: ProjectResource;
+  id: String;
+  currentPath: String;
+  header: String;
+  isOpen = false;
   buttonMessage = "Entry";
 
   constructor(
     private dataService: ProjectResourceService,
     private renderer: Renderer2,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.projectId = this.route.snapshot.paramMap.get("id");
+    this.id = this.route.snapshot.paramMap.get("id");
+    this.route.queryParams.subscribe(param => {
+      this.currentPath = param.from;
+      if (this.currentPath == paths.project) {
+        this.displayedColumns = ['resourceId', 'resourceAllocation', 'resourceIsBillable'];
+        this.header = "PROJECT RESOURCES";
+      }
+      else {
+        this.displayedColumns = ['projectId', 'resourceAllocation', 'resourceIsBillable'];
+        this.header = "ALLOCATED PROJECTS";
+      }
+    })
     this.refreshDataTable();
   }
 
   refreshDataTable() {
-    this.dataService.getProjectResource(true, this.projectId)
-      .subscribe(
-        list => {
-          console.log(list);
-          this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
-        }
-      );
+    if (this.currentPath == paths.project) {
+      this.dataService.getResourcesByProjectId(true, this.id)
+        .subscribe(
+          list => {
+            console.log(list);
+            this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+          }
+        );
+    } else {
+      this.dataService.getProjectsByResourceId(true, this.id)
+        .subscribe(
+          list => {
+            console.log(list);
+            this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+          }
+        );
+    }
     this.closeDialog();
   }
+
   toggleDialog() {
     if (this.isOpen) {
       this.closeDialog();

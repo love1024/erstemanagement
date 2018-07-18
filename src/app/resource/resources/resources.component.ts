@@ -29,7 +29,7 @@ import { ResourceService } from '../../core/resource/resource.service';
 })
 export class ResourcesComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'email'];
+    displayedColumns = ['id', 'name', 'email', 'allcated_projects'];
     dataSource = new MatTableDataSource();
     isOpen = false;
     currentResource: Resource;

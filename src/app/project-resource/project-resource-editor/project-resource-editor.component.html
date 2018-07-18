@@ -4,7 +4,7 @@
     (ngSubmit)="onSubmit(inputForm.valid)">
 
     <!-- resourceId -->
-    <mat-form-field>
+    <mat-form-field *ngIf="fromProject">
       <mat-select matInput
         formControlName="resourceId"
         placeholder="Resource">
@@ -12,6 +12,17 @@
           *ngFor="let resource of resources">{{resource.resourceName + " (" + resource.resourceId + ") "}}</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('resourceId').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- projectId -->
+    <mat-form-field *ngIf="!fromProject">
+      <mat-select matInput
+        formControlName="projectId"
+        placeholder="Project">
+        <mat-option [value]="project.projectId"
+          *ngFor="let project of projects">{{project.projectNameAsPerSow}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('projectId').hasError('required')">Required</mat-error>
     </mat-form-field>
 
 
@@ -42,7 +53,7 @@
       class="submit-btn"
       (click)="onSubmit(inputForm.valid)">Submit</button>&nbsp;
     <button mat-raised-button
-      *ngIf="project"
+      *ngIf="!isNew"
       color="warn"
       class="delete-btn"
       (click)="onDelete()">Delete</button>

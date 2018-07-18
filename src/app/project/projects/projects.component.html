@@ -39,7 +39,8 @@
       <mat-header-cell *matHeaderCellDef> VIEW RESOURCES</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <a class="icon-hover-green"
-          [routerLink]="['/project',element.projectId]">
+          [routerLink]="['/projectresource',element.projectId]"
+          [queryParams]="{from:'project'}">
           <i class="fas fa-window-restore"></i>
         </a>
       </mat-cell>

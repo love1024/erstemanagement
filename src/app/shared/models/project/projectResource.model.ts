@@ -12,4 +12,5 @@ export class ProjectResource {
   public fipUser: String;
   public fipProg: String;
   public fipTst: Date;
+  public projectName: String;
 }

@@ -6,6 +6,8 @@ import { Resource } from '../../shared/models/admin/resource.model';
 import { ActivatedRoute } from '@angular/router';
 import { ResourceService } from '../../core/resource/resource.service';
 import { ProjectResourceService } from '../../core/project/project-resource.service';
+import { Project } from '../../shared/models/project/project.model';
+import { ProjectService } from '../../core/project/project.service';
 
 @Component({
   selector: 'erste-project-resource-editor',
@@ -16,14 +18,17 @@ export class ProjectResourceEditorComponent implements OnInit, OnChanges {
 
   @Input() projectResource: ProjectResource;
   @Input() isNew: Boolean;
-  @Input() projectId: Number;
+  @Input() id: Number;
+  @Input() fromProject: Boolean;
   @Output() refresh = new EventEmitter();
   inputForm: FormGroup;
   resources: Resource[];
+  projects: Project[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private resourceSerice: ResourceService,
+    private resourceService: ResourceService,
+    private projectService: ProjectService,
     private dataService: ProjectResourceService,
     private renderer: Renderer2,
     private route: ActivatedRoute) { }
@@ -34,9 +39,6 @@ export class ProjectResourceEditorComponent implements OnInit, OnChanges {
     } else {
       this.createForm();
     }
-    this.resourceSerice.getResourceList(true).subscribe((resources: Resource[]) => {
-      this.resources = resources;
-    })
     if (this.isNew) {
       let container = document.getElementById('form-container');
       this.renderer.setStyle(container, 'margin-bottom', '50px');
@@ -45,12 +47,19 @@ export class ProjectResourceEditorComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.resourceService.getResourceList(true).subscribe((resources: Resource[]) => {
+      this.resources = resources;
+    })
+    this.projectService.getProjects(true).subscribe((projects: Project[]) => {
+      this.projects = projects;
+    })
+  }
 
   createForm(): void {
     this.inputForm = this.formBuilder.group({
       projectResourceId: [''],
-      projectId: [this.projectId, [Validators.required]],
+      projectId: [this.id, [Validators.required]],
       resourceId: ['', [Validators.required]],
       billRateId: ['', [Validators.required]],
       resourceAllocation: ['', [Validators.required]],

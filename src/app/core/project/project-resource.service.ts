@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProjectResource } from '../../shared/models/project/projectResource.model';
+import { AllocatedProjects } from '../../shared/models/resource/allocatedProjects';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,13 @@ export class ProjectResourceService {
 
   constructor(private http: HttpClient) { }
 
-  getProjectResource(active, id): Observable<ProjectResource[]> {
-    const url = this.url + "/" + id + "?active=" + active;;
+  getResourcesByProjectId(active, id): Observable<ProjectResource[]> {
+    const url = this.url + "/project/" + id + "?active=" + active;
+    return this.http.get<ProjectResource[]>(url);
+  }
+
+  getProjectsByResourceId(active, id): Observable<ProjectResource[]> {
+    const url = this.url + "/resource/" + id + "?active=" + active;
     return this.http.get<ProjectResource[]>(url);
   }
 
