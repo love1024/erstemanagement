@@ -67,5 +67,8 @@
       [@detailExpand]="row.element == currentProjectResource ? 'expanded' : 'collapsed'"
       style="overflow: hidden"></mat-row>
   </mat-table>
-
+  <div class="loader"
+    *ngIf="isLoading">
+    <div class="swirl"></div>
+  </div>
 </section>

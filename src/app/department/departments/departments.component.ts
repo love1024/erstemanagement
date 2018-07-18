@@ -30,9 +30,10 @@ export class DepartmentsComponent implements OnInit {
 
     displayedColumns = ['name', 'hod', 'hod_email'];
     dataSource = new MatTableDataSource();
-    isOpen = false;
     currentDepartment: Department;
     buttonMessage = "Entry";
+    isOpen = false;
+    isLoading = true;
 
     constructor(
         private dataService: DepartmentService,
@@ -44,10 +45,12 @@ export class DepartmentsComponent implements OnInit {
     }
 
     refreshDataTable() {
+        this.isLoading = true;
         this.dataService.getDepartmentList(true)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.isLoading = false;
                 }
             );
         this.closeDialog();

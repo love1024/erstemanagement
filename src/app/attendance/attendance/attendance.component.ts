@@ -34,9 +34,10 @@ export class AttendanceComponent implements OnInit {
 
     displayedColumns = ['resourceId', 'date', 'attendanceType', 'remarks'];
     dataSource = new MatTableDataSource();
-    isOpen = false;
     currentAttendance: Attendance;
     buttonMessage = "Entry";
+    isOpen = false;
+    isLoading = true;
 
     constructor(
         private dataService: AttendanceService,
@@ -49,11 +50,13 @@ export class AttendanceComponent implements OnInit {
 
     refreshDataTable() {
         console.log(this.dataService);
+        this.isLoading = true;
         this.dataService.getAttendanceList()
             .subscribe(
                 list => {
                     console.log(list);
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.isLoading = false;
                 }
             );
         this.closeDialog();

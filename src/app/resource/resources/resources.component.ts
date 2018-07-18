@@ -31,9 +31,10 @@ export class ResourcesComponent implements OnInit {
 
     displayedColumns = ['id', 'name', 'email', 'allcated_projects'];
     dataSource = new MatTableDataSource();
-    isOpen = false;
     currentResource: Resource;
     buttonMessage = "Entry";
+    isOpen = false;
+    isLoading = true;
 
     constructor(
         private dataService: ResourceService,
@@ -45,11 +46,14 @@ export class ResourcesComponent implements OnInit {
     }
 
     refreshDataTable() {
+        this.isLoading = true;
         this.dataService.getResourceList(true)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.isLoading = false;
                 }
+
             );
         this.closeDialog();
     }

@@ -30,9 +30,10 @@ export class ProjectComponent implements OnInit {
 
     displayedColumns = ['id', 'name', 'modelName', 'resources'];
     dataSource = new MatTableDataSource();
-    isOpen = false;
     currentProject: Project;
     buttonMessage = "Entry";
+    isOpen = false;
+    isLoading = true;
 
     constructor(
         private dataService: ProjectService,
@@ -44,10 +45,12 @@ export class ProjectComponent implements OnInit {
     }
 
     refreshDataTable() {
+        this.isLoading = true;
         this.dataService.getProjects(true)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.isLoading = false;
                 }
             );
         this.closeDialog();

@@ -81,4 +81,8 @@
       [@detailExpand]="row.element == currentAttendance ? 'expanded' : 'collapsed'"
       style="overflow: hidden"></mat-row>
   </mat-table>
+  <div class="loader"
+    *ngIf="isLoading">
+    <div class="swirl"></div>
+  </div>
 </section>

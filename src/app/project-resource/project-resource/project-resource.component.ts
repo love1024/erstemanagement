@@ -40,8 +40,9 @@ export class ProjectResourceComponent implements OnInit {
   id: String;
   currentPath: String;
   header: String;
-  isOpen = false;
   buttonMessage = "Entry";
+  isOpen = false;
+  isLoading = true;
 
   constructor(
     private dataService: ProjectResourceService,
@@ -67,12 +68,14 @@ export class ProjectResourceComponent implements OnInit {
   }
 
   refreshDataTable() {
+    this.isLoading = true;
     if (this.currentPath == paths.project) {
       this.dataService.getResourcesByProjectId(true, this.id)
         .subscribe(
           list => {
             console.log(list);
             this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+            this.isLoading = false;
           }
         );
     } else {
@@ -81,6 +84,7 @@ export class ProjectResourceComponent implements OnInit {
           list => {
             console.log(list);
             this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+            this.isLoading = false;
           }
         );
     }
