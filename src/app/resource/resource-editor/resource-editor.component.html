@@ -44,6 +44,30 @@
       <mat-error *ngIf="inputForm.get('resourceErsteJoiningDate').hasError('required')">Required</mat-error>
     </mat-form-field>
 
+    <!-- Start Date -->
+    <mat-form-field>
+      <input formControlName="startDate"
+        matInput
+        [matDatepicker]="startDate"
+        placeholder="Start Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('startDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- End Date -->
+    <mat-form-field>
+      <input formControlName="endDate"
+        matInput
+        [matDatepicker]="endDate"
+        placeholder="End Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('endDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
     <!-- Certifications -->
     <mat-form-field>
       <input matInput
@@ -62,6 +86,23 @@
       </mat-select>
       <mat-error *ngIf="inputForm.get('resourceLevelId').hasError('required')">Required</mat-error>
     </mat-form-field>
+
+    <!-- Location -->
+    <mat-form-field>
+      <mat-select matInput
+        formControlName="location"
+        placeholder="Location">
+        <mat-option value="offshore">OFFSHORE</mat-option>
+        <mat-option value="onshore">ONSHORE</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('location').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Citrix -->
+    <div class="mat-checkbox">
+      <mat-checkbox matInput
+        formControlName="citrix">Citrix</mat-checkbox>
+    </div>
   </form>
   <div>
     <button mat-raised-button

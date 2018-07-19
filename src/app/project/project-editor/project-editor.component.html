@@ -14,6 +14,14 @@
       <mat-error *ngIf="inputForm.get('projectNameAsPerSow').hasError('required')">Required</mat-error>
     </mat-form-field>
 
+    <!-- TeamName -->
+    <mat-form-field>
+      <input matInput
+        formControlName="teamName"
+        placeholder="Team Name">
+      <mat-error *ngIf="inputForm.get('teamName').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
     <!-- departmentId -->
     <mat-form-field>
       <mat-select matInput
@@ -102,7 +110,7 @@
       <input formControlName="projectStartDate"
         matInput
         [matDatepicker]="startDate"
-        placeholder="Choose a date">
+        placeholder="Start Date">
       <mat-datepicker-toggle matSuffix
         [for]="startDate"></mat-datepicker-toggle>
       <mat-datepicker #startDate></mat-datepicker>
@@ -114,7 +122,7 @@
       <input formControlName="projectEndDate"
         matInput
         [matDatepicker]="endDate"
-        placeholder="Choose a date">
+        placeholder="End Date">
       <mat-datepicker-toggle matSuffix
         [for]="endDate"></mat-datepicker-toggle>
       <mat-datepicker #endDate></mat-datepicker>
@@ -139,6 +147,7 @@
         placeholder="Project PO Number">
       <mat-error *ngIf="inputForm.get('projectPONumber').hasError('required')">Required</mat-error>
     </mat-form-field>
+
   </form>
   <div>
     <button mat-raised-button

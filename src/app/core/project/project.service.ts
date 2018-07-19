@@ -18,6 +18,11 @@ export class ProjectService {
     return this.http.get<Project[]>(url);
   }
 
+  public getProjectsByDepartmentId(id: number): Observable<Project[]> {
+    const url = this.url + "/department/" + id;
+    return this.http.get<Project[]>(url);
+  }
+
   public createProject(project: Project): Observable<any> {
     return this.http.post<any>(this.url, project);
   }

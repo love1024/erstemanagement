@@ -57,6 +57,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
         this.inputForm = this.formBuilder.group({
             projectId: [''],
             projectNameAsPerSow: ['', [Validators.required]],
+            teamName: ['', Validators.required],
             departmentId: ['', [Validators.required]],
             technologyId: [[], [Validators.required]],
             projectModelName: ['', [Validators.required]],
@@ -83,6 +84,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
         this.inputForm = this.formBuilder.group({
             projectId: [project.projectId],
             projectNameAsPerSow: [project.projectNameAsPerSow, [Validators.required]],
+            teamName: [project.teamName, Validators.required],
             departmentId: [project.departmentId, [Validators.required]],
             technologyId: [project.technologyId, [Validators.required]],
             projectModelName: [project.projectModelName, [Validators.required]],

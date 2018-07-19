@@ -3,12 +3,25 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Department } from '../../shared/models/admin/department.model';
 import { DepartmentService } from '../../core/department/department.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 
 @Component({
     selector: 'erste-department-editor',
     templateUrl: './department-editor.component.html',
-    styleUrls: ['./department-editor.component.scss']
+    styleUrls: ['./department-editor.component.scss'],
+    animations: [
+        trigger('smoothInOut', [
+            state('in', style({ 'height': 'auto' })),
+            transition('void => *', [
+                style({ 'height': '0' }),
+                animate(200)
+            ]),
+            transition('* => void', [
+                animate(225, style({ 'height': '0' }))
+            ])
+        ])
+    ]
 })
 export class DepartmentEditorComponent implements OnInit, OnChanges {
 

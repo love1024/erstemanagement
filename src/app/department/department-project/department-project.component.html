@@ -1,0 +1,32 @@
+<h2>PROJECTS</h2>
+<section id="table-container">
+  <mat-table #table
+    [dataSource]="dataSource">
+    <!-- Department Name -->
+    <ng-container matColumnDef="projectName">
+      <mat-header-cell *matHeaderCellDef> PROJECT NAME </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectNameAsPerSow}} </mat-cell>
+    </ng-container>
+
+    <!-- HOD -->
+    <ng-container matColumnDef="projectPM">
+      <mat-header-cell *matHeaderCellDef> PROJECT PM </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectSitProjectManager}} </mat-cell>
+    </ng-container>
+
+    <!-- HOD Email -->
+    <ng-container matColumnDef="projectTAM">
+      <mat-header-cell *matHeaderCellDef> PROJECT TAM </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectSitTAM}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row [@smoothInOut]="in"
+      *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div class="loader"
+    *ngIf="isLoading">
+    <div class="swirl"></div>
+  </div>
+
+</section>

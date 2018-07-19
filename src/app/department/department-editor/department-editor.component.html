@@ -26,6 +26,9 @@
       <mat-error *ngIf="inputForm.get('departmentHodEmail').hasError('required')">Required</mat-error>
     </mat-form-field>
   </form>
+  <erste-department-project [@smoothInOut]="in"
+    [departmentId]="department.departmentId"
+    *ngIf="!isNew && department "></erste-department-project>
   <div>
     <button mat-raised-button
       class="submit-btn"
@@ -36,4 +39,5 @@
       class="delete-btn"
       (click)="onDelete()">Delete</button>
   </div>
+
 </div>

@@ -43,13 +43,15 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"
+        <mat-row [@smoothInOut]="in"
+            *matRowDef="let row; columns: displayedColumns;"
             (click)="onRowClick(row)"></mat-row>
         <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
             [@detailExpand]="row.element == currentDepartment ? 'expanded' : 'collapsed'"
             style="overflow: hidden"></mat-row>
     </mat-table>
     <div class="loader"
+        [@fadeOut]=""
         *ngIf="isLoading">
         <div class="swirl"></div>
     </div>

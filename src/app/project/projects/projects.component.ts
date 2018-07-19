@@ -10,18 +10,23 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
     styleUrls: ['./projects.component.scss'],
     animations: [
         trigger('smoothInOut', [
-            state('in', style({ 'height': 'auto' })),
+            state('in', style({ 'min-height': '30px', 'height': 'auto' })),
             transition('void => *', [
-                style({ 'height': '0' }),
+                style({ 'min-height': '0', 'height': '0' }),
                 animate(200)
             ]),
             transition('* => void', [
                 animate(200, style({ 'height': '0' }))
             ])
         ]),
+        trigger('fadeOut', [
+            transition('* => void', [
+                animate(200, style({ 'height': '0' }))
+            ])
+        ]),
         trigger('detailExpand', [
-            state('collapsed', style({ height: '0px', minHeight: '0', visibility: 'hidden' })),
-            state('expanded', style({ height: '*', visibility: 'visible' })),
+            state('collapsed', style({ height: '0px', minHeight: '0', })),
+            state('expanded', style({ height: '*' })),
             transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
         ]),
     ]

@@ -2,6 +2,7 @@ export class Project {
     public _id: String;
     public projectId: Number;
     public projectNameAsPerSow: String;
+    public teamName: String;
     public departmentId: Number;
     public technologyId: Number[];
     public projectModelName: String;
