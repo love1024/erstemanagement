@@ -7,9 +7,12 @@
   src: url('/assets/sf.otf');
 }
 
+*:not(i) {
+   font-family: sf, monospace !important;
+}
+
 body,
 html {
-  font-family: sf, sans-serif;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -59,7 +62,6 @@ a.space-between {
 button.submit-btn {
   background-color: $app-primary-color;
   color: $color-white;
-  font-family: sf;
 }
 
 .close-btn-dialog {
@@ -153,10 +155,6 @@ mat-sidenav{
     width: $sidePanel-width;
 }
 
-mat-form-field.mat-form-field {
-  font-family: sf;
-}
-
 mat-dialog-container.mat-dialog-container {
   position: relative;
   overflow: inherit;
@@ -170,11 +168,4 @@ mat-dialog-container .mat-form-field,mat-dialog-container mat-checbox{
   font-size: 11px;
 }
 
-h2.mat-dialog-title {
-  font-family: sf;
-}
-
-mat-sidenav-content, mat-sidenav-content .mat-table {
-  font-family: sf;
-}
 
