@@ -1,72 +1,137 @@
-<div id="header">
+<div class="header-row">
   <h2>{{header}}</h2>
-  <div>
-  </div>
-  <div>
-    <button class="submit-btn"
-      mat-raised-button
-      color="warn"
-      [routerLink]="'/' + currentPath">
-      <i class="fas fa-arrow-left"></i> Back </button>
-    <button class="submit-btn"
-      mat-raised-button
-      (click)="toggleDialog()">
-      <i class="fas fa-plus"></i> {{buttonMessage}} </button>
+  <i (click)="addNewRow()"
+    class="far fa-plus-square"></i>
+  <div class="circle-loader"
+    *ngIf="showSaving">
+    <div class="checkmark draw"></div>
   </div>
 </div>
-
-<erste-project-resource-editor [@smoothInOut]="in"
-  [isNew]="true"
-  [id]="id"
-  [fromProject]="currentPath == 'project'"
-  (refresh)="refreshDataTable()"
-  *ngIf="isOpen"></erste-project-resource-editor>
-
 <section id="table-container">
-  <mat-table #table
-    [dataSource]="dataSource">
+  <form [formGroup]="inputForm">
+    <mat-table [dataSource]="dataSource"
+      formArrayName="formArray">
 
-    <!-- Project Id -->
-    <ng-container matColumnDef="projectId">
-      <mat-header-cell *matHeaderCellDef>PROJECT ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
-    </ng-container>
+      <!-- Project Id -->
+      <ng-container matColumnDef="projectId">
+        <mat-header-cell *matHeaderCellDef>PROJECT ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
+      </ng-container>
 
-    <!-- Resource Id -->
-    <ng-container matColumnDef="resourceId">
-      <mat-header-cell *matHeaderCellDef> RESOURCE ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resourceId}} </mat-cell>
-    </ng-container>
+      <!-- Resource Id -->
+      <ng-container matColumnDef="resourceId">
+        <mat-header-cell *matHeaderCellDef> RESOURCE ID </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <mat-form-field>
+            <mat-select matInput
+              formControlName="resourceId"
+              placeholder="Resource">
+              <mat-option [value]="resource.resourceId"
+                *ngFor="let resource of resources">{{resource.resourceName + " (" +resource.resourceId +")"}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('resourceId').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
 
-    <!-- Resource Allocation % -->
-    <ng-container matColumnDef="resourceAllocation">
-      <mat-header-cell *matHeaderCellDef> RESOURCE ALLOCATION (%) </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resourceAllocation}} </mat-cell>
-    </ng-container>
+      <!-- Resource Allocation % -->
+      <ng-container matColumnDef="resourceAllocation">
+        <mat-header-cell *matHeaderCellDef> ALLOCATION (%) </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;"
+          [formGroupName]="i">
+          <mat-form-field>
+            <input matInput
+              formControlName="resourceAllocation"
+              placeholder="Resource Allocation"
+              type="number">
+            <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('resourceAllocation').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
 
-    <!-- Resource Billable information -->
-    <ng-container matColumnDef="resourceIsBillable">
-      <mat-header-cell *matHeaderCellDef> BILLABLE </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resourceIsBillable}} </mat-cell>
-    </ng-container>
+      <!-- Resource Allocation % -->
+      <ng-container matColumnDef="technology">
+        <mat-header-cell *matHeaderCellDef> Technology </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <!-- projectTechnology -->
+          <mat-form-field>
+            <mat-select matInput
+              formControlName="technologyId"
+              placeholder="Technology"
+              multiple>
+              <mat-option [value]="technology.technologyId"
+                *ngFor="let technology of technologies">{{technology.technologyName}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('technologyId').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
 
-    <!-- Expanded Content Column - The detail row is made up of this one column -->
-    <ng-container matColumnDef="expandedDetail">
-      <mat-cell *matCellDef="let element">
-        <erste-project-resource-editor [projectResource]="currentProjectResource"
-          [id]="id"
-          [fromProject]="currentPath == 'project'"
-          (refresh)="refreshDataTable()"></erste-project-resource-editor>
-      </mat-cell>
-    </ng-container>
+      <!-- Invoicing Entity -->
+      <ng-container matColumnDef="invoicingEntity">
+        <mat-header-cell *matHeaderCellDef> Invoicing Entity </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <mat-form-field>
+            <mat-select matInput
+              formControlName="invoicingEntity"
+              placeholder="Invoiding Entity">
+              <mat-option value="sit">SIT</mat-option>
+              <mat-option value="egit">EGIT</mat-option>
+            </mat-select>
+            <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('invoicingEntity').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
-      (click)="onRowClick(row)"></mat-row>
-    <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
-      [@detailExpand]="row.element == currentProjectResource ? 'expanded' : 'collapsed'"
-      style="overflow: hidden"></mat-row>
-  </mat-table>
+      <!-- Resource Billable information -->
+      <ng-container matColumnDef="resourceIsBillable">
+        <mat-header-cell *matHeaderCellDef> BILLABLE </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <div class="mat-checkbox">
+            <mat-checkbox matInput
+              formControlName="resourceIsBillable"></mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Key Resource information -->
+      <ng-container matColumnDef="keyResource">
+        <mat-header-cell *matHeaderCellDef> Key Resource </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <div class="mat-checkbox">
+            <mat-checkbox matInput
+              formControlName="keyResource"></mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index"
+          [formGroupName]="i">
+          <a class="icon-hover-blue"
+            title="Save"
+            (click)="onSubmit(i)">
+            <i class="far fa-check-circle"></i>
+          </a>&nbsp;&nbsp;
+          <a class="icon-hover-red"
+            title="onDelete(i)">
+            <i class="far fa-trash-alt"></i>
+          </a>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row [@smoothInOut]="in"
+        *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </form>
   <div class="loader"
     *ngIf="isLoading">
     <div class="swirl"></div>

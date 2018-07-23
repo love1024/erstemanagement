@@ -15,8 +15,7 @@ const routes: Routes = [
     { path: 'publish', component: PublishComponent },
     { path: 'project', component: ProjectComponent },
     { path: 'resource', component: ResourcesComponent },
-    { path: 'department', component: DepartmentsComponent },
-    { path: 'projectresource/:id', component: ProjectResourceComponent }
+    { path: 'department', component: DepartmentsComponent }
 ];
 
 @NgModule({

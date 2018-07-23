@@ -6,11 +6,24 @@ import { Technology } from '../../shared/models/admin/technology.model';
 import { AdminTechDataService } from '../../admin/admin-technology/admin-tech-data.service';
 import { ProjectService } from '../../core/project/project.service';
 import { DepartmentService } from '../../core/department/department.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
     selector: 'erste-project-editor',
     templateUrl: './project-editor.component.html',
-    styleUrls: ['./project-editor.component.scss']
+    styleUrls: ['./project-editor.component.scss'],
+    animations: [
+        trigger('smoothInOut', [
+            state('in', style({ 'height': 'auto' })),
+            transition('void => *', [
+                style({ 'height': '0' }),
+                animate(200)
+            ]),
+            transition('* => void', [
+                animate(225, style({ 'height': '0' }))
+            ])
+        ])
+    ]
 })
 export class ProjectEditorComponent implements OnInit, OnChanges {
 

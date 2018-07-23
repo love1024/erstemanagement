@@ -34,18 +34,6 @@
       <mat-cell *matCellDef="let element"> {{element.projectModelName}} </mat-cell>
     </ng-container>
 
-    <!-- Project Model Name -->
-    <ng-container matColumnDef="resources">
-      <mat-header-cell *matHeaderCellDef> VIEW RESOURCES</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <a class="icon-hover-green"
-          [routerLink]="['/projectresource',element.projectId]"
-          [queryParams]="{from:'project'}">
-          <i class="fas fa-window-restore"></i>
-        </a>
-      </mat-cell>
-    </ng-container>
-
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">

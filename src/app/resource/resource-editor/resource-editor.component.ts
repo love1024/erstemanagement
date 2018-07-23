@@ -4,12 +4,25 @@ import { Resource } from '../../shared/models/admin/resource.model';
 import { Level } from '../../shared/models/admin/level.model';
 import { AdminLevelinfoDataService } from '../../admin/level-info/admin-levelinfo-data.service';
 import { ResourceService } from '../../core/resource/resource.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 
 @Component({
     selector: 'erste-resource-editor',
     templateUrl: './resource-editor.component.html',
     styleUrls: ['./resource-editor.component.scss'],
+    animations: [
+        trigger('smoothInOut', [
+            state('in', style({ 'height': 'auto' })),
+            transition('void => *', [
+                style({ 'height': '0' }),
+                animate(200)
+            ]),
+            transition('* => void', [
+                animate(225, style({ 'height': '0' }))
+            ])
+        ])
+    ]
 })
 export class ResourceEditorComponent implements OnInit, OnChanges {
 

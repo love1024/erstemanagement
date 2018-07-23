@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule
   ],
-  declarations: [ProjectResourceComponent, ProjectResourceEditorComponent]
+  declarations: [ProjectResourceComponent, ProjectResourceEditorComponent],
+  exports: [ProjectResourceComponent]
 })
 export class ProjectResourceModule { }

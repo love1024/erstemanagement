@@ -39,8 +39,8 @@ html {
 //===========================================================
 // ANCHOR TAGS
 //===========================================================
-a.icon-hover-green:hover {
-  color: $color-green;
+a.icon-hover-blue:hover {
+  color: $color-blue;
 }
 
 a.icon-hover-red:hover {
@@ -59,9 +59,12 @@ a.space-between {
 //===========================================================
 // BUTTONS
 //===========================================================
-button.submit-btn {
+button.mat-raised-button {
   background-color: $app-primary-color;
   color: $color-white;
+  min-width: 77px;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 .close-btn-dialog {
@@ -99,8 +102,8 @@ button.submit-btn {
   border: 1px solid #f3f3f3;
   border-radius: 50%;
   border-top: 1px solid #3498db;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   animation: spin 0.3s linear infinite;
   position: absolute;
   top:40%;
@@ -110,6 +113,97 @@ button.submit-btn {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+//====================================
+// Saver
+//====================================
+
+// Define vars we'll be using
+$brand-success: #5cb85c;
+$loader-size: 7em;
+$check-height: 10px;
+$check-width: 6px;
+$check-left: 2px;
+$check-thickness: 2px;
+$check-color: $brand-success;
+
+.circle-loader {
+  margin-bottom: $loader-size/2;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-left-color: $check-color;
+  animation: loader-spin 1.2s infinite linear;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 50%;
+  width: $loader-size;
+  height: $loader-size;
+}
+
+.load-complete {
+  -webkit-animation: none;
+  animation: none;
+  border-color: $check-color;
+  transition: border 500ms ease-out;
+  background-color: $check-color;
+}
+
+.checkmark {
+  display: none;
+  
+  &.draw:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+  }
+  
+  &:after {
+    opacity: 1;
+    height: $check-height;
+    width: $check-width;
+    transform-origin: left top;
+    border-right: $check-thickness solid white;
+    border-top: $check-thickness solid white;
+    content: '';
+    left: $check-left;
+    top: $check-height;
+    position: absolute;
+  }
+}
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: $check-width;
+    opacity: 1;
+  }
+  40% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+  100% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
 }
 
 //===========================================================
@@ -136,6 +230,7 @@ form mat-form-field {
 
 .mat-header-row {
   min-height: 40px;
+  border: 0;
 }
 
 .mat-row {
@@ -166,6 +261,11 @@ mat-dialog-container .mat-dialog-title {
 
 mat-dialog-container .mat-form-field,mat-dialog-container mat-checbox{
   font-size: 11px;
+}
+
+mat-checkbox .mat-checkbox-inner-container {
+  height: 16px;
+  width: 16px;
 }
 
 

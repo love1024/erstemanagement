@@ -4,10 +4,12 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { ProjectEditorComponent } from './project-editor/project-editor.component';
 import { ProjectComponent } from './projects/projects.component';
+import { ProjectResourceModule } from '../project-resource/project-resource.module';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    ProjectResourceModule
   ],
   declarations: [ProjectComponent, ProjectEditorComponent]
 })

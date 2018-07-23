@@ -33,7 +33,7 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
 })
 export class ProjectComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'modelName', 'resources'];
+    displayedColumns = ['id', 'name', 'modelName'];
     dataSource = new MatTableDataSource();
     currentProject: Project;
     buttonMessage = "Entry";

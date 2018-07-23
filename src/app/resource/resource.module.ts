@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { ResourcesComponent } from './resources/resources.component';
 import { ResourceEditorComponent } from './resource-editor/resource-editor.component';
+import { ProjectResourceModule } from '../project-resource/project-resource.module';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    ProjectResourceModule
   ],
   declarations: [ResourceEditorComponent, ResourcesComponent]
 })
