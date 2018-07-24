@@ -5,6 +5,8 @@ import { Attendance } from '../../shared/models/attendance/attendance.model';
 import { AttendanceService } from '../../core/attendance/attendance.service';
 import { Resource } from '../../shared/models/admin/resource.model';
 import { ResourceService } from '../../core/resource/resource.service';
+import { CompareService } from '../../core/compare/compare.service';
+import { SnackbarService } from '../../core/snackbar/snackbar.service';
 
 @Component({
     selector: 'erste-attendance-editor',
@@ -24,6 +26,8 @@ export class AttendanceEditorComponent implements OnInit, OnChanges {
         private formBuilder: FormBuilder,
         private dataService: AttendanceService,
         private resourceService: ResourceService,
+        private compareService: CompareService,
+        private snackbarService: SnackbarService,
         private renderer: Renderer2) { }
 
     ngOnChanges() {
@@ -84,7 +88,7 @@ export class AttendanceEditorComponent implements OnInit, OnChanges {
             clientApprovalDate: [attendance.clientApprovalDate],
             fipUser: [attendance.fipUser],
             fipProg: [attendance.fipProg],
-            fipTst: [Date.now()]
+            fipTst: [attendance.fipTst]
         });
     }
 
@@ -103,9 +107,14 @@ export class AttendanceEditorComponent implements OnInit, OnChanges {
     }
 
     editAttendance() {
-        if (this.checkDefined(this.inputForm.value)) {
-            this.updateAttendance(this.inputForm.value);
+        const isEqual = this.compareService.isEqual(this.inputForm.value, this.attendance);
+        if (isEqual) {
+            this.snackbarService.open("Form is not changed");
+            return;
         }
+        // if (this.checkDefined(this.inputForm.value)) {
+        //     this.updateAttendance(this.inputForm.value);
+        // }
     }
 
     updateAttendance(attendance: Attendance): void {

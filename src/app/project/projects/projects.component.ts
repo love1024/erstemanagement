@@ -87,16 +87,19 @@ export class ProjectComponent implements OnInit {
         return row.hasOwnProperty('editor');
     }
 
-    onRowClick(project: Project) {
+    onRowClick(project: Project, i: number) {
+        this.dataSource.data.forEach(data => { data["expanded"] = false });
         if (project == this.currentProject)
             this.currentProject = null;
-        else
+        else {
             this.currentProject = project;
+            this.dataSource.data[i + 1]["expanded"] = true;
+        }
     }
 
     addDetailColumn(list: Project[]) {
         const rows = [];
-        list.forEach(element => rows.push(element, { editor: true, element }));
+        list.forEach(element => rows.push(element, { editor: true, expanded: false, element }));
         return rows;
     }
 }

@@ -89,16 +89,19 @@ export class ResourcesComponent implements OnInit {
         return row.hasOwnProperty('editor');
     }
 
-    onRowClick(resource: Resource) {
+    onRowClick(resource: Resource, i: number) {
+        this.dataSource.data.forEach(data => { data["expanded"] = false });
         if (resource == this.currentResource)
             this.currentResource = null;
-        else
+        else {
             this.currentResource = resource;
+            this.dataSource.data[i + 1]["expanded"] = true;
+        }
     }
 
     addDetailColumn(list: Resource[]) {
         const rows = [];
-        list.forEach(element => rows.push(element, { editor: true, element }));
+        list.forEach(element => rows.push(element, { editor: true, expanded: false, element }));
         return rows;
     }
 }

@@ -7,6 +7,8 @@ import { AdminTechDataService } from '../../admin/admin-technology/admin-tech-da
 import { ProjectService } from '../../core/project/project.service';
 import { DepartmentService } from '../../core/department/department.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { CompareService } from '../../core/compare/compare.service';
+import { SnackbarService } from '../../core/snackbar/snackbar.service';
 
 @Component({
     selector: 'erste-project-editor',
@@ -29,6 +31,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
 
     @Input() project: Project;
     @Input() isNew: Boolean;
+    @Input() expanded: Boolean;
     @Output() refresh = new EventEmitter();
 
     inputForm: FormGroup;
@@ -38,7 +41,9 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
     constructor(private formBuilder: FormBuilder,
         private departmentService: DepartmentService,
         private renderer: Renderer2,
+        private compareService: CompareService,
         private technologyService: AdminTechDataService,
+        private snackbarService: SnackbarService,
         private dataService: ProjectService) { }
 
     ngOnChanges() {
@@ -47,15 +52,6 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
         } else {
             this.createForm();
         }
-        this.departmentService.getDepartmentList(true).subscribe((departments: Department[]) => {
-            console.log(departments);
-            this.departments = departments;
-        });
-        this.technologyService.getTechnologyList().subscribe((technologies: Technology[]) => {
-            console.log(technologies);
-            this.technologies = technologies;
-        })
-
         if (this.isNew) {
             let container = document.getElementById('form-container');
             this.renderer.setStyle(container, 'margin-bottom', '50px');
@@ -64,7 +60,16 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
         }
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.departmentService.getDepartmentList(true).subscribe((departments: Department[]) => {
+            console.log(departments);
+            this.departments = departments;
+        });
+        this.technologyService.getTechnologyList().subscribe((technologies: Technology[]) => {
+            console.log(technologies);
+            this.technologies = technologies;
+        })
+    }
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
@@ -116,7 +121,7 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
             dateUntil: [project.dateUntil],
             fipUser: [project.fipUser],
             fipProg: [project.fipProg],
-            fipTst: [Date.now()]
+            fipTst: [project.fipTst]
         });
     }
 
@@ -137,6 +142,11 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
     editProject() {
         const oldResource = <Project>this.project
         const newResource = <Project>this.inputForm.value;
+        let isEqual = this.compareService.isEqual(oldResource, newResource);
+        if (isEqual) {
+            this.snackbarService.open("Form is not changed");
+            return;
+        }
         if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
             oldResource.dateUntil = new Date();
             oldResource.active = false;

@@ -37,15 +37,16 @@
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
-        <erste-project-editor [project]="currentProject"
+        <erste-project-editor [project]="element.element"
+          [expanded]="element.expanded"
           (refresh)="refreshDataTable()"></erste-project-editor>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
+    <mat-row *matRowDef="let row; columns: displayedColumns;let i = index"
       [@smoothInOut]="in"
-      (click)="onRowClick(row)"></mat-row>
+      (click)="onRowClick(row,i)"></mat-row>
     <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
       [@detailExpand]="row.element == currentProject ? 'expanded' : 'collapsed'"
       style="overflow: hidden"></mat-row>

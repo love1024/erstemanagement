@@ -4,6 +4,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Department } from '../../shared/models/admin/department.model';
 import { DepartmentService } from '../../core/department/department.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { CompareService } from '../../core/compare/compare.service';
+import { SnackbarService } from '../../core/snackbar/snackbar.service';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class DepartmentEditorComponent implements OnInit, OnChanges {
     constructor(
         private formBuilder: FormBuilder,
         private dataService: DepartmentService,
+        private compareService: CompareService,
+        private snackbarService: SnackbarService,
         private renderer: Renderer2) { }
 
     ngOnChanges() {
@@ -98,6 +102,11 @@ export class DepartmentEditorComponent implements OnInit, OnChanges {
     editDepartment() {
         const oldResource = <Department>this.department
         const newResource = <Department>this.inputForm.value;
+        const isEqual = this.compareService.isEqual(newResource, oldResource);
+        if (isEqual) {
+            this.snackbarService.open("Form is not changed");
+            return;
+        }
         if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
             oldResource.dateUntil = new Date();
             oldResource.active = false;

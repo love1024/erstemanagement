@@ -149,6 +149,10 @@
     </mat-form-field>
 
   </form>
+  <erste-project-resource [@smoothInOut]="in"
+    [id]="project.projectId"
+    [currentPath]="'project'"
+    *ngIf="!isNew && project && expanded"></erste-project-resource>
   <div>
     <button mat-raised-button
       class="submit-btn"
@@ -159,9 +163,4 @@
       class="delete-btn"
       (click)="onDelete()">Delete</button>
   </div>
-  <hr/>
-  <erste-project-resource [@smoothInOut]="in"
-    [id]="project.projectId"
-    [currentPath]="'project'"
-    *ngIf="!isNew && project "></erste-project-resource>
 </div>

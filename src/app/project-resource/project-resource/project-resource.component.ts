@@ -9,6 +9,9 @@ import { Technology } from '../../shared/models/admin/technology.model';
 import { AdminTechDataService } from '../../admin/admin-technology/admin-tech-data.service';
 import { Resource } from '../../shared/models/admin/resource.model';
 import { ResourceService } from '../../core/resource/resource.service';
+import { Project } from '../../shared/models/project/project.model';
+import { ProjectService } from '../../core/project/project.service';
+import { SnackbarService } from '../../core/snackbar/snackbar.service';
 
 const paths = {
   project: "project",
@@ -16,7 +19,7 @@ const paths = {
 }
 
 const projectCols = ['resourceId', 'resourceAllocation', 'technology', 'invoicingEntity', 'resourceIsBillable', 'keyResource', 'actions'];
-const resourceCols = ['projectId', 'resourceAllocation', 'resourceIsBillable', 'actions'];
+const resourceCols = ['projectId', 'resourceAllocation', 'technology', 'invoicingEntity', 'resourceIsBillable', 'keyResource', 'actions'];
 
 @Component({
   selector: 'erste-project-resource',
@@ -45,6 +48,7 @@ export class ProjectResourceComponent implements OnInit {
   data: ProjectResource[];
   technologies: Technology[];
   resources: Resource[];
+  projects: Project[];
   header: String;
   isLoading = false;
   showSaving = false;
@@ -54,6 +58,8 @@ export class ProjectResourceComponent implements OnInit {
     private dataService: ProjectResourceService,
     private technologyService: AdminTechDataService,
     private resourceService: ResourceService,
+    private projectService: ProjectService,
+    private snackbarService: SnackbarService,
     private renderer: Renderer2) { }
 
   ngOnInit() {
@@ -64,10 +70,12 @@ export class ProjectResourceComponent implements OnInit {
     this.resourceService.getResourceList(true).subscribe((resources: Resource[]) => {
       this.resources = resources;
     })
+    this.projectService.getProjects(true).subscribe((projects: Project[]) => {
+      this.projects = projects;
+    })
   }
 
   ngOnChanges() {
-    console.log(this.currentPath, paths.project);
     if (this.currentPath == paths.project) {
       this.displayedColumns = projectCols
       this.header = "PROJECT RESOURCES";
@@ -79,7 +87,7 @@ export class ProjectResourceComponent implements OnInit {
     //Using timeout for smooth animations
     setTimeout(() => {
       this.refreshDataTable();
-    }, 500)
+    }, 800)
   }
 
   refreshDataTable() {
@@ -167,8 +175,10 @@ export class ProjectResourceComponent implements OnInit {
   }
 
   onSubmit(idx: number) {
-    let form = (this.inputForm.get("formArray") as FormArray).at(idx);
 
+    let form = (this.inputForm.get("formArray") as FormArray).at(idx);
+    if (!form.valid)
+      return;
     //Creating new Resource
     if (form.value.projectResourceId == '') {
       this.createProjectResource(form.value);
@@ -193,7 +203,16 @@ export class ProjectResourceComponent implements OnInit {
   }
 
   onDelete(idx: number) {
-    console.log(idx);
+    let form = (this.inputForm.get("formArray") as FormArray);
+    let group = form.at(idx);
+    form.removeAt(idx);
+    this.data.splice(idx, 1);
+    this.dataSource = new MatTableDataSource(this.data);
+    if (group.value._id) {
+      this.dataService.deleteProjectResource(group.value._id).subscribe(() => {
+        this.snackbarService.open("Deleted Succesfully");
+      })
+    }
   }
 
   updateProjectResource(projectResource: ProjectResource): void {
@@ -203,11 +222,9 @@ export class ProjectResourceComponent implements OnInit {
   }
 
   createProjectResource(projectResource: ProjectResource): void {
-    this.toggleSaving();
     delete projectResource["_id"];
     this.dataService.createProjectResource(projectResource).subscribe(res => {
-      this.toggleSaving();
-      console.log(res);
+      this.snackbarService.open("Saved Succesfully");
     });
   }
 
@@ -216,21 +233,5 @@ export class ProjectResourceComponent implements OnInit {
       return true;
     }
     return false;
-  }
-
-  toggleSaving() {
-    if (this.showSaving) {
-      let loader = document.getElementsByClassName('circle-loader')[0];
-      let checkmark = document.getElementsByClassName('checkmark')[0];
-      this.renderer.addClass(loader, 'load-complete');
-      this.renderer.setStyle(checkmark, 'display', 'block');
-      setTimeout(() => {
-        this.renderer.removeClass(loader, 'load-complete');
-        this.renderer.setStyle(checkmark, 'display', 'none');
-        this.showSaving = false;
-      }, 2000);
-    } else {
-      this.showSaving = true;
-    }
   }
 }

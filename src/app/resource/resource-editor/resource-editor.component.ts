@@ -5,6 +5,8 @@ import { Level } from '../../shared/models/admin/level.model';
 import { AdminLevelinfoDataService } from '../../admin/level-info/admin-levelinfo-data.service';
 import { ResourceService } from '../../core/resource/resource.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { SnackbarService } from '../../core/snackbar/snackbar.service';
+import { CompareService } from '../../core/compare/compare.service';
 
 
 @Component({
@@ -31,12 +33,15 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
 
     @Input() resource: Resource;
     @Input() isNew: Boolean;
+    @Input() expanded: Boolean;
     @Output() refresh = new EventEmitter();
 
     constructor(
         private formBuilder: FormBuilder,
         private dataService: ResourceService,
         private levelService: AdminLevelinfoDataService,
+        private compareService: CompareService,
+        private snackbarService: SnackbarService,
         private renderer: Renderer2) { }
 
 
@@ -98,7 +103,7 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
             dateUntil: [resource.dateUntil],
             fipUser: [resource.fipUser],
             fipProg: [resource.fipProg],
-            fipTst: [Date.now()]
+            fipTst: [resource.fiptst]
         });
     }
 
@@ -119,6 +124,11 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
     editResource() {
         const oldResource = <Resource>this.resource
         const newResource = <Resource>this.inputForm.value;
+        let isEqual = this.compareService.isEqual(oldResource, newResource);
+        if (isEqual) {
+            this.snackbarService.open("Form is not changed");
+            return;
+        }
         if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
             oldResource.dateUntil = new Date();
             oldResource.active = false;

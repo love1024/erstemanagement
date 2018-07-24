@@ -104,7 +104,10 @@
         formControlName="citrix">Citrix</mat-checkbox>
     </div>
   </form>
-
+  <erste-project-resource [@smoothInOut]="in"
+    [id]="resource.resourceId"
+    [currentPath]="'resource'"
+    *ngIf="!isNew && resource && expanded "></erste-project-resource>
   <div>
     <button mat-raised-button
       class="submit-btn"
@@ -118,8 +121,5 @@
       (click)="onDelete()">Delete</button>
   </div>
   <hr/>
-  <erste-project-resource [@smoothInOut]="in"
-    [id]="resource.resourceId"
-    [currentPath]="resource"
-    *ngIf="!isNew && resource "></erste-project-resource>
+
 </div>

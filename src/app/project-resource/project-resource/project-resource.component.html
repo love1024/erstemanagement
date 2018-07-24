@@ -2,10 +2,6 @@
   <h2>{{header}}</h2>
   <i (click)="addNewRow()"
     class="far fa-plus-square"></i>
-  <div class="circle-loader"
-    *ngIf="showSaving">
-    <div class="checkmark draw"></div>
-  </div>
 </div>
 <section id="table-container">
   <form [formGroup]="inputForm">
@@ -14,13 +10,24 @@
 
       <!-- Project Id -->
       <ng-container matColumnDef="projectId">
-        <mat-header-cell *matHeaderCellDef>PROJECT ID </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef>PROJECT </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <mat-form-field>
+            <mat-select matInput
+              formControlName="projectId"
+              placeholder="Project">
+              <mat-option [value]="project.projectId"
+                *ngFor="let project of projects">{{project.projectNameAsPerSow }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('projectId').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-cell>
       </ng-container>
 
       <!-- Resource Id -->
       <ng-container matColumnDef="resourceId">
-        <mat-header-cell *matHeaderCellDef> RESOURCE ID </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> RESOURCE </mat-header-cell>
         <mat-cell *matCellDef="let element;let i = index"
           [formGroupName]="i">
           <mat-form-field>
@@ -77,7 +84,7 @@
           <mat-form-field>
             <mat-select matInput
               formControlName="invoicingEntity"
-              placeholder="Invoiding Entity">
+              placeholder="Invoicing Entity">
               <mat-option value="sit">SIT</mat-option>
               <mat-option value="egit">EGIT</mat-option>
             </mat-select>
@@ -121,7 +128,8 @@
             <i class="far fa-check-circle"></i>
           </a>&nbsp;&nbsp;
           <a class="icon-hover-red"
-            title="onDelete(i)">
+            title="Delete"
+            (click)="onDelete(i)">
             <i class="far fa-trash-alt"></i>
           </a>
         </mat-cell>
