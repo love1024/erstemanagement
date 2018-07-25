@@ -66,8 +66,7 @@
           <mat-form-field>
             <mat-select matInput
               formControlName="technologyId"
-              placeholder="Technology"
-              multiple>
+              placeholder="Technology">
               <mat-option [value]="technology.technologyId"
                 *ngFor="let technology of technologies">{{technology.technologyName}}</mat-option>
             </mat-select>

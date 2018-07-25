@@ -148,6 +148,10 @@ form mat-form-field {
   cursor: pointer;
 }
 
+.mat-dialog-content {
+  max-height: 500vh;
+}
+
 .mat-row:hover {
   background-color: $table-row-hover-color;
 }

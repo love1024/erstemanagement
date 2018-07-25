@@ -8,6 +8,7 @@ import { AdminTechnologyComponent } from './admin-technology/admin-technology.co
 import { TechDialogComponent } from './admin-technology/tech-dialog/tech-dialog.component';
 import { LevelInfoComponent } from './level-info/level-info.component';
 import { LevelInfoDialogComponent } from './level-info/level-info-dialog/level-info-dialog.component';
+import { BillingDialogComponent } from './admin-billing/billing-dialog/billing-dialog.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { LevelInfoDialogComponent } from './level-info/level-info-dialog/level-i
         AdminTechnologyComponent,
         TechDialogComponent,
         LevelInfoComponent,
-        LevelInfoDialogComponent],
-    entryComponents: [TechDialogComponent, LevelInfoDialogComponent]
+        LevelInfoDialogComponent,
+        BillingDialogComponent],
+    entryComponents: [TechDialogComponent, LevelInfoDialogComponent, BillingDialogComponent]
 })
 export class AdminModule { }

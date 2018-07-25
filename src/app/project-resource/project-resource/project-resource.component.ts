@@ -12,6 +12,8 @@ import { ResourceService } from '../../core/resource/resource.service';
 import { Project } from '../../shared/models/project/project.model';
 import { ProjectService } from '../../core/project/project.service';
 import { SnackbarService } from '../../core/snackbar/snackbar.service';
+import { DataSource } from '@angular/cdk/table';
+import { CompareService } from '../../core/compare/compare.service';
 
 const paths = {
   project: "project",
@@ -58,6 +60,7 @@ export class ProjectResourceComponent implements OnInit {
     private dataService: ProjectResourceService,
     private technologyService: AdminTechDataService,
     private resourceService: ResourceService,
+    private compareService: CompareService,
     private projectService: ProjectService,
     private snackbarService: SnackbarService,
     private renderer: Renderer2) { }
@@ -185,6 +188,11 @@ export class ProjectResourceComponent implements OnInit {
     } else {
       const oldResource = <ProjectResource>this.data[idx];
       const newResource = <ProjectResource>form.value;
+      let isEqual = this.compareService.isEqual(oldResource, newResource);
+      if (isEqual) {
+        this.snackbarService.open("Form is not changed");
+        return;
+      }
       if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
         oldResource.dateUntil = new Date();
         oldResource.active = false;
@@ -225,6 +233,7 @@ export class ProjectResourceComponent implements OnInit {
     delete projectResource["_id"];
     this.dataService.createProjectResource(projectResource).subscribe(res => {
       this.snackbarService.open("Saved Succesfully");
+      projectResource._id = res._id;
     });
   }
 
