@@ -1,10 +1,16 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side">
+  <mat-sidenav #sidenav
+    *ngIf="isLoggedIn"
+    mode="side">
     <erste-sidepanel></erste-sidepanel>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="header-content">
-      <button mat-button (click)="sidenav.toggle()" class="btn-toggle" [ngStyle]="toggleSidenav(sidenav.opened)">
+      <button mat-button
+        *ngIf="isLoggedIn"
+        (click)="sidenav.toggle()"
+        class="btn-toggle"
+        [ngStyle]="toggleSidenav(sidenav.opened)">
         <i class="fas fa-align-justify"></i>
       </button>
       <erste-header></erste-header>

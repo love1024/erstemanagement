@@ -1,5 +1,6 @@
 import { Component, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { HeaderService } from './core/header/header.service';
+import { LoginService } from './core/login/login.service';
 
 
 @Component({
@@ -8,8 +9,13 @@ import { HeaderService } from './core/header/header.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'erste';
-    constructor() { }
+    isLoggedIn: boolean;
+    constructor(private loginService: LoginService) { }
+
+    ngOnInit() {
+        this.isLoggedIn = this.loginService.isLoggedIn();
+        console.log("Is Logged In:" + this.isLoggedIn);
+    }
 
     toggleSidenav(isOpen: boolean) {
         return {

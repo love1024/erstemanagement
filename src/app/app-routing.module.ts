@@ -7,15 +7,17 @@ import { ProjectComponent } from './project/projects/projects.component';
 import { AttendanceComponent } from './attendance/attendance/attendance.component';
 import { DepartmentsComponent } from './department/departments/departments.component';
 import { ProjectResourceComponent } from './project-resource/project-resource/project-resource.component';
+import { LoginComponent } from './shared/components/login/login.component';
 
 const routes: Routes = [
-    { path: '', component: AttendanceComponent },
+    { path: '', component: LoginComponent },
     { path: 'attendance', component: AttendanceComponent },
     { path: 'admin', component: AdminHomeComponent },
     { path: 'publish', component: PublishComponent },
     { path: 'project', component: ProjectComponent },
     { path: 'resource', component: ResourcesComponent },
-    { path: 'department', component: DepartmentsComponent }
+    { path: 'department', component: DepartmentsComponent },
+    { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

@@ -16,13 +16,15 @@ import { ResourceModule } from './resource/resource.module';
 import { AttendanceModule } from './attendance/attendance.module';
 import { DepartmentModule } from './department/department.module';
 import { ProjectResourceModule } from './project-resource/project-resource.module';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SidepanelComponent,
         HeaderComponent,
-        PublishComponent
+        PublishComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
