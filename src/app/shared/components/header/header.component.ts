@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../../core/header/header.service';
+import { LoginService } from '../../../core/login/login.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'erste-header',
@@ -8,24 +10,19 @@ import { HeaderService } from '../../../core/header/header.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private headerService: HeaderService) { }
+  isLoggedIn = false;
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd && val.url != "/login")
+        this.isLoggedIn = true;
+    })
   }
 
-  togglePanel() {
-    this.headerService.togglePanel();
-    this.toggleRotate();
-  }
-
-  toggleRotate() {
-    const el = document.getElementsByTagName('i')[0];
-    console.log(el);
-    if (el.classList.contains('rotate')) {
-    //   this.renderer.removeClass(el, 'rotate');
-    } else {
-    //   this.renderer.addClass(el, 'rotate');
-    }
+  signOut() {
+    this.loginService.logout();
+    this.router.navigateByUrl('/login');
   }
 
 }

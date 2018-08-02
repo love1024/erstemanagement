@@ -23,3 +23,15 @@ header {
     padding: 0 4px;
   }
 }
+
+.settings {
+  position: absolute;
+  right: 60px;
+  font-size: 20px;
+  top: 15px;
+  cursor: pointer;
+}
+
+.ruler {
+  border-top: 1px solid white;
+}

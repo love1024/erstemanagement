@@ -5,6 +5,6 @@
  * @class Login
  */
 export class Login {
-  public username: string;
+  public username: number;
   public password: string;
 }

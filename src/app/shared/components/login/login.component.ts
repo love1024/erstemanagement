@@ -2,11 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../core/login/login.service';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'erste-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [
+    trigger('smoothInOut', [
+      state('in', style({ 'opacity': '1', 'transform': 'translateY(0)' })),
+      transition('void => *', [
+        style({ 'opacity': '0', 'transform': 'translateY(50px)' }),
+        animate(400)
+      ])
+    ])
+  ]
 })
 export class LoginComponent implements OnInit {
 
@@ -37,6 +47,9 @@ export class LoginComponent implements OnInit {
    * @memberof LoginComponent
    */
   ngOnInit() {
+    if (this.loginService.isLoggedIn()) {
+      this.router.navigateByUrl("/department");
+    }
     this.createForm();
   }
 
@@ -65,7 +78,7 @@ export class LoginComponent implements OnInit {
 
         //If result is ok move to /home route else show login fail message
         if (res["type"] == "ok")
-          this.router.navigateByUrl("/home");
+          this.router.navigateByUrl("/department");
         else
           this.loginFailed = true;
       })

@@ -11,8 +11,8 @@ import { tap, shareReplay, catchError } from 'rxjs/operators';
 })
 export class LoginService {
 
-  /** Login url on AWS */
-  private url = environment.urls.attendanceApi;
+  /** Login url  */
+  private url = environment.urls.loginApi;
 
   /**
    * Creates an instance of LoginService.

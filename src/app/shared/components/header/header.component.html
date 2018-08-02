@@ -3,4 +3,16 @@
     <div>Erste</div>
     <div>Management</div>
   </div>
+  <div *ngIf="isLoggedIn"
+    class="settings"
+    [matMenuTriggerFor]="settingMenu">
+    <i class="fas fa-cogs"></i>
+  </div>
 </header>
+<mat-menu #settingMenu="matMenu"
+  class="settingMenu">
+  <button mat-menu-item
+    (click)="signOut()">Sign out</button>
+  <hr class="ruler" />
+  <button mat-menu-item>Change Password</button>
+</mat-menu>
