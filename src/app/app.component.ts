@@ -1,7 +1,8 @@
-import { Component, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { HeaderService } from './core/header/header.service';
 import { LoginService } from './core/login/login.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { MatSidenav } from '@angular/material';
 
 
 @Component({
@@ -11,14 +12,18 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class AppComponent {
     isLoggedIn = false;
+    @ViewChild('sidenav') sidenav: MatSidenav;
+
     constructor(private loginService: LoginService, private router: Router) { }
 
     ngOnInit() {
         this.isLoggedIn = this.loginService.isLoggedIn();
-        console.log("Is Logged In:" + this.isLoggedIn);
         this.router.events.subscribe((val) => {
-            if (val instanceof NavigationEnd && val.url != "/login")
-                this.isLoggedIn = true;
+            this.isLoggedIn = this.loginService.isLoggedIn();
+            if (this.isLoggedIn)
+                this.sidenav.open();
+            else
+                this.sidenav.close();
         })
     }
 

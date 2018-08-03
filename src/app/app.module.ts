@@ -1,7 +1,7 @@
 import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -17,6 +17,7 @@ import { AttendanceModule } from './attendance/attendance.module';
 import { DepartmentModule } from './department/department.module';
 import { ProjectResourceModule } from './project-resource/project-resource.module';
 import { LoginComponent } from './shared/components/login/login.component';
+import { AuthInterceptorService } from './core/http/auth-interceptor.service';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,13 @@ import { LoginComponent } from './shared/components/login/login.component';
         DepartmentModule,
         ProjectResourceModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

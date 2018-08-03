@@ -11,12 +11,13 @@ import { Router, NavigationEnd } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn = false;
+  status: String;
   constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd && val.url != "/login")
-        this.isLoggedIn = true;
+      this.isLoggedIn = this.loginService.isLoggedIn();
+      this.status = this.isLoggedIn ? "Management" : "Secure Login";
     })
   }
 

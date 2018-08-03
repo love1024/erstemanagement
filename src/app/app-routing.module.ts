@@ -8,15 +8,16 @@ import { AttendanceComponent } from './attendance/attendance/attendance.componen
 import { DepartmentsComponent } from './department/departments/departments.component';
 import { ProjectResourceComponent } from './project-resource/project-resource/project-resource.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import { AuthGuardService } from './core/http/auth-guard.service';
 
 const routes: Routes = [
-    { path: '', component: LoginComponent },
-    { path: 'attendance', component: AttendanceComponent },
-    { path: 'admin', component: AdminHomeComponent },
-    { path: 'publish', component: PublishComponent },
-    { path: 'project', component: ProjectComponent },
-    { path: 'resource', component: ResourcesComponent },
-    { path: 'department', component: DepartmentsComponent },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuardService] },
+    { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuardService] },
+    { path: 'publish', component: PublishComponent, canActivate: [AuthGuardService] },
+    { path: 'project', component: ProjectComponent, canActivate: [AuthGuardService] },
+    { path: 'resource', component: ResourcesComponent, canActivate: [AuthGuardService] },
+    { path: 'department', component: DepartmentsComponent, canActivate: [AuthGuardService] },
     { path: 'login', component: LoginComponent }
 ];
 

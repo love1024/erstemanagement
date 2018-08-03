@@ -16,7 +16,7 @@ export class PublishComponent implements OnInit {
   publishWFH() {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    const url = "http://localhost:3000/publish/attendance"
+    const url = "http://localhost:3000/publish/attendance";
     this.http.get(url, { headers: headers, responseType: 'blob' }).subscribe((blob) => {
       var url = window.URL.createObjectURL(blob);
       window.open(url)
@@ -26,7 +26,7 @@ export class PublishComponent implements OnInit {
   publishLeave() {
     let headers = new HttpHeaders();
     headers = headers.set('Accept', 'application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    const url = "http://localhost:3000/publish/leave"
+    const url = "http://localhost:3000/publish/leave";
     this.http.get(url, { headers: headers, responseType: 'blob' }).subscribe((blob) => {
       var url = window.URL.createObjectURL(blob);
       window.open(url)
