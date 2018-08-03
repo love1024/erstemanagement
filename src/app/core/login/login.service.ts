@@ -3,8 +3,12 @@ import { environment } from '../../../environments/environment';
 import { Login } from '../../shared/models/login/login.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import * as moment from 'moment';
 import { tap, shareReplay, catchError } from 'rxjs/operators';
+
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+
+const moment = _rollupMoment || _moment;
 
 @Injectable({
   providedIn: 'root'
