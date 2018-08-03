@@ -13,6 +13,8 @@ export class Resource {
     public endDate: Date;
     public citrix: Boolean;
     public active: boolean;
+    public role: string;
+    public password: string;
     public dateFrom: Date;
     public dateUntil: Date;
     public fipUser: string;

@@ -1,6 +1,8 @@
-import { AppStoreService } from './../../../core/app-store.service';
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ResourceService } from '../../../core/resource/resource.service';
+import { LoginService } from '../../../core/login/login.service';
+import { Resource } from '../../models/admin/resource.model';
 
 @Component({
     selector: 'erste-sidepanel',
@@ -12,13 +14,26 @@ export class SidepanelComponent implements OnInit {
     user: string;
     designation: string;
 
-    constructor(private renderer: Renderer2, private router: Router, private appstore: AppStoreService) { }
+    constructor(
+        private renderer: Renderer2,
+        private router: Router,
+        private loginService: LoginService,
+        private resourceService: ResourceService) { }
 
     ngOnInit() {
-        this.appstore.AppData.subscribe(res => {
-            this.user = res.name;
-            this.designation = res.designation;
-        });
+        this.loginService.getLogInOutEmitter().subscribe((isLoggedIn) => {
+            if (isLoggedIn) {
+                this.getResourceInformation();
+            }
+        })
+    }
+
+    getResourceInformation() {
+        let managerId = this.loginService.getManagerId();
+        this.resourceService.getResourceById(managerId, true).subscribe((resource: Resource[]) => {
+            this.user = resource[0].resourceName;
+            this.designation = (resource[0].role).toUpperCase();
+        })
     }
 
     onItemClick(event) {

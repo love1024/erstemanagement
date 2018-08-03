@@ -25,6 +25,11 @@ export class ResourceService {
     }
   }
 
+  public getResourceById(id: number, active: boolean): Observable<Resource[]> {
+    const url = this.url + "/" + id + "?active=" + active;
+    return this.http.get<Resource[]>(url);
+  }
+
   public createResource(resource: Resource): Observable<any> {
     this.resourceObservable = null;
     return this.http.post<any>(this.url, resource);

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Login } from '../../shared/models/login/login.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -17,6 +17,12 @@ export class LoginService {
 
   /** Login url  */
   private url = environment.urls.loginApi;
+
+  /** Manager Id */
+  private managerId: number;
+
+  /** Emitter to emit login and logout success*/
+  private logInOutEmitter: EventEmitter<boolean> = new EventEmitter();
 
   /**
    * Creates an instance of LoginService.
@@ -49,6 +55,7 @@ export class LoginService {
   public logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('resourceId');
   }
 
   /**
@@ -60,6 +67,7 @@ export class LoginService {
   public setSession(loginResult) {
     if (loginResult.token) {
       const expiresAt = moment().add(loginResult.expiresIn, 'second');
+      localStorage.setItem('resourceId', loginResult.resourceId);
       localStorage.setItem('token', loginResult.token);
       localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
     }
@@ -84,6 +92,37 @@ export class LoginService {
   public isLoggedOut() {
     return !this.isLoggedIn();
   }
+
+
+  /**
+   * Get the current logged in 
+   * manager
+   * @returns 
+   * @memberof LoginService
+   */
+  public getManagerId() {
+    return parseInt(localStorage.getItem("resourceId") || "-1");
+  }
+
+  /**
+   * Get Login Success Emitter
+   * 
+   * @returns 
+   * @memberof LoginService
+   */
+  public getLogInOutEmitter() {
+    return this.logInOutEmitter;
+  }
+
+  /**
+   * Emit Login success
+   * 
+   * @memberof LoginService
+   */
+  public emitLogInOut() {
+    this.logInOutEmitter.emit(this.isLoggedIn());
+  }
+
 
   /**
    * Get expiration time of token

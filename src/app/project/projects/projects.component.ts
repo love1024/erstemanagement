@@ -3,6 +3,7 @@ import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Project } from '../../shared/models/project/project.model';
 import { ProjectService } from '../../core/project/project.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { LoginService } from '../../core/login/login.service';
 
 @Component({
     selector: 'erste-projects',
@@ -42,6 +43,7 @@ export class ProjectComponent implements OnInit {
 
     constructor(
         private dataService: ProjectService,
+        private loginService: LoginService,
         private renderer: Renderer2
     ) { }
 
@@ -51,7 +53,8 @@ export class ProjectComponent implements OnInit {
 
     refreshDataTable() {
         this.isLoading = true;
-        this.dataService.getProjects(true)
+        let pmId = this.loginService.getManagerId();
+        this.dataService.getProjectsByPMId(pmId)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));

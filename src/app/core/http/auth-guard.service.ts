@@ -33,6 +33,7 @@ export class AuthGuardService implements CanActivate {
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     if (this.loginService.isLoggedIn()) {
+      this.loginService.emitLogInOut();
       return of(true);
     } else {
 

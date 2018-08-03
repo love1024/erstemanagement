@@ -27,9 +27,18 @@ export class ProjectService {
   }
 
   public getProjectsByDepartmentId(id: number): Observable<Project[]> {
-    this.projectObservable = null;
     const url = this.url + "/department/" + id;
     return this.http.get<Project[]>(url);
+  }
+
+  public getProjectsByPMId(id: number): Observable<Project[]> {
+    const url = this.url + "/pm/" + id;
+    if (this.projectObservable)
+      return this.projectObservable;
+    else {
+      this.projectObservable = this.http.get<Project[]>(url).pipe(shareReplay(1));
+      return this.projectObservable;
+    }
   }
 
   public createProject(project: Project): Observable<any> {

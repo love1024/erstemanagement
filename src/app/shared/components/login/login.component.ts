@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit() {
     if (this.loginService.isLoggedIn()) {
+      this.loginService.emitLogInOut();
       this.router.navigateByUrl("/department");
     }
     this.createForm();
@@ -77,10 +78,12 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.inputForm.value).subscribe((res) => {
 
         //If result is ok move to /home route else show login fail message
-        if (res["type"] == "ok")
+        if (res["type"] == "ok") {
+          this.loginService.emitLogInOut();
           this.router.navigateByUrl("/department");
-        else
+        } else {
           this.loginFailed = true;
+        }
       })
     }
   }

@@ -18,12 +18,9 @@ export class AppComponent {
 
     ngOnInit() {
         this.isLoggedIn = this.loginService.isLoggedIn();
-        this.router.events.subscribe((val) => {
-            this.isLoggedIn = this.loginService.isLoggedIn();
-            if (this.isLoggedIn)
-                this.sidenav.open();
-            else
-                this.sidenav.close();
+        this.loginService.getLogInOutEmitter().subscribe((isLoggedIn) => {
+            this.isLoggedIn = isLoggedIn;
+            this.isLoggedIn ? this.sidenav.open() : this.sidenav.close();
         })
     }
 
