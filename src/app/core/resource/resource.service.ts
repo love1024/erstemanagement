@@ -30,6 +30,11 @@ export class ResourceService {
     return this.http.get<Resource[]>(url);
   }
 
+  public getResourcesByPMId(id: number): Observable<Resource[]> {
+    const url = this.url + "/pm/" + id;
+    return this.http.get<Resource[]>(url);
+  }
+
   public createResource(resource: Resource): Observable<any> {
     this.resourceObservable = null;
     return this.http.post<any>(this.url, resource);

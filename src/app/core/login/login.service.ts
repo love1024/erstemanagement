@@ -59,6 +59,19 @@ export class LoginService {
   }
 
   /**
+   * Change password of given id
+   * 
+   * @param {number} id 
+   * @param {*} data 
+   * @returns 
+   * @memberof LoginService
+   */
+  public changePassword(id: number, data: any) {
+    const url = this.url + "/" + id;
+    return this.httpClient.post(url, data);
+  }
+
+  /**
    * Set the token to localstorage
    * 
    * @param {any} loginResult 

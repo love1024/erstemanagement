@@ -4,6 +4,7 @@ import { ResourceEditorComponent } from '../resource-editor/resource-editor.comp
 import { Resource } from 'src/app/shared/models/admin/resource.model';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { ResourceService } from '../../core/resource/resource.service';
+import { LoginService } from '../../core/login/login.service';
 
 @Component({
     selector: 'erste-resources',
@@ -43,6 +44,7 @@ export class ResourcesComponent implements OnInit {
 
     constructor(
         private dataService: ResourceService,
+        private loginService: LoginService,
         private renderer: Renderer2
     ) { }
 
@@ -52,10 +54,12 @@ export class ResourcesComponent implements OnInit {
 
     refreshDataTable() {
         this.isLoading = true;
-        this.dataService.getResourceList(true)
+        let pmId = this.loginService.getManagerId();
+        this.dataService.getResourcesByPMId(pmId)
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.dataSource.filterPredicate = this.dataFilter;
                     this.isLoading = false;
                 }
 
@@ -103,5 +107,18 @@ export class ResourcesComponent implements OnInit {
         const rows = [];
         list.forEach(element => rows.push(element, { editor: true, expanded: false, element }));
         return rows;
+    }
+
+    dataFilter(data: any, filter) {
+        const filterArr = JSON.parse(filter);
+        const str = filterArr.val.toString().toLowerCase();
+        const col = filterArr.col;
+        if (data.editor)
+            return true;
+        return data[col].toString().toLowerCase().indexOf(str) != -1;
+    }
+
+    onFilter(col, val) {
+        this.dataSource.filter = JSON.stringify({ col, val });
     }
 }

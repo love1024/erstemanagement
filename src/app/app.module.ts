@@ -18,6 +18,8 @@ import { DepartmentModule } from './department/department.module';
 import { ProjectResourceModule } from './project-resource/project-resource.module';
 import { LoginComponent } from './shared/components/login/login.component';
 import { AuthInterceptorService } from './core/http/auth-interceptor.service';
+import { PasswordComponent } from './shared/components/password/password.component';
+import { JobComponent } from './shared/components/job/job.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +27,9 @@ import { AuthInterceptorService } from './core/http/auth-interceptor.service';
         SidepanelComponent,
         HeaderComponent,
         PublishComponent,
-        LoginComponent
+        LoginComponent,
+        JobComponent,
+        PasswordComponent
     ],
     imports: [
         BrowserModule,

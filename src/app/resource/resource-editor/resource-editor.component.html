@@ -24,6 +24,14 @@
       <mat-error *ngIf="inputForm.get('resourceName').hasError('required')">Required</mat-error>
     </mat-form-field>
 
+    <!-- Username -->
+    <mat-form-field>
+      <input matInput
+        formControlName="username"
+        placeholder="Username">
+      <mat-error *ngIf="inputForm.get('username').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
     <!-- Email -->
     <mat-form-field>
       <input matInput
@@ -96,6 +104,19 @@
         <mat-option value="onshore">ONSHORE</mat-option>
       </mat-select>
       <mat-error *ngIf="inputForm.get('location').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <!-- Visa type -->
+    <mat-form-field *ngIf="inputForm.get('location').value == 'onshore'">
+      <mat-select matInput
+        formControlName="visaType"
+        placeholder="Visa Type">
+        <mat-option value="c">Visa C</mat-option>
+        <mat-option value="d">Visa D</mat-option>
+        <mat-option value="bv">BUSINESS</mat-option>
+        <mat-option value="ict">ICT</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('visaType').hasError('required')">Required</mat-error>
     </mat-form-field>
 
     <!-- Citrix -->

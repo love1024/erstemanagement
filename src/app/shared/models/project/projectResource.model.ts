@@ -9,6 +9,7 @@ export class ProjectResource {
   public resourceIsBillable: Boolean;
   public keyResource: Boolean;
   public invoicingEntity: String;
+  public nonBillable: String;
   public active: Boolean;
   public dateFrom: Date;
   public dateUntil: Date;

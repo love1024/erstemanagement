@@ -16,19 +16,37 @@
     [dataSource]="dataSource">
     <!-- Resource ID Column -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> EMPLOYEE ID </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <div>EMPLOYEE ID</div>
+        <div>
+          <input (input)="onFilter('resourceId',$event.target.value)"
+            type="text" />
+        </div>
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.resourceId}} </mat-cell>
     </ng-container>
 
     <!-- Resource name Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <div>NAME</div>
+        <div>
+          <input (input)="onFilter('resourceName',$event.target.value)"
+            type="text" />
+        </div>
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
     </ng-container>
 
     <!-- Resource level Column -->
     <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef> EMAIL </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <div>EMAIL</div>
+        <div>
+          <input (input)="onFilter('resourceEmail',$event.target.value)"
+            type="text" />
+        </div>
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.resourceEmail}} </mat-cell>
     </ng-container>
 

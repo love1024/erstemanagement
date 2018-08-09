@@ -34,7 +34,7 @@ import { LoginService } from '../../core/login/login.service';
 })
 export class ProjectComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'modelName'];
+    displayedColumns = ['id', 'name', 'tamName'];
     dataSource = new MatTableDataSource();
     currentProject: Project;
     buttonMessage = "Entry";
@@ -58,6 +58,7 @@ export class ProjectComponent implements OnInit {
             .subscribe(
                 list => {
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.dataSource.filterPredicate = this.dataFilter;
                     this.isLoading = false;
                 }
             );
@@ -104,5 +105,18 @@ export class ProjectComponent implements OnInit {
         const rows = [];
         list.forEach(element => rows.push(element, { editor: true, expanded: false, element }));
         return rows;
+    }
+
+    dataFilter(data: any, filter) {
+        const filterArr = JSON.parse(filter);
+        const str = filterArr.val.toString().toLowerCase();
+        const col = filterArr.col;
+        if (data.editor)
+            return true;
+        return data[col].toString().toLowerCase().indexOf(str) != -1;
+    }
+
+    onFilter(col, val) {
+        this.dataSource.filter = JSON.stringify({ col, val });
     }
 }

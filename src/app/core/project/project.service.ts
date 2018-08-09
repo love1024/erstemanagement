@@ -33,12 +33,7 @@ export class ProjectService {
 
   public getProjectsByPMId(id: number): Observable<Project[]> {
     const url = this.url + "/pm/" + id;
-    if (this.projectObservable)
-      return this.projectObservable;
-    else {
-      this.projectObservable = this.http.get<Project[]>(url).pipe(shareReplay(1));
-      return this.projectObservable;
-    }
+    return this.http.get<Project[]>(url);
   }
 
   public createProject(project: Project): Observable<any> {

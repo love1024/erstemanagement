@@ -1,5 +1,41 @@
-<button (click)="publishWFH()"
-  class="publish-btn">WORK FROM HOME</button>
-&nbsp;
-<button (click)="publishLeave()"
-  class="publish-btn">LEAVE</button>
+<div id="form-container">
+  <form [formGroup]="inputForm">
+
+    <mat-form-field>
+      <input formControlName="startDate"
+        matInput
+        [matDatepicker]="startDate"
+        placeholder="Start Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('startDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input formControlName="endDate"
+        matInput
+        [matDatepicker]="endDate"
+        placeholder="End Date">
+      <mat-datepicker-toggle matSuffix
+        [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+      <mat-error *ngIf="inputForm.get('endDate').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select matInput
+        formControlName="type"
+        placeholder="Document Type">
+        <mat-option value="wfh">Work From Home</mat-option>
+        <mat-option value="leave">Leave</mat-option>
+      </mat-select>
+      <mat-error *ngIf="inputForm.get('type').hasError('required')">Required</mat-error>
+    </mat-form-field>
+
+
+    <button mat-raised-button
+      class="publish-btn"
+      (click)="onSubmit(inputForm.valid)">Publish</button>&nbsp;
+  </form>
+</div>

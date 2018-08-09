@@ -59,7 +59,7 @@
 
       <!-- Resource Allocation % -->
       <ng-container matColumnDef="technology">
-        <mat-header-cell *matHeaderCellDef> Technology </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> TECHNOLOGY </mat-header-cell>
         <mat-cell *matCellDef="let element;let i = index"
           [formGroupName]="i">
           <!-- projectTechnology -->
@@ -77,7 +77,7 @@
 
       <!-- Invoicing Entity -->
       <ng-container matColumnDef="invoicingEntity">
-        <mat-header-cell *matHeaderCellDef> Invoicing Entity </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> INVOICING ENTITY </mat-header-cell>
         <mat-cell *matCellDef="let element;let i = index"
           [formGroupName]="i">
           <mat-form-field>
@@ -86,6 +86,24 @@
               placeholder="Invoicing Entity">
               <mat-option value="sit">SIT</mat-option>
               <mat-option value="egit">EGIT</mat-option>
+            </mat-select>
+            <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('invoicingEntity').hasError('required')">Required</mat-error>
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Non Billable -->
+      <ng-container matColumnDef="nonBillable">
+        <mat-header-cell *matHeaderCellDef> NON BILLABLE </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index"
+          [formGroupName]="i">
+          <mat-form-field>
+            <mat-select matInput
+              formControlName="nonBillable"
+              placeholder="Non Billable">
+              <mat-option value="not">Not Applicable</mat-option>
+              <mat-option value="commitment">Commitment</mat-option>
+              <mat-option value="investment">Investment</mat-option>
             </mat-select>
             <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('invoicingEntity').hasError('required')">Required</mat-error>
           </mat-form-field>
@@ -106,7 +124,7 @@
 
       <!-- Key Resource information -->
       <ng-container matColumnDef="keyResource">
-        <mat-header-cell *matHeaderCellDef> Key Resource </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> KEY RESOURCE </mat-header-cell>
         <mat-cell *matCellDef="let element;let i = index"
           [formGroupName]="i">
           <div class="mat-checkbox">
@@ -118,7 +136,7 @@
 
       <!-- Actions -->
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef> Action</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>
         <mat-cell *matCellDef="let element; let i = index"
           [formGroupName]="i">
           <a class="icon-hover-blue"

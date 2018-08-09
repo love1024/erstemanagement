@@ -18,19 +18,37 @@
         [dataSource]="dataSource">
         <!-- Department Name -->
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+                <div>NAME</div>
+                <div>
+                    <input (input)="onFilter('departmentName',$event.target.value)"
+                        type="text" />
+                </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.departmentName}} </mat-cell>
         </ng-container>
 
         <!-- HOD -->
         <ng-container matColumnDef="hod">
-            <mat-header-cell *matHeaderCellDef> HOD </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+                <div>HOD</div>
+                <div>
+                    <input (input)="onFilter('departmentHod',$event.target.value)"
+                        type="text" />
+                </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.departmentHod}} </mat-cell>
         </ng-container>
 
         <!-- HOD Email -->
         <ng-container matColumnDef="hod_email">
-            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>
+                <div>EMAIL</div>
+                <div>
+                    <input (input)="onFilter('departmentHodEmail',$event.target.value)"
+                        type="text" />
+                </div>
+            </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.departmentHodEmail}} </mat-cell>
         </ng-container>
 

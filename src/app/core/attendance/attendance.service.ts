@@ -17,6 +17,11 @@ export class AttendanceService {
     return this.http.get<Attendance[]>(this.url);
   }
 
+  public getAttendanceByPMId(id: number): Observable<Attendance[]> {
+    const url = this.url + "/pm/" + id;
+    return this.http.get<Attendance[]>(url);
+  }
+
   public createAttendance(attendance: Attendance): Observable<any> {
     return this.http.post<any>(this.url, attendance);
   }

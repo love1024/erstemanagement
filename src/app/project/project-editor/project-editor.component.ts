@@ -62,11 +62,9 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.departmentService.getDepartmentList(true).subscribe((departments: Department[]) => {
-            console.log(departments);
             this.departments = departments;
         });
         this.technologyService.getTechnologyList().subscribe((technologies: Technology[]) => {
-            console.log(technologies);
             this.technologies = technologies;
         })
     }
@@ -157,20 +155,17 @@ export class ProjectEditorComponent implements OnInit, OnChanges {
 
     updateProject(project: Project): void {
         this.dataService.updateProject(project).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     createProject(project: Project): void {
         this.dataService.createProject(project).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     deleteProject(id): void {
-        console.log(id);
         this.dataService.deleteProject(id).subscribe(res => {
             this.emitRefresh()
         });

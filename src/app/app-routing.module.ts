@@ -9,6 +9,7 @@ import { DepartmentsComponent } from './department/departments/departments.compo
 import { ProjectResourceComponent } from './project-resource/project-resource/project-resource.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { AuthGuardService } from './core/http/auth-guard.service';
+import { JobComponent } from './shared/components/job/job.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
     { path: 'project', component: ProjectComponent, canActivate: [AuthGuardService] },
     { path: 'resource', component: ResourcesComponent, canActivate: [AuthGuardService] },
     { path: 'department', component: DepartmentsComponent, canActivate: [AuthGuardService] },
+    { path: 'job', component: JobComponent, canActivate: [AuthGuardService] },
     { path: 'login', component: LoginComponent }
 ];
 

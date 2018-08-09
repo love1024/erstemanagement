@@ -26,7 +26,6 @@ export class AdminTechnologyComponent implements OnInit {
     this.dataService.getTechnologyList()
       .subscribe(
         list => {
-          console.log(list);
           this.dataSource = new MatTableDataSource(list);
         }
       );
@@ -43,21 +42,18 @@ export class AdminTechnologyComponent implements OnInit {
 
   createNewDepartment(technology: Technology): void {
     this.dataService.createDepartment(technology).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     });
   }
 
   updateDepartment(technology: Technology): void {
     this.dataService.updateDepartment(technology).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     })
   }
 
   deleteDepartment(id): void {
     this.dataService.deleteDepartment(id).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     })
   }

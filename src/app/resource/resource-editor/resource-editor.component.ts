@@ -76,7 +76,9 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
             endDate: [new Date(), [Validators.required]],
             resourceLevelId: ['', [Validators.required]],
             location: ['', [Validators.required]],
+            visaType: [''],
             citrix: [false, [Validators.required]],
+            username: ['', [Validators.required]],
             active: [true],
             dateFrom: [Date.now()],
             dateUntil: [null],
@@ -96,8 +98,12 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
             startDate: [resource.startDate, [Validators.required]],
             endDate: [resource.endDate, [Validators.required]],
             resourceLevelId: [resource.resourceLevelId, [Validators.required]],
+            visaType: [resource.visaType],
             location: [resource.location, [Validators.required]],
             citrix: [resource.citrix, [Validators.required]],
+            username: [resource.username, [Validators.required]],
+            role: [resource.role],
+            password: [resource.password],
             active: [true],
             dateFrom: [resource.dateFrom],
             dateUntil: [resource.dateUntil],
@@ -139,20 +145,17 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
 
     updateResource(resource: Resource): void {
         this.dataService.updateResource(resource).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     createResource(resource: Resource): void {
         this.dataService.createResource(resource).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     deleteResource(id): void {
-        console.log(id);
         this.dataService.deleteResource(id).subscribe(res => {
             this.emitRefresh()
         });

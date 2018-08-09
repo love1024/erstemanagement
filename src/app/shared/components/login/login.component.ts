@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.loginService.isLoggedIn()) {
       this.loginService.emitLogInOut();
-      this.router.navigateByUrl("/department");
+      this.router.navigateByUrl("/project");
     }
     this.createForm();
   }

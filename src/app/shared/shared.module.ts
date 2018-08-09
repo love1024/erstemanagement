@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PasswordComponent } from './components/password/password.component';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
         ReactiveFormsModule,
         RouterModule,
     ],
-    declarations: []
+    declarations: [],
+    entryComponents: [PasswordComponent]
 })
 export class SharedModule { }

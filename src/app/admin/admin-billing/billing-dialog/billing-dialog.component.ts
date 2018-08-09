@@ -59,7 +59,6 @@ export class BillingDialogComponent implements OnInit {
   }
 
   createEditForm(billingRate: BillingRate): void {
-    console.log(billingRate.resourceOnshoreLongtermRate, billingRate.resourceOnshoreShorttermRate);
     this.inputForm = this.formBuilder.group({
       billingId: [billingRate.billingId, Validators.required],
       technologyId: [billingRate.technologyId, Validators.required],

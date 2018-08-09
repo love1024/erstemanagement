@@ -1,0 +1,9 @@
+<button mat-raised-button
+  class="job-btn"
+  (click)="fileUpload.click()">
+  ATTENDANCE JOB</button>&nbsp;
+<input type="file"
+  accept=".txt"
+  (change)="parseFile($event)"
+  #fileUpload
+  hidden />

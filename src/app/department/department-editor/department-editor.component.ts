@@ -117,20 +117,17 @@ export class DepartmentEditorComponent implements OnInit, OnChanges {
 
     updateDepartment(department: Department): void {
         this.dataService.updateDepartment(department).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     createDepartment(department: Department): void {
         this.dataService.createDepartment(department).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     deleteDepartment(id): void {
-        console.log(id);
         this.dataService.deleteDepartment(id).subscribe(res => {
             this.emitRefresh()
         });

@@ -3,6 +3,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Attendance } from '../../shared/models/attendance/attendance.model';
 import { AttendanceService } from '../../core/attendance/attendance.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
+import { LoginService } from '../../core/login/login.service';
 
 @Component({
     selector: 'erste-attendance',
@@ -46,6 +47,7 @@ export class AttendanceComponent implements OnInit {
 
     constructor(
         private dataService: AttendanceService,
+        private loginService: LoginService,
         private renderer: Renderer2
     ) { }
 
@@ -54,13 +56,13 @@ export class AttendanceComponent implements OnInit {
     }
 
     refreshDataTable() {
-        console.log(this.dataService);
         this.isLoading = true;
-        this.dataService.getAttendanceList()
+        let pmId = this.loginService.getManagerId();
+        this.dataService.getAttendanceByPMId(pmId)
             .subscribe(
                 list => {
-                    console.log(list);
                     this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
+                    this.dataSource.filterPredicate = this.dataFilter;
                     this.isLoading = false;
                 }
             );
@@ -105,4 +107,21 @@ export class AttendanceComponent implements OnInit {
         list.forEach(element => rows.push(element, { editor: true, element }));
         return rows;
     }
+
+    dataFilter(data: any, filter) {
+        const filterArr = JSON.parse(filter);
+        const str = filterArr.val.toString().toLowerCase();
+        const col = filterArr.col;
+        if (data.editor)
+            return true;
+        if (col == "date") {
+            data[col] = (new Date(data[col]));
+        }
+        return data[col].toString().toLowerCase().indexOf(str) != -1;
+    }
+
+    onFilter(col, val) {
+        this.dataSource.filter = JSON.stringify({ col, val });
+    }
+
 }

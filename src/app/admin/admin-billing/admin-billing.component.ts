@@ -45,7 +45,6 @@ export class AdminBillingComponent implements OnInit {
     this.dataService.getBillingRateList(true)
       .subscribe(
         list => {
-          console.log(list);
           this.dataSource = new MatTableDataSource(list);
         }
       );
@@ -64,21 +63,18 @@ export class AdminBillingComponent implements OnInit {
 
   createNewBillingRate(billingRate: BillingRate): void {
     this.dataService.createBillingRate(billingRate).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     });
   }
 
   updateBillingRate(billingRate: BillingRate): void {
     this.dataService.updateBillingRate(billingRate).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     })
   }
 
   deleteBillingRate(id): void {
     this.dataService.deleteBillingRate(id).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     })
   }

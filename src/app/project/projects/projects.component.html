@@ -18,20 +18,38 @@
 
     <!-- Project Id -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> PROJECT ID </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <div>PROJECT ID</div>
+        <div>
+          <input (input)="onFilter('projectId',$event.target.value)"
+            type="text" />
+        </div>
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.projectId}} </mat-cell>
     </ng-container>
 
     <!-- Project Name -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> NAME </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <div>NAME</div>
+        <div>
+          <input (input)="onFilter('projectNameAsPerSow',$event.target.value)"
+            type="text" />
+        </div>
+      </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.projectNameAsPerSow}} </mat-cell>
     </ng-container>
 
     <!-- Project Model Name -->
-    <ng-container matColumnDef="modelName">
-      <mat-header-cell *matHeaderCellDef> PROJECT MODEL NAME</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.projectModelName}} </mat-cell>
+    <ng-container matColumnDef="tamName">
+      <mat-header-cell *matHeaderCellDef>
+        <div>SIT TAM NAME</div>
+        <div>
+          <input (input)="onFilter('projectSitTAM',$event.target.value)"
+            type="text" />
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.projectSitTAM}} </mat-cell>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->

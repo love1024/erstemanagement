@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../../core/header/header.service';
 import { LoginService } from '../../../core/login/login.service';
 import { Router, NavigationEnd } from '@angular/router';
+import { MatBottomSheet } from '@angular/material';
+import { PasswordComponent } from '../password/password.component';
 
 @Component({
   selector: 'erste-header',
@@ -11,8 +13,12 @@ import { Router, NavigationEnd } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn = false;
-  status: String;
-  constructor(private loginService: LoginService, private router: Router) { }
+  status = "Secure Login";
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private bottomSheet: MatBottomSheet
+  ) { }
 
   ngOnInit() {
     this.loginService.getLogInOutEmitter().subscribe((isLoggedIn) => {
@@ -27,4 +33,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
+  openChangePassword() {
+    this.bottomSheet.open(PasswordComponent);
+  }
 }

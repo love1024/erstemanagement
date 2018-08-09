@@ -49,7 +49,6 @@ export class DepartmentProjectComponent implements OnInit {
     this.projectService.getProjectsByDepartmentId(this.departmentId)
       .subscribe(
         list => {
-          console.log(list);
           this.dataSource = new MatTableDataSource(list);
           this.isLoading = false;
         }

@@ -20,8 +20,8 @@ const paths = {
   resource: "resource"
 }
 
-const projectCols = ['resourceId', 'resourceAllocation', 'technology', 'invoicingEntity', 'resourceIsBillable', 'keyResource', 'actions'];
-const resourceCols = ['projectId', 'resourceAllocation', 'technology', 'invoicingEntity', 'resourceIsBillable', 'keyResource', 'actions'];
+const projectCols = ['resourceId', 'resourceAllocation', 'technology', 'invoicingEntity', 'nonBillable', 'resourceIsBillable', 'keyResource', 'actions'];
+const resourceCols = ['projectId', 'resourceAllocation', 'technology', 'invoicingEntity', 'nonBillable', 'resourceIsBillable', 'keyResource', 'actions'];
 
 @Component({
   selector: 'erste-project-resource',
@@ -107,7 +107,6 @@ export class ProjectResourceComponent implements OnInit {
     this.dataService.getResourcesByProjectId(true, this.id)
       .subscribe(
         list => {
-          console.log(list);
           this.data = list;
           this.dataSource = new MatTableDataSource(list);
           this.createForm(list);
@@ -120,7 +119,6 @@ export class ProjectResourceComponent implements OnInit {
     this.dataService.getProjectsByResourceId(true, this.id)
       .subscribe(
         list => {
-          console.log(list);
           this.data = list;
           this.dataSource = new MatTableDataSource(list);
           this.createForm(list);
@@ -147,6 +145,7 @@ export class ProjectResourceComponent implements OnInit {
       resourceAllocation: [projectResource.resourceAllocation, [Validators.required]],
       keyResource: [projectResource.keyResource, [Validators.required]],
       invoicingEntity: [projectResource.invoicingEntity, [Validators.required]],
+      nonBillable: [projectResource.nonBillable, [Validators.required]],
       resourceIsBillable: [projectResource.resourceIsBillable],
       active: [projectResource.active, Validators.required],
       dateFrom: [projectResource.dateFrom],
@@ -167,6 +166,7 @@ export class ProjectResourceComponent implements OnInit {
       resourceAllocation: ['', [Validators.required]],
       keyResource: [false, [Validators.required]],
       invoicingEntity: ['', [Validators.required]],
+      nonBillable: ['', [Validators.required]],
       resourceIsBillable: [false],
       active: [true, Validators.required],
       dateFrom: [new Date()],
@@ -225,7 +225,7 @@ export class ProjectResourceComponent implements OnInit {
 
   updateProjectResource(projectResource: ProjectResource): void {
     this.dataService.updateProjectResource(projectResource).subscribe(res => {
-      console.log(res);
+      this.snackbarService.open("Updated Succesfully");
     });
   }
 

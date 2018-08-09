@@ -27,7 +27,6 @@ export class LevelInfoComponent implements OnInit {
     this.dataService.getLevelsList()
       .subscribe(
         list => {
-          console.log(list);
           this.dataSource = new MatTableDataSource(list);
         }
       );
@@ -44,21 +43,18 @@ export class LevelInfoComponent implements OnInit {
 
   createNewLevel(level: Level): void {
     this.dataService.createLevel(level).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     });
   }
 
   updateLevel(level: Level): void {
     this.dataService.updateLevel(level).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     })
   }
 
   deleteLevel(id): void {
     this.dataService.deleteLevel(id).subscribe(res => {
-      console.log(res);
       this.refreshDataTable();
     })
   }

@@ -31,7 +31,6 @@ export class AttendanceEditorComponent implements OnInit, OnChanges {
         private renderer: Renderer2) { }
 
     ngOnChanges() {
-        console.log(!this.attendance);
         if (this.attendance) {
             this.createEditForm(this.attendance);
         } else {
@@ -112,27 +111,24 @@ export class AttendanceEditorComponent implements OnInit, OnChanges {
             this.snackbarService.open("Form is not changed");
             return;
         }
-        // if (this.checkDefined(this.inputForm.value)) {
-        //     this.updateAttendance(this.inputForm.value);
-        // }
+        if (this.checkDefined(this.inputForm.value)) {
+            this.updateAttendance(this.inputForm.value);
+        }
     }
 
     updateAttendance(attendance: Attendance): void {
         this.dataService.updateAttendance(attendance).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     createAttendance(attendance: Attendance): void {
         this.dataService.createAttendance(attendance).subscribe(res => {
-            console.log(res);
             this.emitRefresh()
         });
     }
 
     deleteAttendance(id): void {
-        console.log(id);
         this.dataService.deleteAttendance(id).subscribe(res => {
             this.emitRefresh()
         });
