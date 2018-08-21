@@ -10,15 +10,18 @@ import { ProjectResourceComponent } from './project-resource/project-resource/pr
 import { LoginComponent } from './shared/components/login/login.component';
 import { AuthGuardService } from './core/http/auth-guard.service';
 import { JobComponent } from './shared/components/job/job.component';
+import { TasksComponent } from './task/tasks/tasks.component';
+import { ReportsComponent } from './report/reports/reports.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuardService] },
+    { path: 'attendance', component: ReportsComponent, canActivate: [AuthGuardService] },
     { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuardService] },
     { path: 'publish', component: PublishComponent, canActivate: [AuthGuardService] },
     { path: 'project', component: ProjectComponent, canActivate: [AuthGuardService] },
     { path: 'resource', component: ResourcesComponent, canActivate: [AuthGuardService] },
     { path: 'department', component: DepartmentsComponent, canActivate: [AuthGuardService] },
+    { path: 'task', component: TasksComponent, canActivate: [AuthGuardService] },
     { path: 'job', component: JobComponent, canActivate: [AuthGuardService] },
     { path: 'login', component: LoginComponent }
 ];

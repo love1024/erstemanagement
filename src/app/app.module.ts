@@ -20,6 +20,8 @@ import { LoginComponent } from './shared/components/login/login.component';
 import { AuthInterceptorService } from './core/http/auth-interceptor.service';
 import { PasswordComponent } from './shared/components/password/password.component';
 import { JobComponent } from './shared/components/job/job.component';
+import { TaskModule } from './task/task.module';
+import { ReportModule } from './report/report.module';
 
 @NgModule({
     declarations: [
@@ -44,7 +46,9 @@ import { JobComponent } from './shared/components/job/job.component';
         ProjectModule,
         ResourceModule,
         DepartmentModule,
-        ProjectResourceModule
+        ProjectResourceModule,
+        TaskModule,
+        ReportModule
     ],
     providers: [
         {
