@@ -1,3 +1,61 @@
-<p>
-  reports works!
-</p>
+<section id="table-container">
+
+  <mat-table #table
+    [dataSource]="dataSource">
+    <ng-container matColumnDef="task">
+      <mat-header-cell *matHeaderCellDef
+        class="extraWidth6">
+        <div>TASK</div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        class="paddingTop extraWidth6">
+        <mat-form-field>
+          <mat-select matInput
+            [(ngModel)]="element.taskId"
+            placeholder="Task">
+            <mat-option [value]="task.taskId"
+              *ngFor="let task of tasks">{{task.taskName}}</mat-option>
+          </mat-select>
+          <!-- <mat-error *ngIf="(inputForm.get('formArray')).at(i).get('resourceId').hasError('required')">Required</mat-error> -->
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let date of dates"
+      matColumnDef={{date}}>
+      <mat-header-cell *matHeaderCellDef>
+        <div>{{date}}</div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"
+        class="paddingTop">
+        <div *ngFor="let time of element.time">
+          <div *ngIf="time.date == date">{{time.hour}}</div>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actionRow">
+      <mat-cell *matCellDef="let element"
+        class="extraRow">
+        <strong>{{"USERNAME: "+resourceId}}</strong>
+        <a class="icon-hover-blue"
+          title="Save"
+          (click)="onSubmit(i)">
+          <i class="far fa-check-circle"></i></a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row [ngClass]="{'hide':!isTop}"
+      *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row [@smoothInOut]="in"
+      *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['actionRow'];when: isLast"></mat-row>
+  </mat-table>
+
+  <div class="loader"
+    [@fadeOut]=""
+    *ngIf="isLoading">
+    <div class="swirl"></div>
+  </div>
+
+</section>

@@ -12,10 +12,12 @@ import { AuthGuardService } from './core/http/auth-guard.service';
 import { JobComponent } from './shared/components/job/job.component';
 import { TasksComponent } from './task/tasks/tasks.component';
 import { ReportsComponent } from './report/reports/reports.component';
+import { ReportHomeComponent } from './report/report-home/report-home.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'attendance', component: ReportsComponent, canActivate: [AuthGuardService] },
+    { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuardService] },
+    { path: 'report', component: ReportHomeComponent, canActivate: [AuthGuardService] },
     { path: 'admin', component: AdminHomeComponent, canActivate: [AuthGuardService] },
     { path: 'publish', component: PublishComponent, canActivate: [AuthGuardService] },
     { path: 'project', component: ProjectComponent, canActivate: [AuthGuardService] },
