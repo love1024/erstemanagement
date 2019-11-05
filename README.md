@@ -1,9 +1,9 @@
 # Erstemanagement
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.5.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.5.  
 Demo - http://learningkin.com/
 UserId - 2636
-Password - pass
+Password - admin
 
 ## Development server
 
