@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { ResourcesComponent } from './resources/resources.component';
 import { ResourceEditorComponent } from './resource-editor/resource-editor.component';
-import { ProjectResourceModule } from '../project-resource/project-resource.module';
+import { ResourceAccessComponent } from './resource-access/resource-access.component';
 
 @NgModule({
   imports: [
     SharedModule,
-    ProjectResourceModule
   ],
-  declarations: [ResourceEditorComponent, ResourcesComponent]
+  declarations: [ResourceEditorComponent, ResourcesComponent, ResourceAccessComponent]
 })
 export class ResourceModule { }

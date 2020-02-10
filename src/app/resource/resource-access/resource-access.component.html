@@ -1,0 +1,76 @@
+<div class="header-row">
+  <h2>User Access</h2>
+  <a class="icon-hover-blue" title="Save" (click)="onSubmit()">
+    <i class="far fa-check-circle">&nbsp; Update Access</i>
+  </a>
+</div>
+<section id="table-container">
+  <form [formGroup]="inputForm">
+    <mat-table [dataSource]="dataSource" formArrayName="formArray">
+
+      <ng-container matColumnDef="service">
+        <mat-header-cell *matHeaderCellDef> SERVICE </mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;" [formGroupName]="i">
+          Users
+        </mat-cell>
+      </ng-container>
+
+      <!-- Resource Billable information -->
+      <ng-container matColumnDef="create">
+        <mat-header-cell *matHeaderCellDef> Create </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+          <div class="mat-checkbox">
+            <mat-checkbox matInput formControlName="create"></mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Key Resource information -->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+          <div class="mat-checkbox">
+            <mat-checkbox matInput formControlName="delete"></mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+          <div class="mat-checkbox">
+            <mat-checkbox matInput formControlName="edit"></mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="view">
+        <mat-header-cell *matHeaderCellDef> View </mat-header-cell>
+        <mat-cell *matCellDef="let element;let i = index" [formGroupName]="i">
+          <div class="mat-checkbox">
+            <mat-checkbox matInput formControlName="view"></mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Actions -->
+      <!-- <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> ACTION</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index"
+          [formGroupName]="i">
+          <a class="icon-hover-blue"
+            title="Save"
+            (click)="onSubmit(i)">
+            <i class="far fa-check-circle"></i>
+          </a>
+        </mat-cell>
+      </ng-container> -->
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </form>
+  <div class="loader" *ngIf="isLoading">
+    <div class="swirl"></div>
+  </div>
+</section>

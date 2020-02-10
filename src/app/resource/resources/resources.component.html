@@ -1,75 +1,95 @@
 <div id="header">
-  <h2>RESOURCES</h2>
+  <h2>USERS</h2>
   <div></div>
-  <button class="submit-btn"
-    mat-raised-button
-    (click)="toggleDialog()">
+  <button *ngIf="canCreate" class="submit-btn" mat-raised-button (click)="toggleDialog()">
     <i class="fas fa-plus"></i> {{buttonMessage}} </button>
 </div>
-<erste-resource-editor [@smoothInOut]="in"
-  [isNew]="true"
-  (refresh)="refreshDataTable()"
-  *ngIf="isOpen"></erste-resource-editor>
+<erste-resource-editor [@smoothInOut]="in" [isNew]="true" (refresh)="refreshDataTable()" *ngIf="isOpen">
+</erste-resource-editor>
 <section id="table-container">
 
-  <mat-table #table
-    [dataSource]="dataSource">
+  <mat-table #table [dataSource]="dataSource">
     <!-- Resource ID Column -->
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="userid">
       <mat-header-cell *matHeaderCellDef>
-        <div>EMPLOYEE ID</div>
+        <div>USER ID</div>
         <div>
-          <input (input)="onFilter('resourceId',$event.target.value)"
-            type="text" />
+          <input (input)="onFilter('userId',$event.target.value)" type="text" />
         </div>
       </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resourceId}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.userId}} </mat-cell>
     </ng-container>
 
     <!-- Resource name Column -->
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="emailaddress">
       <mat-header-cell *matHeaderCellDef>
-        <div>NAME</div>
+        <div>EMAIL ADDRESS</div>
         <div>
-          <input (input)="onFilter('resourceName',$event.target.value)"
-            type="text" />
+          <input (input)="onFilter('emailAddress',$event.target.value)" type="text" />
         </div>
       </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resourceName}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.emailAddress}} </mat-cell>
     </ng-container>
 
     <!-- Resource level Column -->
-    <ng-container matColumnDef="email">
+    <ng-container matColumnDef="firstname">
       <mat-header-cell *matHeaderCellDef>
-        <div>EMAIL</div>
+        <div>FIRST NAME</div>
         <div>
-          <input (input)="onFilter('resourceEmail',$event.target.value)"
-            type="text" />
+          <input (input)="onFilter('firstName',$event.target.value)" type="text" />
         </div>
       </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.resourceEmail}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
     </ng-container>
+
+    <!-- Resource level Column -->
+    <ng-container matColumnDef="lastname">
+      <mat-header-cell *matHeaderCellDef>
+        <div>LAST NAME</div>
+        <div>
+          <input (input)="onFilter('lastName',$event.target.value)" type="text" />
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+    </ng-container>
+  
+    <!-- Resource level Column -->
+    <ng-container matColumnDef="emailverified">
+      <mat-header-cell *matHeaderCellDef>
+        <div>EMAIL VERIFIED</div>
+        <div>
+          <input (input)="onFilter('emailVerified',$event.target.value)" type="text" />
+        </div>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.emailVerified}} </mat-cell>
+    </ng-container>
+
+      <!-- Resource level Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef>
+          <div>ROLE</div>
+          <div>
+            <input (input)="onFilter('role',$event.target.value)" type="text" />
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
+      </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let element">
-        <erste-resource-editor [resource]="element.element"
-          [expanded]="element.expanded"
+        <erste-resource-editor [user]="element.element" [expanded]="element.expanded"
           (refresh)="refreshDataTable()"></erste-resource-editor>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;let i = index"
-      (click)="onRowClick(row,i)"
+    <mat-row *matRowDef="let row; columns: displayedColumns;let i = index" (click)="onRowClick(row,i)"
       [@smoothInOut]="in"></mat-row>
     <mat-row *matRowDef="let row; columns: ['expandedDetail'];when: isExpansionDetailRow"
-      [@detailExpand]="row.element == currentResource ? 'expanded' : 'collapsed'"
-      style="overflow: hidden"></mat-row>
+      [@detailExpand]="row.element == currentUser ? 'expanded' : 'collapsed'" style="overflow: hidden"></mat-row>
   </mat-table>
-  <div class="loader"
-    [@fadeOut]="in"
-    *ngIf="isLoading">
+  <div class="loader" [@fadeOut]="in" *ngIf="isLoading">
     <div class="swirl"></div>
   </div>
 </section>

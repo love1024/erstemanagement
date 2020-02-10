@@ -7,6 +7,7 @@ import { tap, shareReplay, catchError } from 'rxjs/operators';
 
 import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
+import { IUser } from 'src/app/shared/models/user/user';
 
 const moment = _rollupMoment || _moment;
 
@@ -16,13 +17,15 @@ const moment = _rollupMoment || _moment;
 export class LoginService {
 
   /** Login url  */
-  private url = environment.urls.loginApi;
+  private url = environment.server;
 
   /** Manager Id */
   private managerId: number;
 
   /** Emitter to emit login and logout success*/
   private logInOutEmitter: EventEmitter<boolean> = new EventEmitter();
+
+  user: IUser;
 
   /**
    * Creates an instance of LoginService.
@@ -39,9 +42,10 @@ export class LoginService {
    * @memberof LoginService
    */
   public login(cred: Login): Observable<String> {
-    return this.httpClient.post<String>(this.url, cred)
+    return this.httpClient.post<String>(`${this.url}account/authenticate`, cred)
       .pipe(
         tap(this.setSession),
+        tap((res) => this.setUser(res)),
         shareReplay(),
         catchError(this.handleError)
       )
@@ -54,22 +58,9 @@ export class LoginService {
    */
   public logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('expires_at');
-    localStorage.removeItem('resourceId');
+    localStorage.removeItem('expire');
   }
 
-  /**
-   * Change password of given id
-   * 
-   * @param {number} id 
-   * @param {*} data 
-   * @returns 
-   * @memberof LoginService
-   */
-  public changePassword(id: number, data: any) {
-    const url = this.url + "/" + id;
-    return this.httpClient.post(url, data);
-  }
 
   /**
    * Set the token to localstorage
@@ -79,11 +70,23 @@ export class LoginService {
    */
   public setSession(loginResult) {
     if (loginResult.token) {
-      const expiresAt = moment().add(loginResult.expiresIn, 'second');
-      localStorage.setItem('resourceId', loginResult.resourceId);
       localStorage.setItem('token', loginResult.token);
-      localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
+      localStorage.setItem('expire', loginResult.expire);
     }
+  }
+
+  public setUser(loginResult) {
+    if(loginResult) {
+      localStorage.setItem('user', JSON.stringify(loginResult));
+    }
+  }
+
+  public getUser() {
+    const user = localStorage.getItem('user');
+    if(user)
+      return JSON.parse(user);
+    else 
+      return null;
   }
 
   /**
@@ -103,7 +106,7 @@ export class LoginService {
    * @memberof LoginService
    */
   public isLoggedOut() {
-    return !this.isLoggedIn();
+     !this.isLoggedIn();
   }
 
 
@@ -144,9 +147,8 @@ export class LoginService {
    * @memberof LoginService
    */
   getExpiration() {
-    const expiration = localStorage.getItem('expires_at');
-    const expiresAt = JSON.parse(expiration);
-    return moment(expiresAt);
+    const expiration = localStorage.getItem('expire');
+    return moment(expiration);
   }
 
   /**

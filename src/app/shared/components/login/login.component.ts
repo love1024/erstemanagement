@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.loginService.isLoggedIn()) {
       this.loginService.emitLogInOut();
-      this.router.navigateByUrl("/project");
+      this.router.navigateByUrl("/dashboard");
     }
     this.createForm();
   }
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
    */
   createForm(): void {
     this.inputForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      emailAddress: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
   }
@@ -76,16 +76,17 @@ export class LoginComponent implements OnInit {
     this.loginFailed = false;
     if (isValid) {
       this.loginService.login(this.inputForm.value).subscribe((res) => {
-
-        //If result is ok move to /home route else show login fail message
-        if (res["type"] == "ok") {
-          this.loginService.emitLogInOut();
-          this.router.navigateByUrl("/department");
-        } else {
-          this.loginFailed = true;
-        }
+        this.loginService.emitLogInOut();
+        this.router.navigateByUrl("/dashboard");
+      }, (err) => {
+        this.loginFailed = true;
       })
     }
   }
 
+  onKeydown(event) {
+    if (event.key === "Enter") {
+      this.onSubmit(this.inputForm.valid);
+    }
+  }
 }

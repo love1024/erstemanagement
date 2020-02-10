@@ -1,10 +1,10 @@
 import { MatTableDataSource, MatDialog } from '@angular/material';
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { ResourceEditorComponent } from '../resource-editor/resource-editor.component';
-import { Resource } from 'src/app/shared/models/admin/resource.model';
 import { trigger, transition, style, animate, state } from '@angular/animations';
-import { ResourceService } from '../../core/resource/resource.service';
 import { LoginService } from '../../core/login/login.service';
+import { UserService } from 'src/app/core/user/user.service';
+import { IUser } from 'src/app/shared/models/user/user';
+import { IUserAccessDto } from 'src/app/shared/models/access/access';
 
 @Component({
     selector: 'erste-resources',
@@ -35,44 +35,61 @@ import { LoginService } from '../../core/login/login.service';
 })
 export class ResourcesComponent implements OnInit {
 
-    displayedColumns = ['id', 'name', 'email'];
+    displayedColumns = ['userid', 'firstname', 'lastname', 'emailaddress', 'emailverified', 'role'];
     dataSource = new MatTableDataSource();
-    currentResource: Resource;
-    buttonMessage = "Entry";
+    currentUser: IUser;
+    buttonMessage = "Create";
     isOpen = false;
     isLoading = true;
 
+    access: IUserAccessDto;
+
+    super: IUser;
+
+    get canCreate(): boolean {
+        if(!this.access.create) {
+            return false;
+        }
+        if(this.super.role == 'Business' || this.super.role == 'Business-User') {
+            if(this.super) {
+                return this.super.addedUsers < this.super.maxUsers;
+            }
+        }
+        return true;
+    }
+
     constructor(
-        private dataService: ResourceService,
+        private userSerivce: UserService,
         private loginService: LoginService,
         private renderer: Renderer2
     ) { }
 
     ngOnInit() {
+        this.super = this.loginService.getUser();
         this.refreshDataTable();
     }
 
     refreshDataTable() {
         this.isLoading = true;
-        let pmId = this.loginService.getManagerId();
-        this.dataService.getResourcesByPMId(pmId)
-            .subscribe(
-                list => {
-                    this.dataSource = new MatTableDataSource(this.addDetailColumn(list));
-                    this.dataSource.filterPredicate = this.dataFilter;
-                    this.isLoading = false;
-                }
-
-            );
-        this.closeDialog();
+        const userId = this.loginService.getUser().userId;
+        this.userSerivce.getUserInfo(userId).subscribe((user) => {
+            this.super = user;
+        });
+        this.userSerivce.getAllUsers(userId).subscribe((users: IUser[]) => {
+            this.dataSource = new MatTableDataSource(this.addDetailColumn(users));
+            this.dataSource.filterPredicate = this.dataFilter;
+            this.isLoading = false;
+        });
+        this.userSerivce.getUserAllAccess(this.super.userId).subscribe((access) => {
+            this.access = access.userAccess;
+            if(this.super.role != 'Business-User') {
+                this.access.create = this.access.delete = this.access.edit = this.access.view = true;
+            }
+        });
     }
 
     toggleDialog() {
-        if (this.isOpen) {
-            this.closeDialog();
-        } else {
-            this.openDialog();
-        }
+        this.isOpen = !this.isOpen;
     }
 
     openDialog() {
@@ -93,17 +110,17 @@ export class ResourcesComponent implements OnInit {
         return row.hasOwnProperty('editor');
     }
 
-    onRowClick(resource: Resource, i: number) {
+    onRowClick(user: IUser, i: number) {
         this.dataSource.data.forEach(data => { data["expanded"] = false });
-        if (resource == this.currentResource)
-            this.currentResource = null;
+        if (user == this.currentUser)
+            this.currentUser = null;
         else {
-            this.currentResource = resource;
+            this.currentUser = user;
             this.dataSource.data[i + 1]["expanded"] = true;
         }
     }
 
-    addDetailColumn(list: Resource[]) {
+    addDetailColumn(list: IUser[]) {
         const rows = [];
         list.forEach(element => rows.push(element, { editor: true, expanded: false, element }));
         return rows;

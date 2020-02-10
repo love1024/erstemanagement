@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../../core/login/login.service';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../../../core/snackbar/snackbar.service';
+import { UserService } from 'src/app/core/user/user.service';
 
 @Component({
   selector: 'erste-password',
@@ -22,6 +23,7 @@ export class PasswordComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private router: Router,
+    private userService: UserService,
     private formBuilder: FormBuilder,
     private snackbarService: SnackbarService,
     private matBottomSheet: MatBottomSheetRef) { }
@@ -43,11 +45,13 @@ export class PasswordComponent implements OnInit {
         this.notMatched = true;
       } else {
         this.notMatched = false;
-        let pmId = this.loginService.getManagerId();
+        let userId = this.loginService.getUser().userId;
         this.matBottomSheet.dismiss();
         event.preventDefault();
-        this.loginService.changePassword(pmId, this.inputForm.value).subscribe((res) => {
+        this.userService.changePassword(userId, this.inputForm.value.password).subscribe((res) => {
           this.snackbarService.open("Password Changed Succesfully");
+          this.loginService.logout();
+          this.router.navigateByUrl('login');
         })
       }
     }

@@ -13,7 +13,6 @@ import { PasswordComponent } from '../password/password.component';
 export class HeaderComponent implements OnInit {
 
   isLoggedIn = false;
-  status = "Secure Login";
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -23,7 +22,12 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.loginService.getLogInOutEmitter().subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
-      this.status = this.isLoggedIn ? "Management" : "Secure Login";
+      if(this.isLoggedIn) {
+        const user = this.loginService.getUser();
+        if(!user.passwordChanged) {
+          this.openChangePassword(true);
+        }
+      }
     })
   }
 
@@ -33,7 +37,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  openChangePassword() {
-    this.bottomSheet.open(PasswordComponent);
+  openChangePassword(disable?: boolean) {
+    this.bottomSheet.open(PasswordComponent, { disableClose: disable });
   }
 }

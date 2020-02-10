@@ -1,8 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { ResourceService } from '../../../core/resource/resource.service';
 import { LoginService } from '../../../core/login/login.service';
-import { Resource } from '../../models/admin/resource.model';
+import { IUser } from '../../models/user/user';
 
 @Component({
     selector: 'erste-sidepanel',
@@ -11,28 +10,20 @@ import { Resource } from '../../models/admin/resource.model';
 })
 export class SidepanelComponent implements OnInit {
 
-    user: string;
+    user: IUser;
     designation: string;
 
     constructor(
         private renderer: Renderer2,
         private router: Router,
-        private loginService: LoginService,
-        private resourceService: ResourceService) { }
+        private loginService: LoginService) { }
 
     ngOnInit() {
+        this.user = this.loginService.getUser();
         this.loginService.getLogInOutEmitter().subscribe((isLoggedIn) => {
             if (isLoggedIn) {
-                this.getResourceInformation();
+                this.user = this.loginService.getUser();
             }
-        })
-    }
-
-    getResourceInformation() {
-        let managerId = this.loginService.getManagerId();
-        this.resourceService.getResourceById(managerId, true).subscribe((resource: Resource[]) => {
-            this.user = resource[0].resourceName;
-            this.designation = (resource[0].role).toUpperCase();
         })
     }
 

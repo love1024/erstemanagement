@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 /**
  * Http Iterceptor to intercept the 
@@ -14,7 +17,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http'
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const idToken = localStorage.getItem('token');
@@ -24,7 +27,13 @@ export class AuthInterceptorService implements HttpInterceptor {
         headers: req.headers.set('Authorization', 'Bearer ' + idToken)
       });
 
-      return next.handle(cloned);
+      return next.handle(cloned)
+        .pipe(
+          catchError(err => {
+            this.router.navigateByUrl('/unauthorized');
+            return throwError(err);
+          })
+        );
     } else {
       return next.handle(req);
     }

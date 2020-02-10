@@ -1,0 +1,37 @@
+.dashboard-container {
+    padding: 32px;
+    display: flex;
+}
+
+.dashboard-card {
+    min-width: 200px;
+    margin-right: 48px;
+}
+
+.description {
+    padding: 16px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.user-description {
+    background-color: rgb(143, 218, 32);
+}
+
+.transcription-description {
+    background-color: coral;
+}
+
+.payment-description {
+    background-color: lightskyblue;
+}
+
+.value {
+    padding: 16px;
+    text-align: center;
+    background-color: white;
+    font-size: 18px;
+    font-weight: bold;
+}

@@ -1,7 +1,6 @@
-import { Component, Renderer2, ViewChild } from '@angular/core';
-import { HeaderService } from './core/header/header.service';
+import { Component,  ViewChild } from '@angular/core';
 import { LoginService } from './core/login/login.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatSidenav } from '@angular/material';
 
 

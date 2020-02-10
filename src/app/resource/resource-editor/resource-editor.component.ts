@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject, OnChanges, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Resource } from '../../shared/models/admin/resource.model';
-import { Level } from '../../shared/models/admin/level.model';
-import { AdminLevelinfoDataService } from '../../admin/level-info/admin-levelinfo-data.service';
-import { ResourceService } from '../../core/resource/resource.service';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import { SnackbarService } from '../../core/snackbar/snackbar.service';
-import { CompareService } from '../../core/compare/compare.service';
+import { IUser } from 'src/app/shared/models/user/user';
+import { UserService } from 'src/app/core/user/user.service';
+import { LoginService } from 'src/app/core/login/login.service';
+import { IUserAccessDto } from 'src/app/shared/models/access/access';
 
 
 @Component({
@@ -29,94 +29,78 @@ import { CompareService } from '../../core/compare/compare.service';
 export class ResourceEditorComponent implements OnInit, OnChanges {
 
     inputForm: FormGroup;
-    levels: Level[];
 
-    @Input() resource: Resource;
+    @Input() user: IUser;
     @Input() isNew: Boolean;
     @Input() expanded: Boolean;
     @Output() refresh = new EventEmitter();
 
+    super: IUser;
+
+    userAccess: IUserAccessDto;
+
     constructor(
         private formBuilder: FormBuilder,
-        private dataService: ResourceService,
-        private levelService: AdminLevelinfoDataService,
-        private compareService: CompareService,
         private snackbarService: SnackbarService,
-        private renderer: Renderer2) { }
+        private userService: UserService,
+        private loginService: LoginService,
+        private renderer: Renderer2) { 
+        this.super = this.loginService.getUser();
+    }
 
 
     ngOnChanges() {
-        if (this.resource) {
-            this.createEditForm(this.resource);
+        if (this.user) {
+            this.createEditForm(this.user);
         } else {
             this.createForm();
         }
-        this.levelService.getLevelsList().subscribe((levels: Level[]) => {
-            this.levels = levels;
-        })
         if (this.isNew) {
             let container = document.getElementById('form-container');
             this.renderer.setStyle(container, 'margin-bottom', '50px');
             this.renderer.setStyle(container, 'border', '1px solid lightgrey')
             this.renderer.setStyle(container, 'box-shadow', 'none')
         }
+        this.userService.getUserAllAccess(this.super.userId).subscribe((access) => {
+            this.userAccess = access.userAccess;
+            if(this.super.role != 'Business-User') {
+                this.userAccess.create = this.userAccess.delete = this.userAccess.edit = this.userAccess.view = true;
+            }
+        });
     }
 
     ngOnInit() {
+
     }
 
     createForm(): void {
         this.inputForm = this.formBuilder.group({
-            resourceId: [, [Validators.required]],
-            resourceName: ['', [Validators.required]],
-            resourceEmail: ['', [Validators.required]],
-            resourceErsteJoiningDate: [new Date(), [Validators.required]],
-            resourceCertifications: ['', []],
-            startDate: [new Date(), [Validators.required]],
-            endDate: [new Date(), [Validators.required]],
-            resourceLevelId: ['', [Validators.required]],
-            location: ['', [Validators.required]],
-            visaType: [''],
-            citrix: [false, [Validators.required]],
-            username: ['', [Validators.required]],
-            active: [true],
-            dateFrom: [Date.now()],
-            dateUntil: [null],
-            fipUser: ['test'],
-            fipProg: ['Web'],
-            fipTst: [Date.now()]
+            userId: [''],
+            firstName: ['', [Validators.required]],
+            lastName: ['', [Validators.required]],
+            emailVerified: ['', [Validators.required]],
+            emailAddress: ['', [Validators.required]],
+            role: ['User', [Validators.required]],
+            maxUsers: [10, [Validators.required]]
         });
     }
 
-    createEditForm(resource: Resource): void {
+    createEditForm(user: IUser): void {
         this.inputForm = this.formBuilder.group({
-            resourceId: [resource.resourceId, [Validators.required]],
-            resourceName: [resource.resourceName, [Validators.required]],
-            resourceEmail: [resource.resourceEmail, [Validators.required]],
-            resourceErsteJoiningDate: [resource.resourceErsteJoiningDate, [Validators.required]],
-            resourceCertifications: [resource.resourceCertifications, [Validators.required]],
-            startDate: [resource.startDate, [Validators.required]],
-            endDate: [resource.endDate, [Validators.required]],
-            resourceLevelId: [resource.resourceLevelId, [Validators.required]],
-            visaType: [resource.visaType],
-            location: [resource.location, [Validators.required]],
-            citrix: [resource.citrix, [Validators.required]],
-            username: [resource.username, [Validators.required]],
-            role: [resource.role],
-            password: [resource.password],
-            active: [true],
-            dateFrom: [resource.dateFrom],
-            dateUntil: [resource.dateUntil],
-            fipUser: [resource.fipUser],
-            fipProg: [resource.fipProg],
-            fipTst: [resource.fiptst]
+            userId: [user.userId, [Validators.required]],
+            firstName: [user.firstName, [Validators.required]],
+            lastName: [user.lastName, [Validators.required]],
+            emailVerified: [user.emailVerified, [Validators.required]],
+            emailAddress: [user.emailAddress, [Validators.required]],
+            role: [user.role, [Validators.required]],
+            maxUsers: [user.maxUsers, [Validators.required]]
         });
     }
 
     onSubmit(isValid: boolean) {
         if (isValid) {
-            if (this.resource) {
-                this.editResource();
+            if (this.user) {
+                this.updateResource(this.inputForm.value);
             } else {
                 this.createResource(this.inputForm.value);
             }
@@ -124,39 +108,29 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
     }
 
     onDelete() {
-        this.deleteResource(this.resource._id);
+        this.deleteResource(this.user.userId);
     }
 
-    editResource() {
-        const oldResource = <Resource>this.resource
-        const newResource = <Resource>this.inputForm.value;
-        let isEqual = this.compareService.isEqual(oldResource, newResource);
-        if (isEqual) {
-            this.snackbarService.open("Form is not changed");
-            return;
-        }
-        if (this.checkDefined(oldResource) && this.checkDefined(newResource)) {
-            oldResource.dateUntil = new Date();
-            oldResource.active = false;
-            this.updateResource(oldResource);
-            this.createResource(newResource);
-        }
-    }
 
-    updateResource(resource: Resource): void {
-        this.dataService.updateResource(resource).subscribe(res => {
+    updateResource(user: IUser): void {
+        const userId = this.loginService.getUser().userId;
+        this.userService.updateUser(user, userId).subscribe(res => {
+            this.snackbarService.open("User Saved Successfully");
             this.emitRefresh()
         });
     }
 
-    createResource(resource: Resource): void {
-        this.dataService.createResource(resource).subscribe(res => {
-            this.emitRefresh()
+    createResource(user: IUser): void {
+        const userId = this.loginService.getUser().userId;
+        this.userService.addUser(user,userId).subscribe((res) => {
+            this.snackbarService.open("User Added Successfully");
+            this.emitRefresh()   
         });
     }
 
     deleteResource(id): void {
-        this.dataService.deleteResource(id).subscribe(res => {
+        const userId = this.loginService.getUser().userId;
+        this.userService.deleteUser(id, userId).subscribe(res => {
             this.emitRefresh()
         });
     }
@@ -165,7 +139,7 @@ export class ResourceEditorComponent implements OnInit, OnChanges {
         this.refresh.emit('');
     }
 
-    checkDefined(resource: Resource): boolean {
+    checkDefined(resource: IUser): boolean {
         if (resource != null && resource !== undefined) {
             return true;
         }
