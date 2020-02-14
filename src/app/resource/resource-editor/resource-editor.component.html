@@ -1,66 +1,111 @@
 <div id="form-container">
   <form [formGroup]="inputForm">
-
     <!-- Resource Id -->
     <!-- <mat-form-field>
       <input matInput formControlName="userId" placeholder="User ID" type="number">
       <mat-error *ngIf="inputForm.get('userId').hasError('required')">Required</mat-error>
     </mat-form-field> -->
 
-
     <!-- Name -->
     <mat-form-field>
-      <input matInput formControlName="firstName" placeholder="First Name">
-      <mat-error *ngIf="inputForm.get('firstName').hasError('required')">Required</mat-error>
+      <input matInput formControlName="firstName" placeholder="First Name" />
+      <mat-error *ngIf="inputForm.get('firstName').hasError('required')"
+        >Required</mat-error
+      >
     </mat-form-field>
 
     <!-- Username -->
     <mat-form-field>
-      <input matInput formControlName="lastName" placeholder="Last Name">
-      <mat-error *ngIf="inputForm.get('lastName').hasError('required')">Required</mat-error>
+      <input matInput formControlName="lastName" placeholder="Last Name" />
+      <mat-error *ngIf="inputForm.get('lastName').hasError('required')"
+        >Required</mat-error
+      >
     </mat-form-field>
 
     <!-- Email -->
     <mat-form-field>
-      <input matInput formControlName="emailAddress" placeholder="Email Address">
-      <mat-error *ngIf="inputForm.get('emailAddress').hasError('required')">Required</mat-error>
+      <input
+        matInput
+        formControlName="emailAddress"
+        placeholder="Email Address"
+      />
+      <mat-error *ngIf="inputForm.get('emailAddress').hasError('required')"
+        >Required</mat-error
+      >
     </mat-form-field>
 
     <!-- Location -->
     <mat-form-field>
-      <mat-select matInput formControlName="emailVerified" placeholder="Email Verified">
+      <mat-select
+        matInput
+        formControlName="emailVerified"
+        placeholder="Email Verified"
+      >
         <mat-option [value]="true">Yes</mat-option>
         <mat-option [value]="false">No</mat-option>
       </mat-select>
-      <mat-error *ngIf="inputForm.get('emailVerified').hasError('required')">Required</mat-error>
+      <mat-error *ngIf="inputForm.get('emailVerified').hasError('required')"
+        >Required</mat-error
+      >
     </mat-form-field>
 
     <!-- Location -->
     <mat-form-field>
       <mat-select matInput formControlName="role" placeholder="Role" #role>
-        <mat-option value="User" *ngIf="super?.role == 'Admin'">User</mat-option>
-        <mat-option value="Admin" *ngIf="super?.role == 'Admin'">Admin</mat-option>
-        <mat-option value="Business" *ngIf="super?.role == 'Admin'">Business</mat-option>
-        <mat-option value="Business-User">Business User</mat-option>
+        <mat-option value="User" *ngIf="super?.role == 'Admin'"
+          >User</mat-option
+        >
+        <mat-option value="Admin" *ngIf="super?.role == 'Admin'"
+          >Admin</mat-option
+        >
+        <mat-option value="Institute" *ngIf="super?.role == 'Admin'"
+          >Institute</mat-option
+        >
+        <mat-option value="Professor">Professor</mat-option>
       </mat-select>
-      <mat-error *ngIf="inputForm.get('role').hasError('required')">Required</mat-error>
+      <mat-error *ngIf="inputForm.get('role').hasError('required')"
+        >Required</mat-error
+      >
     </mat-form-field>
 
-    <mat-form-field *ngIf="super?.role == 'Admin' && inputForm.value.role == 'Business'">
-      <input matInput formControlName="maxUsers" placeholder="Max Allowed Users" type="number">
-      <mat-error *ngIf="inputForm.get('userId').hasError('required')">Required</mat-error>
+    <mat-form-field
+      *ngIf="super?.role == 'Admin' && inputForm.value.role == 'Institute'"
+    >
+      <input
+        matInput
+        formControlName="maxUsers"
+        placeholder="Max Allowed Users"
+        type="number"
+      />
+      <mat-error *ngIf="inputForm.get('userId').hasError('required')"
+        >Required</mat-error
+      >
     </mat-form-field>
-
   </form>
-  <erste-resource-access [@smoothInOut]="in" *ngIf="!isNew && user && expanded  && super?.role == 'Business'"
-    [userId]="user.userId"></erste-resource-access>
+  <erste-resource-access
+    [@smoothInOut]="'in'"
+    *ngIf="!isNew && user && expanded && super?.role == 'Institute'"
+    [userId]="user.userId"
+  ></erste-resource-access>
   <br />
   <br />
   <div>
-    <button *ngIf="userAccess?.edit" mat-raised-button class="submit-btn" (click)="onSubmit(inputForm.valid)">
-      Submit
-    </button>&nbsp;
-    <button mat-raised-button *ngIf="!isNew && userAccess?.delete" color="warn" class="delete-btn"
-      (click)="onDelete()">Delete</button>
+    <button
+      *ngIf="userAccess?.edit"
+      mat-raised-button
+      class="submit-btn"
+      (click)="onSubmit(inputForm.valid)"
+    >
+      Submit</button
+    >&nbsp;
+    <button
+      mat-raised-button
+      *ngIf="!isNew && userAccess?.delete"
+      color="warn"
+      class="delete-btn"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
   </div>
 </div>
