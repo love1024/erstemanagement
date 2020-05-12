@@ -58,13 +58,14 @@ export class ResourcesComponent implements OnInit {
   super: IUser;
 
   get canCreate(): boolean {
-    if (!this.access.create) {
+    if (this.access && !this.access.create) {
       return false;
     }
-    if (this.super.role == "Institute" || this.super.role == "Professor") {
-      if (this.super) {
-        return this.super.addedUsers < this.super.maxUsers;
-      }
+    if (
+      this.super &&
+      (this.super.role == "Institute" || this.super.role == "Professor")
+    ) {
+      return this.super.addedUsers < this.super.maxUsers;
     }
     return true;
   }

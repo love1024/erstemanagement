@@ -1,21 +1,20 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { Login } from '../../shared/models/login/login.model';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { tap, shareReplay, catchError } from 'rxjs/operators';
+import { Injectable, EventEmitter } from "@angular/core";
+import { environment } from "../../../environments/environment";
+import { Login } from "../../shared/models/login/login.model";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { tap, shareReplay, catchError } from "rxjs/operators";
 
-import * as _moment from 'moment';
-import { default as _rollupMoment } from 'moment';
-import { IUser } from 'src/app/shared/models/user/user';
+import * as _moment from "moment";
+import { default as _rollupMoment } from "moment";
+import { IUser } from "src/app/shared/models/user/user";
 
 const moment = _rollupMoment || _moment;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class LoginService {
-
   /** Login url  */
   private url = environment.server;
 
@@ -29,70 +28,68 @@ export class LoginService {
 
   /**
    * Creates an instance of LoginService.
-   * @param {HttpClient} httpClient 
+   * @param {HttpClient} httpClient
    * @memberof LoginService
    */
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   /**
    * Send the login request to server for token
-   * 
-   * @param {Login} cred 
-   * @returns {Observable<String>} 
+   *
+   * @param {Login} cred
+   * @returns {Observable<String>}
    * @memberof LoginService
    */
   public login(cred: Login): Observable<String> {
-    return this.httpClient.post<String>(`${this.url}account/authenticate`, cred)
+    return this.httpClient
+      .post<String>(`${this.url}account/authenticate/admin`, cred)
       .pipe(
         tap(this.setSession),
-        tap((res) => this.setUser(res)),
+        tap(res => this.setUser(res)),
         shareReplay(),
         catchError(this.handleError)
-      )
+      );
   }
 
   /**
    * Logout from the application
-   * 
+   *
    * @memberof LoginService
    */
   public logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expire');
+    localStorage.removeItem("token");
+    localStorage.removeItem("expire");
   }
-
 
   /**
    * Set the token to localstorage
-   * 
-   * @param {any} loginResult 
+   *
+   * @param {any} loginResult
    * @memberof LoginService
    */
   public setSession(loginResult) {
     if (loginResult.token) {
-      localStorage.setItem('token', loginResult.token);
-      localStorage.setItem('expire', loginResult.expire);
+      localStorage.setItem("token", loginResult.token);
+      localStorage.setItem("expire", loginResult.expire);
     }
   }
 
   public setUser(loginResult) {
-    if(loginResult) {
-      localStorage.setItem('user', JSON.stringify(loginResult));
+    if (loginResult) {
+      localStorage.setItem("user", JSON.stringify(loginResult));
     }
   }
 
   public getUser() {
-    const user = localStorage.getItem('user');
-    if(user)
-      return JSON.parse(user);
-    else 
-      return null;
+    const user = localStorage.getItem("user");
+    if (user) return JSON.parse(user);
+    else return null;
   }
 
   /**
    * Check if user is logged in
-   * 
-   * @returns 
+   *
+   * @returns
    * @memberof LoginService
    */
   public isLoggedIn() {
@@ -101,19 +98,18 @@ export class LoginService {
 
   /**
    * Check if user is logged out
-   * 
-   * @returns 
+   *
+   * @returns
    * @memberof LoginService
    */
   public isLoggedOut() {
-     !this.isLoggedIn();
+    !this.isLoggedIn();
   }
 
-
   /**
-   * Get the current logged in 
+   * Get the current logged in
    * manager
-   * @returns 
+   * @returns
    * @memberof LoginService
    */
   public getManagerId() {
@@ -122,8 +118,8 @@ export class LoginService {
 
   /**
    * Get Login Success Emitter
-   * 
-   * @returns 
+   *
+   * @returns
    * @memberof LoginService
    */
   public getLogInOutEmitter() {
@@ -132,30 +128,29 @@ export class LoginService {
 
   /**
    * Emit Login success
-   * 
+   *
    * @memberof LoginService
    */
   public emitLogInOut() {
     this.logInOutEmitter.emit(this.isLoggedIn());
   }
 
-
   /**
    * Get expiration time of token
-   * 
-   * @returns 
+   *
+   * @returns
    * @memberof LoginService
    */
   getExpiration() {
-    const expiration = localStorage.getItem('expire');
+    const expiration = localStorage.getItem("expire");
     return moment(expiration);
   }
 
   /**
    * Log any server error
-   * 
-   * @param {HttpErrorResponse} err 
-   * @returns {Observable<any>} 
+   *
+   * @param {HttpErrorResponse} err
+   * @returns {Observable<any>}
    * @memberof LoginService
    */
   handleError(err: HttpErrorResponse): Observable<any> {
